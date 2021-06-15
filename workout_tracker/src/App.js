@@ -1,12 +1,12 @@
 import './App.css';
 import React from 'react'
-import CreateForm from './CreateForm';
+import CreateWorkoutForm from './CreateWorkoutForm';
 import BrowseWorkout from './BrowseWorkout';
 
 function App() {
   return (
     <div className="App">
-      <CreateForm/>
+      <CreateWorkoutForm/>
       <BrowseWorkout/>
     </div>
   );

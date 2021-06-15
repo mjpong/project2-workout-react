@@ -1,4 +1,5 @@
 import React from "react";
+import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
 
 export default class CreateForm extends React.Component {
@@ -30,13 +31,34 @@ export default class CreateForm extends React.Component {
         })
     }
 
+    updateCheckbox = (e) => {
+        if (!this.state.workout_focus.includes(e.target.value)) {
+          let clone = [...this.state.workout_focus, e.target.value];
+          this.setState({
+            workout_focus: clone
+          });
+        } else {
+          let indexToDelete = this.state.workout_focus.findIndex((s) => {
+            return s === e.target.value;
+          });
+          let clone = [
+            ...this.state.workout_focus.slice(0, indexToDelete),
+            ...this.state.workout_focus.slice(indexToDelete + 1)
+          ];
+          this.setState({
+            workout_focus: clone
+          });
+        }
+      };
+    
+
     clickAdd = e => {
         let newEntry = {
 
         }
         let currentEntry = this.state.entry;
         let modifiedEntry = [...currentEntry, newEntry]
-        }
+        
 
     }
 
@@ -48,67 +70,36 @@ export default class CreateForm extends React.Component {
             workout_difficulty: this.state.workout_difficulty,
             workout_duration: this.state.workout_duration,
             
-
         }
     }
 
-    renderExercise() {
-        let options = [];
-        for (let exercise of this.state.all_exercise) {
-            let e = (
-                <React.Fragment key={exercise.exercise_name}>
-                    <option value={exercise.exercise_name}>{exercise.exercise_name}</option>
-                </React.Fragment>
-            )
-            options.push(e)
-        }
-        return options;
-    }
+    // renderExercise() {
+    //     let options = [];
+    //     for (let exercise of this.state.all_exercise) {
+    //         let e = (
+    //             <React.Fragment key={exercise.exercise_name}>
+    //                 <option value={exercise.exercise_name}>{exercise.exercise_name}</option>
+    //             </React.Fragment>
+    //         )
+    //         options.push(e)
+    //     }
+    //     return options;
+    // }
 
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <label>Workout Name: </label>
-                    <input name="workout_name" type="text" placeholder="Workout Name" value={this.state.name} onChange={this.updateForm} />
-                </div>
-                <div>
-                    <label>Workout Focus: </label>
-                    <input type="checkbox" name="workout_focus" value="strength" />Strength
-                    <input type="checkbox" name="workout_focus" value="endurance" />Endurance
-                    <input type="checkbox" name="workout_focus" value="mobility" />Mobility
-                </div>
-                <div>
-                    <label>Difficulty Level: </label>
-                    <input type="radio" name="workout_difficulty" value="beginner"
-                        checked={this.state.difficulty === 'beginner'} onChange={this.updateForm} />Beginner
-                    <input type="radio" name="workout_difficulty" value="intermediate"
-                        checked={this.state.difficulty === 'intermediate'} onChange={this.updateForm} />Intermediate
-                    <input type="radio" name="workout_difficulty" value="expert"
-                        checked={this.state.difficulty === 'expert'} onChange={this.updateForm} />Expert
-                </div>
-                <div>
-                    <label>Duration: </label>
-                    <input name= "duration" type="text" value={this.state.duration} onChange={this.updateForm} /> mins
-                </div>
-                <div>
-                    <label>Choose a exercise: </label>
-                    <select name={this.state.all_exercise.exercise_name} value={this.state.all_exercise.exercise_name} onChange={this.updateForm}>
-                        {this.renderExercise()}
-                    </select>
-                    <div>
-                            <input name="set" type="text" value={this.state.set} onChange={this.updateForm} /> sets
-                        </div>
-                        <div>
-                            <input name="rep" type="text" value={this.state.rep} onChange={this.updateForm} /> reps
-                        </div>
-                        <button onClick={}>Add New Exercise</button>
-                </div>
-                <div>
-                    <button>Create</button>
-                    <button>Cancel</button>
-                </div>
-
+                <WorkoutForm     
+                updateForm={this.updateForm}
+                updateCheckbox={this.updateCheckbox}
+                workout_name={this.state.workout_name}
+                workout_focus={this.state.workout_focus}
+                workout_difficulty={this.state.workout_difficulty}
+                workout_duration={this.state.workout_duration}
+                rep = {this.state.rep}
+                set = {this.state.set}
+                all_exercise={this.state.all_exercise}
+                />
 
             </React.Fragment>
         )

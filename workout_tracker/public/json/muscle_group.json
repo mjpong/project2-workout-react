@@ -1,0 +1,26 @@
+[
+        {
+            "id": 1,
+            "name": "Arms"
+        },
+        {
+            "id": 2,
+            "name": "Chest"
+        },
+        {
+            "id": 3,
+            "name": "Back"
+        },
+        {
+            "id": 4,
+            "name": "Legs"
+        },
+        {
+            "id": 5,
+            "name": "Abdominals"
+        },
+        {
+            "id": 6,
+            "name": "Shoulders"
+        }
+]

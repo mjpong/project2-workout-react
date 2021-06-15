@@ -1,0 +1,85 @@
+{
+    "workouts": [
+        {
+            "_id": 1,
+            "name": "Test 1",
+            "focus": [
+                "endurance",
+                "strength"
+            ],
+            "difficulty": "intermediate",
+            "duration": 30,
+            "exercise": [
+                {
+                    "id": 0,
+                    "repetition": 10,
+                    "set": 4
+                },
+                {
+                    "id": 1,
+                    "repetition": 10,
+                    "set": 5
+                },
+                {
+                    "id": 3,
+                    "repetition": 10,
+                    "set": 5
+                }
+            ]
+        },
+        {
+            "_id": 2,
+            "name": "Test 2",
+            "focus": [
+                "endurance",
+                "mobility"
+            ],
+            "difficulty": "beginner",
+            "duration": 25,
+            "exercise": [
+                {
+                    "id": 8,
+                    "repetition": 20,
+                    "set": 4
+                },
+                {
+                    "id": 14,
+                    "repetition": 5,
+                    "set": 5
+                },
+                {
+                    "id": 19,
+                    "repetition": 10,
+                    "set": 5
+                }
+            ]
+        },
+        {
+            "_id": 3,
+            "name": "Test 3",
+            "focus": [
+                "strength",
+                "mobility"
+            ],
+            "difficulty": "intermediate",
+            "duration": 45,
+            "exercise": [
+                {
+                    "id": 20,
+                    "repetition": 10,
+                    "set": 5
+                },
+                {
+                    "id": 23,
+                    "repetition": 10,
+                    "set": 5
+                },
+                {
+                    "id": 18,
+                    "repetition": 15,
+                    "set": 5
+                }
+            ]
+        }
+    ]
+}

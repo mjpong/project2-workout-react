@@ -1,0 +1,88 @@
+{
+    "workout_equipment": [
+        {
+            "id": 1,
+            "name": "Bodyweight",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Dumbbell",
+            "type": [
+                "strength"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Resistance Band",
+            "type": [
+                "strength",
+                "flexibility"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Rowing Machine",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Barbell",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Bench",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Gym Mat",
+            "type": [
+                "mobility"
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Kettlebell",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Pull-up Bar",
+            "type": [
+                "strength",
+                "endurance"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Parallel Bars",
+            "type": [
+                "endurance"
+            ]
+        },
+        {
+            "id": 11,
+            "name": "Treadmill",
+            "type": [
+                "endurance"
+            ]
+        }
+    ]
+}

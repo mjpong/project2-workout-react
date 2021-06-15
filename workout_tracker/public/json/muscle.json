@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Biceps",
+        "group": {
+            "id": 1,
+            "name": "Arms"
+        }
+    },
+    {
+        "id": 2,
+        "name": "Triceps",
+        "group": "Arms"
+    },
+    {
+        "id": 3,
+        "name": "Pectorals",
+        "group": "Chest"
+    },
+    {
+        "id": 4,
+        "name": "Latissimus Dorsi",
+        "group": "Back"
+    },
+    {
+        "id": 5,
+        "name": "Glutes",
+        "group": "Legs"
+    },
+    {
+        "id": 6,
+        "name": "Upper Abdominals",
+        "group": "Abdominals"
+    },
+    {
+        "id": 7,
+        "name": "Lower Abdominals",
+        "group": "Abdominals"
+    },
+    {
+        "id": 8,
+        "name": "Calves",
+        "group": "Legs"
+    },
+    {
+        "id": 9,
+        "name": "Hamstrings",
+        "group": "Legs"
+    },
+    {
+        "id": 10,
+        "name": "Quadriceps",
+        "group": "Legs"
+    },
+    {
+        "id": 11,
+        "name": "Trapezius",
+        "group": "Shoulders"
+    },
+    {
+        "id": 12,
+        "name": "Deltoids",
+        "group": "Back"
+    }
+]

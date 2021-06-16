@@ -11,8 +11,11 @@ export default class CreateForm extends React.Component {
         'new_exercise': '',
         'all_exercise': [],
         'workout_duration': 0,
-        'rep': 0,
-        'set': 0
+        'exercise': [{
+          "id": 1,
+          "repetition": 10,
+          "set": 5
+        }]
 
     }
 
@@ -29,6 +32,14 @@ export default class CreateForm extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    updateSection = (e, index) => {
+      let new_exercise = this.state.exercise;
+      new_exercise[index][e.target.name] =  e.target.value
+      this.setState({
+        exercise: new_exercise
+      })
     }
 
     updateCheckbox = (e) => {
@@ -52,39 +63,40 @@ export default class CreateForm extends React.Component {
       };
     
 
-    clickAdd = e => {
-        let newEntry = {
-
-        }
-        let currentEntry = this.state.entry;
-        let modifiedEntry = [...currentEntry, newEntry]
-        
-
+    clickAdd = () => {
+      let new_section = {
+          "id": 1,
+          "repetition": 1,
+          "set": 1
+      }
+      let ex = [...this.state.exercise, new_section]
+      this.setState({
+        exercise: ex
+      })
     }
 
-    clickCreate = () => {
-        let userData = {
-            create_date: new Date(),
-            workout_name: this.state.workout_name,
-            workout_focus: this.state.workout_focus,
-            workout_difficulty: this.state.workout_difficulty,
-            workout_duration: this.state.workout_duration,
+    // clickCreate = () => {
+    //     let userData = {
+    //         create_date: new Date(),
+    //         workout_name: this.state.workout_name,
+    //         workout_focus: this.state.workout_focus,
+    //         workout_difficulty: this.state.workout_difficulty,
+    //         workout_duration: this.state.workout_duration,
             
-        }
-    }
-
-    // renderExercise() {
-    //     let options = [];
-    //     for (let exercise of this.state.all_exercise) {
-    //         let e = (
-    //             <React.Fragment key={exercise.exercise_name}>
-    //                 <option value={exercise.exercise_name}>{exercise.exercise_name}</option>
-    //             </React.Fragment>
-    //         )
-    //         options.push(e)
     //     }
-    //     return options;
     // }
+
+    deleteExercise = index => {
+      console.log(index);
+      let modifiedExercise = [
+          ...this.state.exercise.slice(0, index),
+          ...this.state.exercise.slice(index + 1)
+      ];
+
+      this.setState ({
+          exercise: modifiedExercise
+      })
+  }
 
     render() {
         return (
@@ -92,13 +104,15 @@ export default class CreateForm extends React.Component {
                 <WorkoutForm     
                 updateForm={this.updateForm}
                 updateCheckbox={this.updateCheckbox}
+                clickAdd={this.clickAdd}
+                deleteExercise = {this.deleteExercise}
+                updateSection = {this.updateSection}
                 workout_name={this.state.workout_name}
                 workout_focus={this.state.workout_focus}
                 workout_difficulty={this.state.workout_difficulty}
                 workout_duration={this.state.workout_duration}
-                rep = {this.state.rep}
-                set = {this.state.set}
                 all_exercise={this.state.all_exercise}
+                exercise = {this.state.exercise}
                 />
 
             </React.Fragment>

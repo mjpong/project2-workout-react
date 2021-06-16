@@ -1,8 +1,7 @@
 import React from "react";
-import axios from "axios";
 
 export default function WorkoutForm(props) {
-    
+
     function renderExercise() {
         let options = [];
         for (let exercise of props.all_exercise) {
@@ -16,12 +15,44 @@ export default function WorkoutForm(props) {
         return options;
     }
 
+    function renderSection() {
+        let section = [];
+        for (let i = 0; i < props.exercise.length; i++) {
+            section.push(
+                <div key={i}>
+                    <label>Choose a exercise: </label>
+                    <select name="id" value={props.exercise[i].id}
+                        onChange={(e) => { props.updateSection(e, i) }}>
+                        {renderExercise()}
+                    </select>
+                    <div>
+                        <input name="repetition" type="text"
+                            value={props.exercise[i].repetition}
+                            onChange={(e) => { props.updateSection(e, i) }}
+                        /> reps
+                </div>
+                    <div>
+                        <input name="set" type="text"
+                            value={props.exercise[i].set}
+                            onChange={(e) => { props.updateSection(e, i) }}
+                        /> sets
+                </div>
+                    <button onClick={() => { props.deleteExercise(i) }}>Delete Exercise</button>
+                </div>
+            )
+        }
+        return section;
+    }
+
     return (
         <React.Fragment>
             <h1>Create A New Work Out</h1>
             <div>
                 <label>Workout Name: </label>
-                <input name="workout_name" type="text" placeholder="Workout Name" value={props.workout_name} onChange={props.updateForm} />
+                <input name="workout_name" type="text"
+                    placeholder="Workout Name"
+                    value={props.workout_name}
+                    onChange={props.updateForm} />
             </div>
             <div>
                 <label>Workout Focus: </label>
@@ -64,24 +95,14 @@ export default function WorkoutForm(props) {
             </div>
             <div>
                 <label>Duration: </label>
-                <input name="duration" type="text" 
-                value={props.workout_duration} 
-                onChange={props.updateForm} 
+                <input name="workout_duration" type="text"
+                    placeholder="0"
+                    value={props.workout_duration}
+                    onChange={props.updateForm}
                 /> mins
-                </div>
-            <div>
-                    <label>Choose a exercise: </label>
-                    <select name={props.all_exercise.exercise_name} value={props.all_exercise.exercise_name} onChange={props.updateForm}>
-                        {renderExercise()}
-                    </select>
-                    <div>
-                            <input name="set" type="text" value={props.set} onChange={props.updateForm} /> sets
-                        </div>
-                        <div>
-                            <input name="rep" type="text" value={props.rep} onChange={props.updateForm} /> reps
-                        </div>
-                        <button>Add New Exercise</button>
-                </div>
+            </div>
+            {renderSection()}
+            <button onClick={props.clickAdd}>Add New Exercise</button>
             <div>
                 <button>Create</button>
                 <button>Cancel</button>

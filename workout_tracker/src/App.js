@@ -6,6 +6,7 @@ import CreateWorkoutForm from './CreateWorkoutForm';
 import BrowseWorkout from './BrowseWorkout';
 import ViewWorkout from './ViewWorkout';
 
+
 class App extends React.Component {
   state = {
     'all_workout' : [],
@@ -42,10 +43,22 @@ class App extends React.Component {
   //     return null;
   //   }
   // }
+  pageHandler(name){
+    this.setState({
+      "current_page": name
+    })
+  }
 
   render() {
     return (
       <React.Fragment>
+        <nav className="navbar container">
+                    <div className ="logo-title">Logo</div>
+                    <div className = "homepage-link my-auto">
+                        <btn className="btn btn-default" onClick={() => this.pageHandler("home")}>Home</btn>
+                        <btn className="btn btn-default"  onClick={() => this.pageHandler("detail")}>Create</btn>
+                    </div>
+                </nav>
 
         <CreateWorkoutForm/>
         {this.state.current_page === "home" ?

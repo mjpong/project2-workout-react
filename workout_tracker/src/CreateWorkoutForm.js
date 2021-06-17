@@ -1,7 +1,7 @@
 import React from "react";
 import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
-
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 export default class CreateForm extends React.Component {
     state = {
         'workout_name': '',
@@ -15,17 +15,24 @@ export default class CreateForm extends React.Component {
           "id": 1,
           "repetition": 10,
           "set": 5
-        }]
+        }],
+        'muscle_group': '',
+        'workout_intensity': '',
 
     }
 
     async componentDidMount() {
-        let r = await axios.get('./json/exercise.json')
-        let all_exercise = r.data.exercise
+        let r = await axios.get( baseURL + "/list/singleexercise")
+        let all_exercise = r.data
+        console.log(all_exercise);
 
         this.setState({
             'all_exercise': all_exercise
         })
+    }
+
+    fetchWorkout(){
+      //call list workout api
     }
 
     updateForm = (e) => {
@@ -112,7 +119,10 @@ export default class CreateForm extends React.Component {
                 workout_difficulty={this.state.workout_difficulty}
                 workout_duration={this.state.workout_duration}
                 all_exercise={this.state.all_exercise}
+                muscle_group={this.state.muscle_group}
                 exercise = {this.state.exercise}
+                workout_intensity = {this.state.workout_intensity}
+                
                 />
 
             </React.Fragment>

@@ -34,9 +34,9 @@
         {
             "id": 5,
             "name": "Barbell",
-            "type": [
-                "strength",
-                "endurance"
+            "workout_focus": [
+                "Strength",
+                "Endurance"
             ]
         },
         {

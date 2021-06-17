@@ -6,7 +6,6 @@
             "muscle_group": [
                 {
                     "id": 1,
-                    "name": "Biceps",
                     "group": "Arm"
                 }
             ],
@@ -623,7 +622,7 @@
             "description": "Sit on a bench, the back rest should be almost vertical. Take two dumbbells and bring them up to shoulder height, the palms and the elbows point during the whole exercise to the front. Press the weights up, at the highest point they come very near but don't touch."
         },
         {
-            "id": 23,
+            "id": 24,
             "exercise_name": "Shoulder Shrug",
             "muscle_group": [
                 {

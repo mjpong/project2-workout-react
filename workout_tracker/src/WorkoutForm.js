@@ -37,7 +37,7 @@ export default function WorkoutForm(props) {
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
                 </div>
-                    <button onClick={() => { props.deleteExercise(i) }}>Delete Exercise</button>
+                    {props.exercise.length > 1 ? <button onClick={() => { props.deleteExercise(i) }}>Delete Exercise</button> : ""}
                 </div>
             )
         }
@@ -92,6 +92,45 @@ export default function WorkoutForm(props) {
                     onChange={props.updateForm}
                     checked={props.workout_difficulty === 'expert'}
                 />Expert
+            </div>
+            <div>
+                <label>Intensity Level: </label>
+                <input type="radio"
+                    name="workout_intensity"
+                    value="low"
+                    onChange={props.updateForm}
+                    checked={props.workout_intensity === 'low'}
+                /> Low
+                    <input type="radio"
+                    name="workout_intensity"
+                    value="medium"
+                    onChange={props.updateForm}
+                    checked={props.workout_intensity === 'medium'}
+                /> Medium
+                    <input type="radio"
+                    name="workout_intensity"
+                    value="high"
+                    onChange={props.updateForm}
+                    checked={props.workout_intensity === 'high'}
+                /> High
+            </div>
+            <div>
+                <label>Muscle Group: </label>
+                <input type="checkbox"
+                    name="muscle_group"
+                    value="Arms"
+                    onChange={props.updateCheckbox}
+                /> Arms
+                    <input type="checkbox"
+                    name="muscle_group"
+                    value="Chest"
+                    onChange={props.updateCheckbox}
+                /> Chest
+                    <input type="checkbox"
+                    name="muscle_group"
+                    value="Legs"
+                    onChange={props.updateCheckbox}
+                /> Legs
             </div>
             <div>
                 <label>Duration: </label>

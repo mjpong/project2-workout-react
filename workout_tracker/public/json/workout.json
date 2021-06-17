@@ -11,19 +11,27 @@
             "duration": 30,
             "exercise": [
                 {
-                    "id": 0,
+                    "id": 1,
+                    "ex_id": 123,
                     "repetition": 10,
                     "set": 4
                 },
                 {
                     "id": 1,
+                    "ex_id": 123,
                     "repetition": 10,
                     "set": 5
                 },
                 {
                     "id": 3,
+                    "ex_id": 123,
                     "repetition": 10,
                     "set": 5
+                }
+            ], 
+            "muscle_group": [
+                {
+                    "id": 1
                 }
             ]
         },
@@ -52,6 +60,11 @@
                     "repetition": 10,
                     "set": 5
                 }
+            ],
+            "muscle_group": [
+                {
+                    "id": 2
+                }
             ]
         },
         {
@@ -79,7 +92,105 @@
                     "repetition": 15,
                     "set": 5
                 }
+            ],
+            "muscle_group": [
+                {
+                    "id": 3
+                }
             ]
-        }
+        },
+        {
+            "_id": {
+                "$oid": "60c9cd03bbe8d9cac29cf91b"
+            },
+            "name": "Bi's and Tri's",
+            "focus": ["Endurance", "Strength"],
+            "difficulty": 2,
+            "intensity": 1,
+            "duration": 30,
+            "single_exercise": [
+                                {
+                                    "_id": {"$oid": "60c9926e0e5153d7ddea1203a"},
+                                    "ex_id": {"$oid" : "60c9c37cbbe8d9cac29cf8ff"},
+                                    "repetition": 10,
+                                    "set": 4
+                                },
+                                {
+                                    "_id": {"$oid": "60c9926e0e5153d7dde3103a"},
+                                    "ex_id": {"$oid" : "60c9c5eebbe8d9cac29cf905"},
+                                    "repetition": 10,
+                                    "set": 3
+                                },
+                                {
+                                    "_id": {"$oid": "60c9926e0e5153d7dde01233a"},
+                                    "ex_id": {"$oid" : "60c9c435bbe8d9cac29cf902"},
+                                    "repetition": 12,
+                                    "set": 3
+                                }
+                            ],
+                    "muscle_group": [
+                                {"_id":{"$oid":"60c98a990e5153d7dde0002b"},"name":"Arms"}
+                            ]
+                },
+
+                {
+                    "_id": {
+                        "$oid": "60c9cef4bbe8d9cac29cf91f"
+                    },
+                    "name": "Legs for Days",
+                    "focus": ["Endurance", "Strength"],
+                    "difficulty": {
+                        "$numberInt": "2"
+                    },
+                    "intensity": {
+                        "$numberInt": "2"
+                    },
+                    "duration": {
+                        "$numberInt": "25"
+                    },
+                    "single_exercise": [{
+                        "_id": {
+                            "$oid": "60c9c5eebbe8d9bac29cf935"
+                        },
+                        "exid": {
+                            "$oid": "60c9c610bbe8d9cac29cf906"
+                        },
+                        "repetition": {
+                            "$numberInt": "15"
+                        },
+                        "set": {
+                            "$numberInt": "5"
+                        }
+                    }, {
+                      "_id": {
+                            "$oid": "60c9ce69dba0c204332e5265"
+                        },
+                        "exid": {
+                            "$oid": "60c9c685bbe8d9cac29cf908"
+                        },
+                        "repetition": {
+                            "$numberInt": "20"
+                        },
+                        "set": {
+                            "$numberInt": "5"
+                        }
+                        
+                    }, {
+                      "_id": {"$oid": "60c9c770bbe8d9cac2969dba"},
+                        "exid": {
+                            "$oid": "60c9c770bbe8d9cac29cf90b"
+                        },
+                        "repetition": {
+                            "$numberInt": "15"
+                        },
+                        "set": {
+                            "$numberInt": "3"
+                        }
+                    }
+                    ],
+                    "muscle_group": [{"_id":{"$oid":"60c98ac00e5153d7dde0002e"},"name":"Legs"}]
+                
+                }
+            
     ]
 }

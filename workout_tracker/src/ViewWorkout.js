@@ -30,16 +30,15 @@ export default class ViewWorkout extends React.Component {
             return (
                 <React.Fragment>
 
-                    <h1>Testing ViewWorkout</h1>
                     <div className="container">
                         <div className="content-wrapper row">
                             <h1>Workout Name</h1>
                             <div className="tags-wrapper">
                                 <div className="row">
-                                <div className="col-4">{this.state.single_workout.duration} mins</div>
-                                <div className="col-4">{this.state.single_workout.intensity} </div>
-                                <div className="col-4">{this.state.single_workout.difficulty} </div>
-                            </div></div>
+                                    <div className="col-4">{this.state.single_workout.duration} mins</div>
+                                    <div className="col-4">{this.state.single_workout.intensity} </div>
+                                    <div className="col-4">{this.state.single_workout.difficulty} </div>
+                                </div></div>
                             <div className="goodfor-wrapper row">Good For</div>
                             <div className="muscle-wrapper row">Muscle List</div>
                             <div className="equipment-wrapper row">Equipment List</div>
@@ -89,3 +88,4 @@ export default class ViewWorkout extends React.Component {
     }
 
 }
+

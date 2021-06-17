@@ -9,8 +9,8 @@ import ViewWorkout from './ViewWorkout';
 
 class App extends React.Component {
   state = {
-    'all_workout' : [],
-    'current_page': 'home',
+    'active': 'browse',
+    'all_workout': [],
     'current_workout': 0
   }
 
@@ -19,56 +19,59 @@ class App extends React.Component {
     console.log(response.data);
   }
 
-  viewWorkout = (id) => {
+  setActive(page) {
     this.setState({
-      'current_page': "detail",
-      'current_workout': id
+      "active": page
     })
   }
 
-  // getWorkouts = async () => {
-  //   let r = await axios.get('./json/workout.json')
-  //   let workout = r.data
+  renderContent() {
+    if (this.state.active === "browse") {
+      return (
+        <React.Fragment>
+          <BrowseWorkout viewWorkout={this.viewWorkout} />
+        </React.Fragment>
 
-  //   this.setState({
-  //     'all_workout': workout
-  //   })
+      )
+    } else if (this.state.active === "create") {
+      return (
+        <React.Fragment>
+          <CreateWorkoutForm />
+        </React.Fragment>
+      )
+    } else if (this.state.active === "view") {
+      return (
+        <React.Fragment>
+          <ViewWorkout id={this.state.current_workout} />
+        </React.Fragment>
+      )
+    }
+  }
 
-  // }
-
-  // renderCreateWorkoutForm = () => {
-  //   if (this.state.displayWorkoutForm) {
-  //     return <CreateWorkoutForm/>;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  pageHandler(name){
+  viewWorkout = (id) => {
     this.setState({
-      "current_page": name
+      'active': "view",
+      'current_workout': id
     })
   }
 
   render() {
     return (
       <React.Fragment>
-        <nav className="navbar container">
-                    <div className ="logo-title">Logo</div>
-                    <div className = "homepage-link my-auto">
-                        <btn className="btn btn-default" onClick={() => this.pageHandler("home")}>Home</btn>
-                        <btn className="btn btn-default"  onClick={() => this.pageHandler("detail")}>Create</btn>
-                    </div>
-                </nav>
+        <nav className="navbar container row">
+          
+          <div className="homepage-link my-auto col-4">
+            <btn className="btn btn-default active" onClick={() => this.setActive("browse")}>Home</btn>
+          </div>
+          <div className="logo-title col-4">Logo</div>
+          <div className="createpage-link my-auto col-4">
+            <btn className="btn btn-default" onClick={() => this.setActive("create")}>Create</btn>
+          </div>
+        </nav>
 
-        <CreateWorkoutForm/>
-        {this.state.current_page === "home" ?
-          <BrowseWorkout viewWorkout={this.viewWorkout} /> : ""
-        }
-
-        {this.state.current_page === "detail" ?
-          <ViewWorkout id={this.state.current_workout} /> : ""
-        }
-
+        <div className="content-wrapper">
+          {this.renderContent()}
+        </div>
 
 
       </React.Fragment>

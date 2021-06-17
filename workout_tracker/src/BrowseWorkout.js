@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+    
 const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 
@@ -10,12 +10,15 @@ export default class BrowseWorkout extends React.Component {
         'all_workout': [],
         'all_musclegroup': [],
         'all_duration': [],
-        'all_focus': []
+        'all_focus': [],
+        'workoutshowing': false,
+        'muscleshowing': false,
+        'difficultyshowing': false,
     }
 
     async componentDidMount() {
-        let r = await axios.get( baseURL + "/workouts/browse")
- 
+        let r = await axios.get(baseURL + "/workouts/browse")
+
         this.setState({
             'all_workout': r.data,
             'all_musclegroup': r.data.muscle_group,
@@ -24,7 +27,7 @@ export default class BrowseWorkout extends React.Component {
         })
     }
 
-    renderWorkoutList = () => {
+    renderAllWorkouts = () => {
         let list = []
         for (let l of this.state.all_workout) {
             list.push(
@@ -45,52 +48,58 @@ export default class BrowseWorkout extends React.Component {
         return list
     }
 
-    renderTags = (tags) => {
-        let list = [];
-        for (let l of tags) {
-            list.push(
-                <p className="browse-tags"
-                    style={{
-                        backgroundColor: "#F4CBAA"
-                    }}>
-                    {l}</p>
-            )
-        }
-        return list
-    }
 
 
     render() {
+
+        const { muscleshowing } = this.state;
+        const { workoutshowing } = this.state;
+        const { difficultyshowing } = this.state;
+
         return (
             <React.Fragment>
-                <h1>Testing BrowseWorkout</h1> 
                 <div className="muscle-group">
-                    <h3> Muscle Group </h3>
-                    <ul>
-                        <li>Abs and Chest</li>
-                        <li>Arms and Shoulders</li>
-                        <li>Glutes and Legs</li>
-                    </ul>
+                    <button className="btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}><h3> Muscle Group </h3></button>
+                    {muscleshowing ?
+                        <div className="subcategory">
+                            <ul>
+                                <li>Abs and Chest</li>
+                                <li>Arms and Shoulders</li>
+                                <li>Glutes and Legs</li>
+                            </ul>
+                        </div>
+                        : null}
+
                 </div>
                 <div className="workout-focus">
-                    <h3> Workout Focus </h3>
-                    <ul>
-                        <li>Endurance</li>
-                        <li>Strength</li>
-                        <li>Mobility</li>
-                    </ul>
+                    <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}><h3> Workout Focus </h3></button>
+                    {workoutshowing ?
+                        <div className="subcategory">
+                            <ul>
+                                <li>Endurance</li>
+                                <li>Strength</li>
+                                <li>Mobility</li>
+                            </ul>
+                        </div>
+                        : null}
+
                 </div>
                 <div className="difficulty-level">
-                    <h3> Difficulty </h3>
-                    <ul>
-                        <li>Beginner</li>
-                        <li>Intermediate</li>
-                        <li>Expert</li>
-                    </ul>
+                    <button className="btn btn-default" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}><h3> Difficulty </h3></button>
+                    {difficultyshowing ?
+                        <div className="subcategory">
+                            <ul>
+                                <li>Beginner</li>
+                                <li>Intermediate</li>
+                                <li>Expert</li>
+                            </ul>
+                        </div>
+                        : null}
+
                 </div>
 
                 <div className="filter-results">
-                    {this.renderWorkoutList()}
+                    {this.renderAllWorkouts()}
                 </div>
 
             </React.Fragment>

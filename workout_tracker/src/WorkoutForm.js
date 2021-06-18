@@ -2,12 +2,16 @@ import React from "react";
 
 export default function WorkoutForm(props) {
 
-    function renderExercise() {
+    function renderMuscleGroup(){
         let options = [];
-        for (let exercise of props.all_exercise) {
+        for (let muscle of props.all_muscle_group) {
             let e = (
-                <React.Fragment key={exercise.exercise_name}>
-                    <option value={exercise.exercise_name}>{exercise.exercise_name}</option>
+                <React.Fragment key = {muscle._id}>
+                <input type="checkbox"
+                    name="workout_muscle_group"
+                    value={muscle._id}
+                    onChange={props.updateMuscleCheckbox}
+                /> {muscle.name}
                 </React.Fragment>
             )
             options.push(e)
@@ -15,23 +19,39 @@ export default function WorkoutForm(props) {
         return options;
     }
 
+    function renderExercise() {
+        let options = [];
+        for (let exercise of props.all_exercise) {
+            let e = (
+                <React.Fragment key={exercise._id}>
+                    <option value={exercise._id}>{exercise.exercise_name}</option>
+                </React.Fragment>
+            )
+            options.push(e)
+        }
+        return options;
+    }
+
+
     function renderSection() {
         let section = [];
         for (let i = 0; i < props.exercise.length; i++) {
             section.push(
                 <div key={i}>
-                    <label>Choose a exercise: </label>
+                    <div className="form-label"> Choose a Exercise: </div>
                     <select name="id" value={props.exercise[i].id}
                         onChange={(e) => { props.updateSection(e, i) }}>
                         {renderExercise()}
                     </select>
                     <div>
+                    <div className= "form-label">Repetitions: </div>
                         <input name="repetition" type="text"
                             value={props.exercise[i].repetition}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> reps
                 </div>
                     <div>
+                    <div className= "form-label">Sets:  </div>
                         <input name="set" type="text"
                             value={props.exercise[i].set}
                             onChange={(e) => { props.updateSection(e, i) }}
@@ -48,32 +68,32 @@ export default function WorkoutForm(props) {
         <React.Fragment>
             <h1>Create A New Work Out</h1>
             <div>
-                <label>Workout Name: </label>
-                <input name="workout_name" type="text"
+                <div className="form-label">Workout Name: </div>
+                <input className="form-control" name="workout_name" type="text"
                     placeholder="Workout Name"
                     value={props.workout_name}
                     onChange={props.updateForm} />
             </div>
             <div>
-                <label>Workout Focus: </label>
+                <div className="form-label">Workout Focus: </div>
                 <input type="checkbox"
                     name="workout_focus"
                     value="strength"
-                    onChange={props.updateCheckbox}
+                    onChange={props.updateFocusCheckbox}
                 /> Strength
                     <input type="checkbox"
                     name="workout_focus"
                     value="endurance"
-                    onChange={props.updateCheckbox}
+                    onChange={props.updateFocusCheckbox}
                 /> Endurance
                     <input type="checkbox"
                     name="workout_focus"
                     value="mobility"
-                    onChange={props.updateCheckbox}
+                    onChange={props.updateFocusCheckbox}
                 /> Mobility
             </div>
             <div>
-                <label>Difficulty Level: </label>
+                <div className="form-label">Difficulty Level: </div>
                 <input type="radio"
                     name="workout_difficulty"
                     value="beginner"
@@ -94,7 +114,7 @@ export default function WorkoutForm(props) {
                 />Expert
             </div>
             <div>
-                <label>Intensity Level: </label>
+                <div className="form-label"> Intensity Level: </div>
                 <input type="radio"
                     name="workout_intensity"
                     value="low"
@@ -115,25 +135,11 @@ export default function WorkoutForm(props) {
                 /> High
             </div>
             <div>
-                <label>Muscle Group: </label>
-                <input type="checkbox"
-                    name="muscle_group"
-                    value="Arms"
-                    onChange={props.updateCheckbox}
-                /> Arms
-                    <input type="checkbox"
-                    name="muscle_group"
-                    value="Chest"
-                    onChange={props.updateCheckbox}
-                /> Chest
-                    <input type="checkbox"
-                    name="muscle_group"
-                    value="Legs"
-                    onChange={props.updateCheckbox}
-                /> Legs
+            <div className="form-label"> Muscle Group: </div>
+                {renderMuscleGroup()}
             </div>
             <div>
-                <label>Duration: </label>
+                <div className="form-label"> Duration: </div>
                 <input name="workout_duration" type="text"
                     placeholder="0"
                     value={props.workout_duration}
@@ -142,11 +148,6 @@ export default function WorkoutForm(props) {
             </div>
             {renderSection()}
             <button onClick={props.clickAdd}>Add New Exercise</button>
-            <div>
-                <button>Create</button>
-                <button>Cancel</button>
-            </div>
-
 
         </React.Fragment>
     )

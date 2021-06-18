@@ -35,7 +35,7 @@ export default class BrowseWorkout extends React.Component {
                     <div className="container">
                         <p><strong>{l.name} </strong></p>
                         <p>{l.duration} mins</p>
-                        <p>{l.difficulty}{l.focus}</p>
+                        <p>{l.difficulty} + {l.focus} + {l.intensity}</p>
                     </div>
                 </div>
             )
@@ -58,8 +58,8 @@ export default class BrowseWorkout extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="muscle-group">
-                    <button className="btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}><h3> Muscle Group </h3></button>
+                <div className="muscle-group" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
+                    <button className="btn btn-default" ><h3> Muscle Group </h3></button>
                     {muscleshowing ?
                         <div className="subcategory">
                             <ul>
@@ -71,8 +71,8 @@ export default class BrowseWorkout extends React.Component {
                         : null}
 
                 </div>
-                <div className="workout-focus">
-                    <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}><h3> Workout Focus </h3></button>
+                <div className="workout-focus" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
+                    <button className="btn btn-default" ><h3> Workout Focus </h3></button>
                     {workoutshowing ?
                         <div className="subcategory">
                             <ul>
@@ -84,8 +84,8 @@ export default class BrowseWorkout extends React.Component {
                         : null}
 
                 </div>
-                <div className="difficulty-level">
-                    <button className="btn btn-default" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}><h3> Difficulty </h3></button>
+                <div className="difficulty-level" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
+                    <button className="btn btn-default" ><h3> Difficulty </h3></button>
                     {difficultyshowing ?
                         <div className="subcategory">
                             <ul>
@@ -99,6 +99,7 @@ export default class BrowseWorkout extends React.Component {
                 </div>
 
                 <div className="filter-results">
+                    <p>There are {this.state.all_workout.length} workouts: </p> 
                     {this.renderAllWorkouts()}
                 </div>
 

@@ -1,10 +1,12 @@
-import './App.css';
+
 import React from 'react';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
 import CreateWorkoutForm from './CreateWorkoutForm';
 import BrowseWorkout from './BrowseWorkout';
 import ViewWorkout from './ViewWorkout';
+
 
 
 class App extends React.Component {
@@ -19,7 +21,7 @@ class App extends React.Component {
     console.log(response.data);
   }
 
-  setActive(page) {
+  setActive = (page) => {
     this.setState({
       "active": page
     })
@@ -29,6 +31,7 @@ class App extends React.Component {
     if (this.state.active === "browse") {
       return (
         <React.Fragment>
+
           <BrowseWorkout viewWorkout={this.viewWorkout} />
         </React.Fragment>
 
@@ -36,7 +39,7 @@ class App extends React.Component {
     } else if (this.state.active === "create") {
       return (
         <React.Fragment>
-          <CreateWorkoutForm />
+          <CreateWorkoutForm goBrowse={this.setActive} viewWorkout={this.viewWorkout} />
         </React.Fragment>
       )
     } else if (this.state.active === "view") {
@@ -58,18 +61,24 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <nav className="navbar container row">
-          
-          <div className="homepage-link my-auto col-4">
-            <btn className="btn btn-default active" onClick={() => this.setActive("browse")}>Home</btn>
-          </div>
-          <div className="logo-title col-4">Logo</div>
-          <div className="createpage-link my-auto col-4">
-            <btn className="btn btn-default" onClick={() => this.setActive("create")}>Create</btn>
-          </div>
-        </nav>
 
-        <div className="content-wrapper">
+        <div className='container'>
+          <div className="header-wrapper">
+            <img className="header-image" src={require('./images/header-image.png').default} alt="header" />
+          </div>
+          <nav className="navbar">
+            <div className="homepage-link my-auto col-4">
+              <btn className="btn btn-default active" onClick={() => this.setActive("browse")}>BROWSE</btn>
+            </div>
+            <div className="logo-title col-4">THE TRAINING GROUNDS</div>
+            <div className="createpage-link my-auto col-4">
+              <btn className="btn btn-default" onClick={() => this.setActive("create")}>CREATE</btn>
+            </div>
+          </nav>
+        </div>
+
+
+        <div className="content-wrapper container">
           {this.renderContent()}
         </div>
 

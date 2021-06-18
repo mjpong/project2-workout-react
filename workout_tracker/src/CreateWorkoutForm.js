@@ -1,34 +1,59 @@
 import React from "react";
 import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
+
 const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 export default class CreateForm extends React.Component {
     state = {
+        // db content to show
+        'all_exercise': [],
+        'all_muscle_group': [],
+
+        //current workout form
         'workout_name': '',
         'workout_focus': '',
         'workout_difficulty': '',
-        'entry': '',
-        'new_exercise': '',
-        'all_exercise': [],
-        'workout_duration': 0,
-        'exercise': [{
-            "id": 1,
-            "repetition": 10,
-            "set": 5
-        }],
-        'muscle_group': '',
         'workout_intensity': '',
+        'workout_duration': 0,
+        'workout_single_exercise': '',
+        'workout_muscle_group': '',
+        'entry': '',
+
+        //exercise section
+        'new_exercise': '',
+        'exercise': [],
+
+        // after create new workout
+        'newName': '',
+        'newFocus': '',
+        'newDifficulty': '',
+        'newIntensity': '',
+        'newDuration': '',
+        'newSingleExercise': '',
+        'newMuscleGroup': ''
 
     }
 
     async componentDidMount() {
-        let r = await axios.get(baseURL + "/list/singleexercise")
+
+        // get all the data from collections to show in form
+        let r = await axios.get(baseURL + "/list/singleexercise");
+        let muscle = await axios.get(baseURL + "/list/musclegroup");
+
         let all_exercise = r.data
-        console.log(all_exercise);
+        let all_muscle_group = muscle.data 
+
+        let exercise = [{
+            "id": all_exercise[0]._id,
+            "repetition": 10,
+            "set": 5
+        }]
 
         this.setState({
-            'all_exercise': all_exercise
+            'all_exercise': all_exercise,
+            "exercise": exercise,
+            'all_muscle_group': all_muscle_group
         })
     }
 
@@ -50,7 +75,7 @@ export default class CreateForm extends React.Component {
         })
     }
 
-    updateCheckbox = (e) => {
+    updateFocusCheckbox = (e) => {
         if (!this.state.workout_focus.includes(e.target.value)) {
             let clone = [...this.state.workout_focus, e.target.value];
             this.setState({
@@ -70,10 +95,32 @@ export default class CreateForm extends React.Component {
         }
     };
 
+    updateMuscleCheckbox = (e) => {
+        if (!this.state.workout_muscle_group.includes(e.target.value)) {
+            let clone = [...this.state.workout_muscle_group, e.target.value];
+            this.setState({
+                workout_muscle_group: clone
+            });
+        } else {
+            let indexToDelete = this.state.workout_muscle_group.findIndex((s) => {
+                return s === e.target.value;
+            });
+            let clone = [
+                ...this.state.workout_muscle_group.slice(0, indexToDelete),
+                ...this.state.workout_muscle_group.slice(indexToDelete + 1)
+            ];
+            this.setState({
+                workout_muscle_group: clone
+            });
+        }
+    };
+
+
+
 
     clickAdd = () => {
         let new_section = {
-            "id": 1,
+            "id": "60c9c37cbbe8d9cac29cf8ff",
             "repetition": 1,
             "set": 1
         }
@@ -83,19 +130,38 @@ export default class CreateForm extends React.Component {
         })
     }
 
-    // clickCreate = () => {
-    //     let userData = {
-    //         create_date: new Date(),
-    //         workout_name: this.state.workout_name,
-    //         workout_focus: this.state.workout_focus,
-    //         workout_difficulty: this.state.workout_difficulty,
-    //         workout_duration: this.state.workout_duration,
+    clickCreate = async () => {
+        // Process muscle_group id array to object array
+        let muscle_group = [];
+        for(let m of this.state.workout_muscle_group){
+            for(let muscle of this.state.all_muscle_group){
+                if(muscle._id === m){
+                    muscle_group.push(muscle);
+                }
+            }
+        }
 
-    //     }
-    // }
+        let data = {
+            'name': this.state.workout_name,
+            'date': new Date(),
+            'focus': this.state.workout_focus,
+            'difficulty': this.state.workout_difficulty,
+            'intensity': this.state.workout_intensity,
+            'duration': this.state.workout_duration,
+            'single_exercise': this.state.exercise,
+            'muscle_group': muscle_group,
+        }
+
+        console.log(data);
+        let response = await axios.post(baseURL + "/workouts/create", data)
+        console.log(response.data.ops[0]._id)
+        this.props.viewWorkout(response.data.ops[0]._id)
+        // in app.js
+    }
+
+
 
     deleteExercise = index => {
-        console.log(index);
         let modifiedExercise = [
             ...this.state.exercise.slice(0, index),
             ...this.state.exercise.slice(index + 1)
@@ -111,7 +177,8 @@ export default class CreateForm extends React.Component {
             <React.Fragment>
                 <WorkoutForm
                     updateForm={this.updateForm}
-                    updateCheckbox={this.updateCheckbox}
+                    updateMuscleCheckbox={this.updateMuscleCheckbox}
+                    updateFocusCheckbox={this.updateFocusCheckbox}
                     clickAdd={this.clickAdd}
                     deleteExercise={this.deleteExercise}
                     updateSection={this.updateSection}
@@ -120,11 +187,15 @@ export default class CreateForm extends React.Component {
                     workout_difficulty={this.state.workout_difficulty}
                     workout_duration={this.state.workout_duration}
                     all_exercise={this.state.all_exercise}
+                    all_muscle_group={this.state.all_muscle_group}
                     muscle_group={this.state.muscle_group}
                     exercise={this.state.exercise}
                     workout_intensity={this.state.workout_intensity}
-
                 />
+                <div>
+                <button onClick={this.clickCreate}>Create</button>
+                <button>Cancel</button>
+            </div>
 
             </React.Fragment>
         )

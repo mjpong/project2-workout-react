@@ -2,7 +2,7 @@ import React from "react";
 import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 export default class CreateForm extends React.Component {
     state = {
@@ -24,15 +24,6 @@ export default class CreateForm extends React.Component {
         'new_exercise': '',
         'exercise': [],
 
-        // after create new workout
-        'newName': '',
-        'newFocus': '',
-        'newDifficulty': '',
-        'newIntensity': '',
-        'newDuration': '',
-        'newSingleExercise': '',
-        'newMuscleGroup': ''
-
     }
 
     async componentDidMount() {
@@ -42,7 +33,7 @@ export default class CreateForm extends React.Component {
         let muscle = await axios.get(baseURL + "/list/musclegroup");
 
         let all_exercise = r.data
-        let all_muscle_group = muscle.data 
+        let all_muscle_group = muscle.data
 
         let exercise = [{
             "id": all_exercise[0]._id,
@@ -133,9 +124,9 @@ export default class CreateForm extends React.Component {
     clickCreate = async () => {
         // Process muscle_group id array to object array
         let muscle_group = [];
-        for(let m of this.state.workout_muscle_group){
-            for(let muscle of this.state.all_muscle_group){
-                if(muscle._id === m){
+        for (let m of this.state.workout_muscle_group) {
+            for (let muscle of this.state.all_muscle_group) {
+                if (muscle._id === m) {
                     muscle_group.push(muscle);
                 }
             }
@@ -175,27 +166,29 @@ export default class CreateForm extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <WorkoutForm
-                    updateForm={this.updateForm}
-                    updateMuscleCheckbox={this.updateMuscleCheckbox}
-                    updateFocusCheckbox={this.updateFocusCheckbox}
-                    clickAdd={this.clickAdd}
-                    deleteExercise={this.deleteExercise}
-                    updateSection={this.updateSection}
-                    workout_name={this.state.workout_name}
-                    workout_focus={this.state.workout_focus}
-                    workout_difficulty={this.state.workout_difficulty}
-                    workout_duration={this.state.workout_duration}
-                    all_exercise={this.state.all_exercise}
-                    all_muscle_group={this.state.all_muscle_group}
-                    muscle_group={this.state.muscle_group}
-                    exercise={this.state.exercise}
-                    workout_intensity={this.state.workout_intensity}
-                />
-                <div>
-                <button onClick={this.clickCreate}>Create</button>
-                <button>Cancel</button>
-            </div>
+                <div className="container create-workout p-4">
+                    <WorkoutForm
+                        updateForm={this.updateForm}
+                        updateMuscleCheckbox={this.updateMuscleCheckbox}
+                        updateFocusCheckbox={this.updateFocusCheckbox}
+                        clickAdd={this.clickAdd}
+                        deleteExercise={this.deleteExercise}
+                        updateSection={this.updateSection}
+                        workout_name={this.state.workout_name}
+                        workout_focus={this.state.workout_focus}
+                        workout_difficulty={this.state.workout_difficulty}
+                        workout_duration={this.state.workout_duration}
+                        all_exercise={this.state.all_exercise}
+                        all_muscle_group={this.state.all_muscle_group}
+                        muscle_group={this.state.muscle_group}
+                        exercise={this.state.exercise}
+                        workout_intensity={this.state.workout_intensity}
+                    />
+                    <div className ="">
+                        <button className="" onClick={this.clickCreate}>Create</button>
+                        <button>Cancel</button>
+                    </div>
+                </div>
 
             </React.Fragment>
         )

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-    
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 
 export default class BrowseWorkout extends React.Component {
@@ -58,6 +58,9 @@ export default class BrowseWorkout extends React.Component {
 
         return (
             <React.Fragment>
+                <div className="header-wrapper">
+                    <img className="header-image" src={require('./images/header-image.png').default} alt="header" />
+                </div>
                 <div className="muscle-group" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
                     <button className="btn btn-default" ><h3> Muscle Group </h3></button>
                     {muscleshowing ?
@@ -99,7 +102,7 @@ export default class BrowseWorkout extends React.Component {
                 </div>
 
                 <div className="filter-results">
-                    <p>There are {this.state.all_workout.length} workouts: </p> 
+                    <p>There are {this.state.all_workout.length} workouts: </p>
                     {this.renderAllWorkouts()}
                 </div>
 

@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 body {
   margin: 0;
@@ -9,8 +10,8 @@ body {
   width: 100%
 }
 
-.navbar {
-  font-size: 20px;
+nav {
+  border-color: black;
 }
 .muscle-group {
   background-color: #336B89;
@@ -32,3 +33,15 @@ body {
 }
 
 
+/* View Single Workout */
+.view-workout, .create-workout {
+  background-color: white;
+  border-color: black;
+  border-radius: 15px;
+}
+
+
+/* Create Workout */
+.workout-create {
+  text-align: right;
+}

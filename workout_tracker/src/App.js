@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    let response = await axios.get("https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io/");
+    let response = await axios.get("https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io/");
     console.log(response.data);
   }
 
@@ -63,15 +63,14 @@ class App extends React.Component {
       <React.Fragment>
 
         <div className='container'>
-          <div className="header-wrapper">
-            <img className="header-image" src={require('./images/header-image.png').default} alt="header" />
-          </div>
           <nav className="navbar">
-            <div className="homepage-link my-auto col-4">
+            <div className="homepage-link col-4">
               <btn className="btn btn-default active" onClick={() => this.setActive("browse")}>BROWSE</btn>
             </div>
-            <div className="logo-title col-4">THE TRAINING GROUNDS</div>
-            <div className="createpage-link my-auto col-4">
+            <div className="logo-title col-4">
+              <img className="logo-image" src={require('./images/YTGLogo.png').default} height="250" width="250"alt="logo" />
+            </div>
+            <div className="createpage-link col-4">
               <btn className="btn btn-default" onClick={() => this.setActive("create")}>CREATE</btn>
             </div>
           </nav>

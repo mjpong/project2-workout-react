@@ -10,9 +10,12 @@ body {
   width: 100%
 }
 
-nav {
-  border-color: black;
+.navbar {
+  text-align: center;
 }
+
+
+/* BRO */
 .muscle-group {
   background-color: #336B89;
   
@@ -38,6 +41,10 @@ nav {
   background-color: white;
   border-color: black;
   border-radius: 15px;
+}
+
+.viewworkout-name {
+  text-align: center;
 }
 
 

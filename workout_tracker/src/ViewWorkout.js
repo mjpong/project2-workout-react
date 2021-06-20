@@ -9,20 +9,27 @@ export default class ViewWorkout extends React.Component {
         // db to show
         //store each workout per id
         'each_workout': {},
-        'workout_comment': [],
+        'comments_section': [],
 
         // current comment form
         'comment_name': "",
-        'comment_text': ''
+        'comment_text': '',
+
+        contentLoaded: false
     }
 
     async componentDidMount() {
         let workoutResponse = await axios.get(baseURL + "/workouts/" + this.props.id)
         console.log(workoutResponse.data);
 
+        let commentsResponse = await axios.post(baseURL + '/workouts/' + this.props.id + '/comments/create')
+        console.log(commentsResponse)
+
         this.setState({
             contentLoaded: true,
-            'each_workout': workoutResponse.data,
+            each_workout: workoutResponse.data,
+            comments_section: commentsResponse.data
+
         })
     }
 
@@ -32,28 +39,54 @@ export default class ViewWorkout extends React.Component {
         })
     }
 
-    renderComments = () => {
-        let list = [];
-        if (this.state.each_workout.comments[0] == null) {
-            list.push(
-                <div className="p-2" style={{ textAlign: 'center' }}>There are no reviews!</div>
-            )
-        } else {
-            for (let l of this.state.each_workout.comments) {
-                list.push(
-                    <div>
+    clearFields = () => {
+        this.setState({
+            comment_name: '',
+            comment_text: ''
+        })
+    }
 
-                    </div>
+    renderCommentList = () => {
+        if (this.state.each_workout) {
+            let jsx = this.state.each_workout.comments.map((c) => {
+                return (
+                    <React.Fragment>
+                        <div className="comment-list">
+                            <p>{c.comment_name}</p>
+                            <p>{c.comment_text}</p>
+                            <button>Edit Comment</button>
+                            <button>Delete Comment</button>
+                        </div>
+                    </React.Fragment>
                 )
-            }
+            })
+            return jsx
         }
     }
 
+    createComment = async () => {
+        let userData = {
+            comment_name: this.state.comment_name,
+            comment_text: this.state.comment_text
+        }
+        let response = await axios.post(baseURL + '/workouts/' + this.props._id + '/comments/create', userData)
+        console.log(response)
+        // this.renderNewCommentList()
+        this.clearFields()
+    }
+
+    // renderNewCommentList = async () => {
+    //     let response = await axios.get(baseURL + '/workouts/' + this.props._id + '/comments')
+    //     this.setState({
+    //         comments_section: response
+    //     })
+    // }
+
     render() {
 
-        if (this.state.isLoaded === false) {
+        if (this.state.contentLoaded === false) {
             return (
-                <div></div>
+                <div>Content Cannot be Loaded</div>
             )
         } else {
 
@@ -63,20 +96,31 @@ export default class ViewWorkout extends React.Component {
                     <div className="container view-workout">
                         <div className="workout-content p-4">
                             <div className="content-wrapper row">
-                                <h1>{this.state.each_workout.name}</h1>
-                                <div className="tags-wrapper">
-                                    <div className="row">
-                                        <div className="col-4">Duration: {this.state.each_workout.duration} mins</div>
-                                        <div className="col-4">Intensity: {this.state.each_workout.intensity} </div>
-                                        <div className="col-4">Difficulty: {this.state.each_workout.difficulty} </div>
+                                <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
+                                <div className="tags-wrapper row">
+                                    <div className="col-4">Duration: {this.state.each_workout.duration} mins</div>
+                                    <div className="col-4">Intensity: {this.state.each_workout.intensity} </div>
+                                    <div className="col-4">Difficulty: {this.state.each_workout.difficulty} </div>
+                                </div>
+                                <div className="goodfor-wrapper row">
+                                    <label>It's Good For: </label>
+                                    <div className="col-4">
+                                        {this.state.each_workout.muscle_group.map((m) =>
+                                            <p>{m.name}</p>
+                                        )}
                                     </div>
-                                </div>
-                                <div>
-                                    <div className="goodfor-wrapper row">Workout Focus: {this.state.each_workout.focus}</div>
-                                    <div className="muscle-wrapper row">Muscle List</div>
-                                    <div className="equipment-wrapper row">Equipment List</div>
-                                </div>
+                                    <div className="col-4"><p>
+                                        {this.state.each_workout.focus.map((f) =>
+                                            <p>{f}</p>
+                                        )}
+                                    </p></div>
 
+
+                                </div>
+                                <div className="equipment-wrapper row">
+                                    <label>Equipment Needed: </label>
+                                    <p>exercise id to find the equipment in the exercise db</p>
+                                </div>
                                 <div className="exercise-wrapper row">
                                     <div className="col-6">
                                         <ul>
@@ -97,25 +141,24 @@ export default class ViewWorkout extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="description-wrapper">
+                                <div className="description-wrapper row">
                                     Description of the exercises
-                            </div>
+                                    call seperate singleexercise id
+                                </div>
                                 <button>Edit</button>
                                 <button>Delete</button>
                             </div>
-
                             <div className="comment-section">
-                                Like this exercise?
-                            <div className="new-comment">
+                                Like this exercise? Share your thoughts
+                                <div className="new-comment">
                                     <div className="review-label"> Your Name: </div>
                                     <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
                                     <div className="review-label"> Comments: </div>
                                     <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
                                 </div>
-                                <button>Post Comment</button>
-                                <button>Edit Comment</button>
-                                <button>Delete Comment</button>
+                                <button onClick={() => { this.createComment() }}>Post Comment</button>
                             </div>
+                            {this.renderCommentList()}
 
                         </div>
                     </div>

@@ -68,7 +68,7 @@ class App extends React.Component {
               <btn className="btn btn-default active" onClick={() => this.setActive("browse")}>BROWSE</btn>
             </div>
             <div className="logo-title col-4">
-              <img className="logo-image" src={require('./images/YTGLogo.png').default} height="250" width="250"alt="logo" />
+              <img className="logo-image" src={require('./images/YTGLogo.png').default} height="150" width="150"alt="logo" />
             </div>
             <div className="createpage-link col-4">
               <btn className="btn btn-default" onClick={() => this.setActive("create")}>CREATE</btn>

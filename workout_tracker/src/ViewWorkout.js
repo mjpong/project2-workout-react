@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 export default class ViewWorkout extends React.Component {
 
@@ -19,11 +19,15 @@ export default class ViewWorkout extends React.Component {
     }
 
     async componentDidMount() {
+        this.retrieveData();
+    }
+
+    retrieveData = async () => {
         let workoutResponse = await axios.get(baseURL + "/workouts/" + this.props.id)
         console.log(workoutResponse.data);
 
-        let commentsResponse = await axios.post(baseURL + '/workouts/' + this.props.id + '/comments/create')
-        console.log(commentsResponse)
+        let commentsResponse = await axios.get(baseURL + '/workouts/' + this.props.id + '/comments')
+        console.log(commentsResponse.data)
 
         this.setState({
             contentLoaded: true,
@@ -47,7 +51,7 @@ export default class ViewWorkout extends React.Component {
     }
 
     renderCommentList = () => {
-        if (this.state.each_workout) {
+        if (this.state.each_workout.comments) {
             let jsx = this.state.each_workout.comments.map((c) => {
                 return (
                     <React.Fragment>
@@ -55,12 +59,16 @@ export default class ViewWorkout extends React.Component {
                             <p>{c.comment_name}</p>
                             <p>{c.comment_text}</p>
                             <button>Edit Comment</button>
-                            <button>Delete Comment</button>
+                            <button onClick={() => {
+                                this.deleteComment(c);
+                            }}>Delete Comment</button>
                         </div>
                     </React.Fragment>
                 )
             })
             return jsx
+        } else {
+            return "Be the first one to comment!"
         }
     }
 
@@ -71,17 +79,23 @@ export default class ViewWorkout extends React.Component {
         }
         let response = await axios.post(baseURL + '/workouts/' + this.props._id + '/comments/create', userData)
         console.log(response)
-        // this.renderNewCommentList()
+        this.retrieveData()
         this.clearFields()
     }
 
-    // renderNewCommentList = async () => {
-    //     let response = await axios.get(baseURL + '/workouts/' + this.props._id + '/comments')
-    //     this.setState({
-    //         comments_section: response
-    //     })
-    // }
+    deleteComment = async (comment) => {
+        console.log(comment);
+        let response = await axios.delete(baseURL + "/workouts/" + comment._id + "/comments/delete")
+        console.log(response)
+        this.retrieveData();
+    }
 
+    deleteWorkout = async (idToDelete) => {
+        let response = await axios.delete(baseURL + "/workouts/delete/" + idToDelete)
+        this.props.goBrowse("browse")
+    }
+
+    
     render() {
 
         if (this.state.contentLoaded === false) {
@@ -146,7 +160,9 @@ export default class ViewWorkout extends React.Component {
                                     call seperate singleexercise id
                                 </div>
                                 <button>Edit</button>
-                                <button>Delete</button>
+                                <button onClick={() => {
+                                    this.deleteWorkout(this.state.each_workout._id);
+                                }}>Delete</button>
                             </div>
                             <div className="comment-section">
                                 Like this exercise? Share your thoughts

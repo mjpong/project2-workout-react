@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    let response = await axios.get("https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io/");
+    let response = await axios.get("https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io");
     console.log(response.data);
   }
 
@@ -45,7 +45,7 @@ class App extends React.Component {
     } else if (this.state.active === "view") {
       return (
         <React.Fragment>
-          <ViewWorkout id={this.state.current_workout} />
+          <ViewWorkout id={this.state.current_workout} goBrowse={this.setActive}/>
         </React.Fragment>
       )
     }

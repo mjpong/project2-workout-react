@@ -15,24 +15,25 @@ body {
 }
 
 
-/* BRO */
-.muscle-group {
+/* BROWSE */
+.muscle-group, .muscle-group-pic {
   background-color: #336B89;
   
 }
 
-.workout-focus {
+.workout-focus, .workout-focus-pic {
   background-color: #05ABC4;
   
 }
 
-.difficulty-level {
+.difficulty-level, .difficulty-level-pic {
   background-color: #B4B4B4;
   
 }
 
 .header-image {
-  width: 100%
+  width: 100%;
+  padding: 0px;
 }
 
 

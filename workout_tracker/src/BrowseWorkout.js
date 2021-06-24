@@ -34,8 +34,7 @@ export default class BrowseWorkout extends React.Component {
                 <div className="box" key={l._id} onClick={() => this.props.viewWorkout(l._id)}>
                     <div className="container">
                         <p><strong>{l.name} </strong></p>
-                        <p>{l.duration} mins</p>
-                        <p>{l.difficulty} + {l.focus} + {l.intensity}</p>
+                        <p style={{textTransform: 'capitalize'}}>{l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity</p>
                     </div>
                 </div>
             )
@@ -122,7 +121,7 @@ export default class BrowseWorkout extends React.Component {
 
 
                     <div className="filter-results">
-                        <p>There are {this.state.all_workout.length} workouts: </p>
+                        <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
                         {this.renderAllWorkouts()}
                     </div>
                 </div>

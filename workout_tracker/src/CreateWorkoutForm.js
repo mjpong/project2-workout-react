@@ -12,12 +12,12 @@ export default class CreateForm extends React.Component {
 
         //current workout form
         'workout_name': '',
-        'workout_focus': '',
+        'workout_focus': [],
         'workout_difficulty': '',
         'workout_intensity': '',
         'workout_duration': 0,
         'workout_single_exercise': '',
-        'workout_muscle_group': '',
+        'workout_muscle_group': [],
         'entry': '',
 
         //exercise section
@@ -37,8 +37,9 @@ export default class CreateForm extends React.Component {
 
         let exercise = [{
             "id": all_exercise[0]._id,
-            "repetition": 10,
-            "set": 5
+            "name": all_exercise[0].exercise_name,
+            "repetition": "",
+            "set": ""
         }]
 
         this.setState({
@@ -48,9 +49,6 @@ export default class CreateForm extends React.Component {
         })
     }
 
-    fetchWorkout() {
-        //call list workout api
-    }
 
     updateForm = (e) => {
         this.setState({
@@ -88,7 +86,7 @@ export default class CreateForm extends React.Component {
 
     updateMuscleCheckbox = (e) => {
         if (!this.state.workout_muscle_group.includes(e.target.value)) {
-            let clone = [...this.state.workout_muscle_group, e.target.value];
+            let clone = [...this.state.workout_muscle_group, e.target.value]; 
             this.setState({
                 workout_muscle_group: clone
             });
@@ -107,13 +105,12 @@ export default class CreateForm extends React.Component {
     };
 
 
-
-
     clickAdd = () => {
         let new_section = {
-            "id": "60c9c37cbbe8d9cac29cf8ff",
-            "repetition": 1,
-            "set": 1
+            "id": this.state.all_exercise[0]._id,
+            "name": this.state.all_exercise[0].exercise_name,
+            "repetition": "",
+            "set": ""
         }
         let ex = [...this.state.exercise, new_section]
         this.setState({
@@ -163,6 +160,10 @@ export default class CreateForm extends React.Component {
         })
     }
 
+    clickCancel = async () => {
+        this.props.goBrowse("browse")
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -185,8 +186,8 @@ export default class CreateForm extends React.Component {
                         workout_intensity={this.state.workout_intensity}
                     />
                     <div className ="">
-                        <button className="" onClick={this.clickCreate}>Create</button>
-                        <button>Cancel</button>
+                        <button className="create-workout-btn" onClick={this.clickCreate}>Create</button>
+                        <button className="cancel-workout-btn" onClick={this.clickCancel}>Cancel</button>
                     </div>
                 </div>
 

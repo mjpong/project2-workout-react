@@ -10,6 +10,7 @@ export default class ViewWorkout extends React.Component {
         //store each workout per id
         'each_workout': {},
         'comments_section': [],
+        'single_exercise': [],
 
         // current comment form
         'comment_name': "",
@@ -29,10 +30,14 @@ export default class ViewWorkout extends React.Component {
         let commentsResponse = await axios.get(baseURL + '/workouts/' + this.props.id + '/comments')
         console.log(commentsResponse.data)
 
+        let singleExerciseResponse = await axios.get(baseURL + '/list/singleexercise')
+        console.log(singleExerciseResponse.data)
+
         this.setState({
             contentLoaded: true,
             each_workout: workoutResponse.data,
-            comments_section: commentsResponse.data
+            comments_section: commentsResponse.data,
+            single_exercise: singleExerciseResponse.data
 
         })
     }
@@ -48,6 +53,65 @@ export default class ViewWorkout extends React.Component {
             comment_name: '',
             comment_text: ''
         })
+    }
+
+    renderEquipment = () => {
+        let equipments = []
+        for (let x of this.state.each_workout.single_exercise) {
+            let match = this.state.single_exercise.find(s => {
+                return x.id === s._id;
+            })
+
+            for (let y of match.equipment) {
+                if (!equipments.includes(y.name)) {
+                    equipments.push(y.name)
+                }
+            }
+        }
+
+        return equipments.map((e) => {
+            return (
+                <div>
+                    <li>{e}</li>
+                </div>
+            )
+        })
+    }
+
+    renderDescription = () => {
+        let description = [];
+        for (let x of this.state.each_workout.single_exercise) {
+            let match = this.state.single_exercise.find(s => {
+                return x.id === s._id;
+            })
+
+            for (let y of match.description) {
+                if (!description.includes(y.name)){
+                    let e = (
+                        <React.Fragment>
+                            <p>{match.exercise_name}</p>
+                            <li>{match.description}</li>
+                        </React.Fragment>
+                    )
+                    description.push(e)
+                }
+                console.log(description)
+                return description;
+            }
+        }
+
+    }
+
+    renderSingleExercise = () => {
+        let workouts = [];
+        for (let x of this.state.each_workout.single_exercise) {
+            let match = this.state.single_exercise.find(s => {
+                return x.id === s._id;
+            })
+            workouts.push(match);
+        }
+        console.log(workouts);
+        return
     }
 
     renderCommentList = () => {
@@ -77,7 +141,7 @@ export default class ViewWorkout extends React.Component {
             comment_name: this.state.comment_name,
             comment_text: this.state.comment_text
         }
-        let response = await axios.post(baseURL + '/workouts/' + this.props._id + '/comments/create', userData)
+        let response = await axios.post(baseURL + '/workouts/' + this.props.id + '/comments/create', userData)
         console.log(response)
         this.retrieveData()
         this.clearFields()
@@ -85,7 +149,7 @@ export default class ViewWorkout extends React.Component {
 
     deleteComment = async (comment) => {
         console.log(comment);
-        let response = await axios.delete(baseURL + "/workouts/" + comment._id + "/comments/delete")
+        let response = await axios.delete(baseURL + "/workouts/" + this.props.id + "/comments/" + comment.id)
         console.log(response)
         this.retrieveData();
     }
@@ -95,7 +159,7 @@ export default class ViewWorkout extends React.Component {
         this.props.goBrowse("browse")
     }
 
-    
+
     render() {
 
         if (this.state.contentLoaded === false) {
@@ -112,30 +176,32 @@ export default class ViewWorkout extends React.Component {
                             <div className="content-wrapper row">
                                 <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
                                 <div className="tags-wrapper row">
-                                    <div className="col-4">Duration: {this.state.each_workout.duration} mins</div>
-                                    <div className="col-4">Intensity: {this.state.each_workout.intensity} </div>
-                                    <div className="col-4">Difficulty: {this.state.each_workout.difficulty} </div>
+                                    <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
+                                    <div className="col-4" style={{textTransform: 'capitalize'}}>Intensity: {this.state.each_workout.intensity} </div>
+                                    <div className="col-4" style={{textTransform: 'capitalize'}}>Difficulty: {this.state.each_workout.difficulty} </div>
                                 </div>
                                 <div className="goodfor-wrapper row">
-                                    <label>It's Good For: </label>
+                                    <h5>It's Good For: </h5>
                                     <div className="col-4">
                                         {this.state.each_workout.muscle_group.map((m) =>
-                                            <p>{m.name}</p>
+                                            <li style={{textTransform: 'capitalize'}}>{m.name}</li>
                                         )}
                                     </div>
                                     <div className="col-4"><p>
                                         {this.state.each_workout.focus.map((f) =>
-                                            <p>{f}</p>
+                                            <li style={{textTransform: 'capitalize'}}>{f}</li>
                                         )}
                                     </p></div>
-
-
                                 </div>
+
                                 <div className="equipment-wrapper row">
-                                    <label>Equipment Needed: </label>
-                                    <p>exercise id to find the equipment in the exercise db</p>
+                                    <h5>Equipment Needed: </h5>
+                                    {this.renderEquipment()}
                                 </div>
+                                
+                                <h5>Exercise Sequence:</h5>
                                 <div className="exercise-wrapper row">
+
                                     <div className="col-6">
                                         <ul>
                                             <li>Exercise Name</li>
@@ -156,8 +222,8 @@ export default class ViewWorkout extends React.Component {
                                     </div>
                                 </div>
                                 <div className="description-wrapper row">
-                                    Description of the exercises
-                                    call seperate singleexercise id
+                                    <h5>Not sure how to do it? Follow the guide below: </h5>
+                                    {this.renderDescription()}
                                 </div>
                                 <button>Edit</button>
                                 <button onClick={() => {

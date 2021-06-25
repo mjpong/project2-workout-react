@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 export default class ViewWorkout extends React.Component {
 
@@ -90,8 +90,8 @@ export default class ViewWorkout extends React.Component {
                     let e = (
                         <React.Fragment>
                             <tr>
-                            <td>{match.exercise_name}</td>
-                            <td>{match.description}</td>
+                                <td>{match.exercise_name}</td>
+                                <td>{match.description}</td>
                             </tr>
                         </React.Fragment>
                     )
@@ -108,20 +108,11 @@ export default class ViewWorkout extends React.Component {
         let workouts = [];
         for (let w of this.state.each_workout.single_exercise) {
             workouts.push(
-                <div>
-                    <table className="exercise-sequence">
-                        <tr>
-                            <th>Exercise Name</th>
-                            <th>Repetitions</th>
-                            <th>Sets</th>
-                        </tr>
-                        <tr>
-                            <td>{w.name}</td>
-                            <td>{w.repetition}</td>
-                            <td>{w.set}</td>
-                        </tr>
-                    </table>
-                </div>
+                <tr>
+                    <td>{w.name}</td>
+                    <td>{w.repetition}</td>
+                    <td>{w.set}</td>
+                </tr>
             )
         }
         if (workouts.length === 0) {
@@ -191,11 +182,31 @@ export default class ViewWorkout extends React.Component {
                         <div className="workout-content p-4">
                             <div className="content-wrapper row">
                                 <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
+                                <hr></hr>
                                 <div className="tags-wrapper row">
                                     <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
                                     <div className="col-4" style={{ textTransform: 'capitalize' }}>Intensity: {this.state.each_workout.intensity} </div>
                                     <div className="col-4" style={{ textTransform: 'capitalize' }}>Difficulty: {this.state.each_workout.difficulty} </div>
                                 </div>
+
+                                <div className="exercise-wrapper row">
+                                    <h5>Exercise Sequence:</h5>
+                                    <div className="table-wrapper">
+                                        <table className="exercise-sequence ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Exercise Name</th>
+                                                    <th>Repetitions</th>
+                                                    <th>Sets</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.renderSingleExercise()}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                                 <div className="goodfor-wrapper row">
                                     <h5>It's Good For: </h5>
                                     <div className="col-4">
@@ -216,27 +227,30 @@ export default class ViewWorkout extends React.Component {
                                 </div>
 
 
-                                <div className="exercise-wrapper row">
-                                    <h5>Exercise Sequence:</h5>
-                                    {this.renderSingleExercise()}
-                                </div>
-                                <div className="description-wrapper row">
-                                    <h5>Not sure how to do it? Follow the guide below: </h5>
-                                    <table className="exercise-sequence">
-                                        <tr>
-                                            <th>Exercise Name</th>
-                                            <th>Description</th>
-                                        </tr>
-                                        
-                                            {this.renderDescription()}
-                                        
-                                    </table>
 
+                                <div className="description-wrapper row">
+                                    <div className="exercise-table">
+                                        <table className="exercise-description fl-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Exercise Guide</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.renderDescription()}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <button>Edit</button>
-                                <button onClick={() => {
-                                    this.deleteWorkout(this.state.each_workout._id);
-                                }}>Delete</button>
+
+                                <div className="mt-2" style={{ textAlign: "center" }}>
+                                    <button className="btn action-buttons btn-secondary">Edit</button>
+                                    <button className="btn action-buttons btn-secondary ml-2"
+                                        onClick={() => { this.deleteWorkout(this.state.each_workout._id); }}>
+                                        Delete</button>
+                                </div>
+
                             </div>
                             <div className="comment-section">
                                 Like this exercise? Share your thoughts
@@ -248,6 +262,7 @@ export default class ViewWorkout extends React.Component {
                                 </div>
                                 <button onClick={() => { this.createComment() }}>Post Comment</button>
                             </div>
+
                             {this.renderCommentList()}
 
                         </div>

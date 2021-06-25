@@ -2,7 +2,7 @@ import React from "react";
 import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 export default class CreateForm extends React.Component {
     state = {
@@ -151,9 +151,9 @@ export default class CreateForm extends React.Component {
         }
 
         console.log(data);
-        // let response = await axios.post(baseURL + "/workouts/create", data)
-        // console.log(response.data.ops[0]._id)
-        // this.props.viewWorkout(response.data.ops[0]._id)
+        let response = await axios.post(baseURL + "/workouts/create", data)
+        console.log(response.data.ops[0]._id)
+        this.props.viewWorkout(response.data.ops[0]._id)
         // in app.js
     }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 
 export default class BrowseWorkout extends React.Component {
@@ -11,6 +11,7 @@ export default class BrowseWorkout extends React.Component {
         'all_musclegroup': [],
         'all_duration': [],
         'all_focus': [],
+        'search_field': [],
         'workoutshowing': false,
         'muscleshowing': false,
         'difficultyshowing': false,
@@ -27,6 +28,12 @@ export default class BrowseWorkout extends React.Component {
         })
     }
 
+    updateForm = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
     renderAllWorkouts = () => {
         let list = []
         for (let l of this.state.all_workout) {
@@ -34,7 +41,7 @@ export default class BrowseWorkout extends React.Component {
                 <div className="box" key={l._id} onClick={() => this.props.viewWorkout(l._id)}>
                     <div className="container">
                         <p><strong>{l.name} </strong></p>
-                        <p style={{textTransform: 'capitalize'}}>{l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity</p>
+                        <p style={{ textTransform: 'capitalize' }}>{l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity</p>
                     </div>
                 </div>
             )
@@ -45,6 +52,14 @@ export default class BrowseWorkout extends React.Component {
             )
         }
         return list
+    }
+
+    searchQuery = () => {
+
+    }
+
+    resetQuery = () => {
+        
     }
 
 
@@ -117,8 +132,13 @@ export default class BrowseWorkout extends React.Component {
                     </div>
                     </div>
 
-
-
+                    <div className="search-bar">
+                        <input type="text" className="form-control my-1 mx-sm-2" name="search_field" value={this.state.search_field} placeholder="Search Workouts" onChange={this.updateForm} />
+                        <div className="filter-buttons">
+                            <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}>Search</button>
+                            <button type="submit" className="btn btn-secondary search reset my-1 mx-sm-2" onClick={this.resetQuery}>Reset</button>
+                        </div>
+                    </div>
 
                     <div className="filter-results">
                         <h5>There are a total of {this.state.all_workout.length} workouts: </h5>

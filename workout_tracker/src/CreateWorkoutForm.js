@@ -59,6 +59,16 @@ export default class CreateForm extends React.Component {
     updateSection = (e, index) => {
         let new_exercise = this.state.exercise;
         new_exercise[index][e.target.name] = e.target.value
+
+        if(e.target.name === "id"){
+            for(let x of this.state.all_exercise){
+                if(x._id === e.target.value){
+                    new_exercise[index]['name'] = x.exercise_name;
+                    break;
+                }
+            }
+        } 
+
         this.setState({
             exercise: new_exercise
         })
@@ -141,9 +151,9 @@ export default class CreateForm extends React.Component {
         }
 
         console.log(data);
-        let response = await axios.post(baseURL + "/workouts/create", data)
-        console.log(response.data.ops[0]._id)
-        this.props.viewWorkout(response.data.ops[0]._id)
+        // let response = await axios.post(baseURL + "/workouts/create", data)
+        // console.log(response.data.ops[0]._id)
+        // this.props.viewWorkout(response.data.ops[0]._id)
         // in app.js
     }
 

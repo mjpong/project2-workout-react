@@ -86,32 +86,50 @@ export default class ViewWorkout extends React.Component {
             })
 
             for (let y of match.description) {
-                if (!description.includes(y.name)){
+                if (!description.includes(y.name)) {
                     let e = (
                         <React.Fragment>
-                            <p>{match.exercise_name}</p>
-                            <li>{match.description}</li>
+                            <tr>
+                            <td>{match.exercise_name}</td>
+                            <td>{match.description}</td>
+                            </tr>
                         </React.Fragment>
                     )
                     description.push(e)
+                    break;
                 }
-                console.log(description)
-                return description;
             }
         }
+        return description;
 
     }
 
     renderSingleExercise = () => {
         let workouts = [];
-        for (let x of this.state.each_workout.single_exercise) {
-            let match = this.state.single_exercise.find(s => {
-                return x.id === s._id;
-            })
-            workouts.push(match);
+        for (let w of this.state.each_workout.single_exercise) {
+            workouts.push(
+                <div>
+                    <table className="exercise-sequence">
+                        <tr>
+                            <th>Exercise Name</th>
+                            <th>Repetitions</th>
+                            <th>Sets</th>
+                        </tr>
+                        <tr>
+                            <td>{w.name}</td>
+                            <td>{w.repetition}</td>
+                            <td>{w.set}</td>
+                        </tr>
+                    </table>
+                </div>
+            )
         }
-        console.log(workouts);
-        return
+        if (workouts.length === 0) {
+            workouts.push(
+                <div>No Exercises Found</div>
+            )
+        }
+        return workouts
     }
 
     renderCommentList = () => {
@@ -148,9 +166,7 @@ export default class ViewWorkout extends React.Component {
     }
 
     deleteComment = async (comment) => {
-        console.log(comment);
         let response = await axios.delete(baseURL + "/workouts/" + this.props.id + "/comments/" + comment.id)
-        console.log(response)
         this.retrieveData();
     }
 
@@ -177,19 +193,19 @@ export default class ViewWorkout extends React.Component {
                                 <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
                                 <div className="tags-wrapper row">
                                     <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
-                                    <div className="col-4" style={{textTransform: 'capitalize'}}>Intensity: {this.state.each_workout.intensity} </div>
-                                    <div className="col-4" style={{textTransform: 'capitalize'}}>Difficulty: {this.state.each_workout.difficulty} </div>
+                                    <div className="col-4" style={{ textTransform: 'capitalize' }}>Intensity: {this.state.each_workout.intensity} </div>
+                                    <div className="col-4" style={{ textTransform: 'capitalize' }}>Difficulty: {this.state.each_workout.difficulty} </div>
                                 </div>
                                 <div className="goodfor-wrapper row">
                                     <h5>It's Good For: </h5>
                                     <div className="col-4">
                                         {this.state.each_workout.muscle_group.map((m) =>
-                                            <li style={{textTransform: 'capitalize'}}>{m.name}</li>
+                                            <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
                                         )}
                                     </div>
                                     <div className="col-4"><p>
                                         {this.state.each_workout.focus.map((f) =>
-                                            <li style={{textTransform: 'capitalize'}}>{f}</li>
+                                            <li style={{ textTransform: 'capitalize' }}>{f}</li>
                                         )}
                                     </p></div>
                                 </div>
@@ -198,32 +214,24 @@ export default class ViewWorkout extends React.Component {
                                     <h5>Equipment Needed: </h5>
                                     {this.renderEquipment()}
                                 </div>
-                                
-                                <h5>Exercise Sequence:</h5>
-                                <div className="exercise-wrapper row">
 
-                                    <div className="col-6">
-                                        <ul>
-                                            <li>Exercise Name</li>
-                                            <li>1st Entry</li>
-                                        </ul>
-                                    </div>
-                                    <div className="col-3">
-                                        <ul>
-                                            <li>Reps</li>
-                                            <li>1st Entry</li>
-                                        </ul>
-                                    </div>
-                                    <div className="col-3">
-                                        <ul>
-                                            <li>Sets</li>
-                                            <li>1st Entry</li>
-                                        </ul>
-                                    </div>
+
+                                <div className="exercise-wrapper row">
+                                    <h5>Exercise Sequence:</h5>
+                                    {this.renderSingleExercise()}
                                 </div>
                                 <div className="description-wrapper row">
                                     <h5>Not sure how to do it? Follow the guide below: </h5>
-                                    {this.renderDescription()}
+                                    <table className="exercise-sequence">
+                                        <tr>
+                                            <th>Exercise Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        
+                                            {this.renderDescription()}
+                                        
+                                    </table>
+
                                 </div>
                                 <button>Edit</button>
                                 <button onClick={() => {

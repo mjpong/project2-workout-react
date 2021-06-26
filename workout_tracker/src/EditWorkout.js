@@ -44,7 +44,10 @@ export default class EditWorkout extends React.Component {
 
         let response = await axios.put(baseURL + "/workouts/edit/" + workoutID, userData)
 
-        this.props.viewWorkout(workoutID)
+        this.props.cancelEditWorkout();
+
+        // show viewworkout
+        this.props.viewWorkout(response.data._id)
     }
 
     async componentDidMount() {
@@ -194,7 +197,7 @@ export default class EditWorkout extends React.Component {
                     />
                     <div className="">
                         <button className="update-workout-btn btn btn-secondary" onClick={this.clickUpdate(this.props._id)}>Update</button>
-                        <button className="cancel-workout-btn btn btn-secondary" onClick={this.props.cancelEdit}>Cancel</button>
+                        <button className="cancel-workout-btn btn btn-secondary" onClick={this.props.cancelEditWorkout}>Cancel</button>
                     </div>
                 </div>
 

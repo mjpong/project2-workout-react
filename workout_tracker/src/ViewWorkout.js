@@ -18,7 +18,8 @@ export default class ViewWorkout extends React.Component {
         'comment_text': '',
 
         contentLoaded: false,
-        displayEdit: false,
+        displayEditWorkout: false,
+        displayEditComment: false,
         displayView: true
     }
 
@@ -170,18 +171,24 @@ export default class ViewWorkout extends React.Component {
 
     editWorkout = () => {
         this.setState({
-            displayEdit: true,
+            displayEditWorkout: true,
             displayView: false
         })
-        console.log(this.state.displayEdit)
     }
 
-    cancelEdit = () => {
-        this.props.viewWorkout(this.state.each_workout._id)
+    cancelEditWorkout = () => {
+        this.setState({
+            
+            displayView: true,
+            displayEditWorkout: false
+        })
     }
+
+
+
 
     renderEditWorkout = () => {
-        if (this.state.displayEdit) {
+        if (this.state.displayEditWorkout) {
             return (
                 <EditWorkout
                     workout_id={this.state.each_workout._id}
@@ -192,7 +199,7 @@ export default class ViewWorkout extends React.Component {
                     workout_intensity={this.state.each_workout.intesity}
                     workout_muscle_group={this.state.each_workout.muscle_group}
                     workout_single_exercise={this.state.each_workout.single_exercise}
-                    cancelEdit={this.cancelEdit}
+                    cancelEditWorkout={this.cancelEditWorkout}
                 />
             )
 
@@ -309,6 +316,7 @@ export default class ViewWorkout extends React.Component {
                     }
 
                     {!this.state.displayView && this.renderEditWorkout()}
+                    {/* {this.renderEditComment()} */}
 
                 </React.Fragment>
             )

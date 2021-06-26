@@ -66,7 +66,7 @@ export default function WorkoutForm(props) {
 
     return (
         <React.Fragment>
-                <h1>Create A New Work Out</h1>
+                
                 <div>
                     <div className="form-label">Workout Name: </div>
                     <input className="form-control" name="workout_name" type="text"
@@ -147,7 +147,7 @@ export default function WorkoutForm(props) {
                     /> mins
             </div>
                 {renderSection()}
-                <button onClick={props.clickAdd}>Add New Exercise</button>
+                <button className="btn btn-secondary" onClick={props.clickAdd}>Add New Exercise</button>
 
         </React.Fragment>
     )

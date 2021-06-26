@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import EditWorkout from "./EditWorkout";
 
 const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
@@ -16,7 +17,9 @@ export default class ViewWorkout extends React.Component {
         'comment_name': "",
         'comment_text': '',
 
-        contentLoaded: false
+        contentLoaded: false,
+        displayEdit: false,
+        displayView: true
     }
 
     async componentDidMount() {
@@ -31,7 +34,6 @@ export default class ViewWorkout extends React.Component {
         console.log(commentsResponse.data)
 
         let singleExerciseResponse = await axios.get(baseURL + '/list/singleexercise')
-        console.log(singleExerciseResponse.data)
 
         this.setState({
             contentLoaded: true,
@@ -131,8 +133,8 @@ export default class ViewWorkout extends React.Component {
                         <div className="comment-list">
                             <p>{c.comment_name}</p>
                             <p>{c.comment_text}</p>
-                            <button>Edit Comment</button>
-                            <button onClick={() => {
+                            <button className="btn btn-secondary"> Edit Comment</button>
+                            <button className="btn btn-secondary" onClick={() => {
                                 this.deleteComment(c);
                             }}>Delete Comment</button>
                         </div>
@@ -166,6 +168,39 @@ export default class ViewWorkout extends React.Component {
         this.props.goBrowse("browse")
     }
 
+    editWorkout = () => {
+        this.setState({
+            displayEdit: true,
+            displayView: false
+        })
+        console.log(this.state.displayEdit)
+    }
+
+    cancelEdit = () => {
+        this.props.viewWorkout(this.state.each_workout._id)
+    }
+
+    renderEditWorkout = () => {
+        if (this.state.displayEdit) {
+            return (
+                <EditWorkout
+                    workout_id={this.state.each_workout._id}
+                    workout_name={this.state.each_workout.name}
+                    workout_duration={this.state.each_workout.duration}
+                    workout_focus={this.state.each_workout.focus}
+                    workout_difficulty={this.state.each_workout.difficulty}
+                    workout_intensity={this.state.each_workout.intesity}
+                    workout_muscle_group={this.state.each_workout.muscle_group}
+                    workout_single_exercise={this.state.each_workout.single_exercise}
+                    cancelEdit={this.cancelEdit}
+                />
+            )
+
+        } else {
+            return null
+        }
+    }
+
 
     render() {
 
@@ -177,97 +212,103 @@ export default class ViewWorkout extends React.Component {
 
             return (
                 <React.Fragment>
-
-                    <div className="container view-workout">
-                        <div className="workout-content p-4">
-                            <div className="content-wrapper row">
-                                <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
-                                <hr></hr>
-                                <div className="tags-wrapper row">
-                                    <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
-                                    <div className="col-4" style={{ textTransform: 'capitalize' }}>Intensity: {this.state.each_workout.intensity} </div>
-                                    <div className="col-4" style={{ textTransform: 'capitalize' }}>Difficulty: {this.state.each_workout.difficulty} </div>
-                                </div>
-
-                                <div className="exercise-wrapper row">
-                                    <h5>Exercise Sequence:</h5>
-                                    <div className="table-wrapper">
-                                        <table className="exercise-sequence ">
-                                            <thead>
-                                                <tr>
-                                                    <th>Exercise Name</th>
-                                                    <th>Repetitions</th>
-                                                    <th>Sets</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {this.renderSingleExercise()}
-                                            </tbody>
-                                        </table>
+                    {this.state.contentLoaded && this.state.displayView &&
+                        <div className="container view-workout">
+                            <div className="workout-content p-4">
+                                <div className="content-wrapper row">
+                                    <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
+                                    <hr></hr>
+                                    <div className="tags-wrapper row">
+                                        <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
+                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>Intensity: {this.state.each_workout.intensity} </div>
+                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>Difficulty: {this.state.each_workout.difficulty} </div>
                                     </div>
-                                </div>
 
-                                <div className="goodfor-wrapper row">
-                                    <h5>It's Good For: </h5>
-                                    <div className="col-4">
-                                        {this.state.each_workout.muscle_group.map((m) =>
-                                            <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
-                                        )}
+                                    <div className="exercise-wrapper row">
+                                        <h5>Exercise Sequence:</h5>
+                                        <div className="exercise-table-wrapper">
+                                            <table className="exercise-sequence es-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Exercise Name</th>
+                                                        <th>Repetitions</th>
+                                                        <th>Sets</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.renderSingleExercise()}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div className="col-4"><p>
-                                        {this.state.each_workout.focus.map((f) =>
-                                            <li style={{ textTransform: 'capitalize' }}>{f}</li>
-                                        )}
-                                    </p></div>
-                                </div>
 
-                                <div className="equipment-wrapper row">
-                                    <h5>Equipment Needed: </h5>
-                                    {this.renderEquipment()}
-                                </div>
-
-
-
-                                <div className="description-wrapper row">
-                                    <div className="exercise-table">
-                                        <table className="exercise-description fl-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Exercise Guide</th>
-                                                    <th>Description</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {this.renderDescription()}
-                                            </tbody>
-                                        </table>
+                                    <div className="goodfor-wrapper row">
+                                        <h5>It's Good For: </h5>
+                                        <div className="col-4">
+                                            {this.state.each_workout.muscle_group.map((m) =>
+                                                <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
+                                            )}
+                                        </div>
+                                        <div className="col-4"><p>
+                                            {this.state.each_workout.focus.map((f) =>
+                                                <li style={{ textTransform: 'capitalize' }}>{f}</li>
+                                            )}
+                                        </p></div>
                                     </div>
-                                </div>
 
-                                <div className="mt-2" style={{ textAlign: "center" }}>
-                                    <button className="btn action-buttons btn-secondary">Edit</button>
-                                    <button className="btn action-buttons btn-secondary ml-2"
-                                        onClick={() => { this.deleteWorkout(this.state.each_workout._id); }}>
-                                        Delete</button>
-                                </div>
+                                    <div className="equipment-wrapper row">
+                                        <h5>Equipment Needed: </h5>
+                                        {this.renderEquipment()}
+                                    </div>
 
-                            </div>
-                            <div className="comment-section">
-                                Like this exercise? Share your thoughts
+
+
+                                    <div className="description-wrapper row">
+                                        <div className="description-table-wrapper">
+                                            <table className="exercise-description ed-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Exercise Guide</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.renderDescription()}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-2" style={{ textAlign: "center" }}>
+                                        <button
+                                            className="btn action-buttons btn-secondary"
+                                            onClick={() => { this.editWorkout() }}>
+                                            Edit</button>
+                                        <button
+                                            className="btn action-buttons btn-secondary ml-2"
+                                            onClick={() => { this.deleteWorkout(this.state.each_workout._id); }}>
+                                            Delete</button>
+                                    </div>
+
+                                </div>
+                                <div className="comment-section">
+                                    Like this exercise? Share your thoughts
                                 <div className="new-comment">
-                                    <div className="review-label"> Your Name: </div>
-                                    <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
-                                    <div className="review-label"> Comments: </div>
-                                    <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
+                                        <div className="review-label"> Your Name: </div>
+                                        <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
+                                        <div className="review-label"> Comments: </div>
+                                        <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
+                                    </div>
+                                    <button className="btn btn-secondary" onClick={() => { this.createComment() }}>Post Comment</button>
                                 </div>
-                                <button onClick={() => { this.createComment() }}>Post Comment</button>
+
+                                {this.renderCommentList()}
+
                             </div>
-
-                            {this.renderCommentList()}
-
                         </div>
-                    </div>
+                    }
 
+                    {!this.state.displayView && this.renderEditWorkout()}
 
                 </React.Fragment>
             )

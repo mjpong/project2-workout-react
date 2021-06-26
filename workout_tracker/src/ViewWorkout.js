@@ -14,8 +14,10 @@ export default class ViewWorkout extends React.Component {
         'single_exercise': [],
 
         // current comment form
+        'comment_id': "",
         'comment_name': "",
         'comment_text': '',
+        'each_comment': {},
 
         contentLoaded: false,
         displayEditWorkout: false,
@@ -57,6 +59,8 @@ export default class ViewWorkout extends React.Component {
             comment_text: ''
         })
     }
+
+    // workout section
 
     renderEquipment = () => {
         let equipments = []
@@ -126,44 +130,6 @@ export default class ViewWorkout extends React.Component {
         return workouts
     }
 
-    renderCommentList = () => {
-        if (this.state.each_workout.comments) {
-            let jsx = this.state.each_workout.comments.map((c) => {
-                return (
-                    <React.Fragment>
-                        <div className="comment-list">
-                            <p>{c.comment_name}</p>
-                            <p>{c.comment_text}</p>
-                            <button className="btn btn-secondary"> Edit Comment</button>
-                            <button className="btn btn-secondary" onClick={() => {
-                                this.deleteComment(c);
-                            }}>Delete Comment</button>
-                        </div>
-                    </React.Fragment>
-                )
-            })
-            return jsx
-        } else {
-            return "Be the first one to comment!"
-        }
-    }
-
-    createComment = async () => {
-        let userData = {
-            comment_name: this.state.comment_name,
-            comment_text: this.state.comment_text
-        }
-        let response = await axios.post(baseURL + '/workouts/' + this.props.id + '/comments/create', userData)
-        console.log(response)
-        this.retrieveData()
-        this.clearFields()
-    }
-
-    deleteComment = async (comment) => {
-        let response = await axios.delete(baseURL + "/workouts/" + this.props.id + "/comments/" + comment.id)
-        this.retrieveData();
-    }
-
     deleteWorkout = async (idToDelete) => {
         let response = await axios.delete(baseURL + "/workouts/delete/" + idToDelete)
         this.props.goBrowse("browse")
@@ -178,13 +144,10 @@ export default class ViewWorkout extends React.Component {
 
     cancelEditWorkout = () => {
         this.setState({
-            
             displayView: true,
             displayEditWorkout: false
         })
     }
-
-
 
 
     renderEditWorkout = () => {
@@ -206,6 +169,88 @@ export default class ViewWorkout extends React.Component {
         } else {
             return null
         }
+    }
+
+
+    // comments sections
+
+    renderCommentList = () => {
+        if (this.state.each_workout.comments) {
+            let jsx = this.state.each_workout.comments.map((c) => {
+                return (
+                    <React.Fragment>
+                        <div className="comment-list" key={c.id}>
+                            <p>{c.comment_name}</p>
+                            <p>{c.comment_text}</p>
+                            <button
+                                className="btn btn-secondary"
+                                value={c.id}
+                                onClick={() => { this.editComment(c) }}
+                            > Edit Comment</button>
+                            <button
+                                className="btn btn-secondary"
+                                value={c.id}
+                                onClick={() => { this.deleteComment(c) }}
+                            > Delete Comment</button>
+                        </div>
+                    </React.Fragment>
+                )
+            })
+            return jsx
+        } else {
+            return "Be the first one to comment!"
+        }
+    }
+
+    createComment = async () => {
+        let userData = {
+            comment_name: this.state.comment_name,
+            comment_text: this.state.comment_text
+        }
+        let response = await axios.post(baseURL + '/workouts/' + this.props.id + '/comments/create', userData)
+        console.log(response)
+        this.retrieveData()
+        this.clearFields()
+    }
+
+    deleteComment = async (c) => {
+        let response = await axios.delete(baseURL + "/workouts/" + this.props.id + "/comments/" + c.id)
+        this.retrieveData();
+    }
+
+    editComment = (c) => {
+        for (let i in this.state.comments_section) {
+            if (this.state.comments_section[i].id === c.id) {
+                this.setState({
+                    comment_id: c.id,
+                    comment_name: this.state.comments_section[i].comment_name,
+                    comment_text: this.state.comments_section[i].comment_text,
+                    displayEditComment: true
+                })
+            }
+        }
+    }
+
+    updateComment = async (c) => {
+        let newComment = {
+            id: this.state.comment_id,
+            comment_name: this.state.comment_name,
+            comment_text: this.state.comment_text
+        }
+
+        let response = await axios.put(baseURL + "/workouts/" + this.props.id + "/comments/edit/" + c.id, newComment)
+        console.log(response.data.message)
+        if (response.data.message === "Comments Updated") {
+            this.retrieveData();
+        }
+
+    }
+
+    cancelEditComment = () => {
+        this.setState({
+            displayEditComment: false,
+        })
+        this.clearFields()
     }
 
 
@@ -299,14 +344,28 @@ export default class ViewWorkout extends React.Component {
 
                                 </div>
                                 <div className="comment-section">
-                                    Like this exercise? Share your thoughts
+                                    Like this exercise? Share your thoughts...
                                 <div className="new-comment">
                                         <div className="review-label"> Your Name: </div>
                                         <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
                                         <div className="review-label"> Comments: </div>
                                         <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
                                     </div>
-                                    <button className="btn btn-secondary" onClick={() => { this.createComment() }}>Post Comment</button>
+                                    <button
+                                        className="btn btn-secondary"
+                                        onClick={() => { this.createComment() }}
+                                        style={{ display: this.state.displayEditComment === true ? "none" : "inline-block"  }}
+                                    >Post Comment</button>
+                                    <button
+                                        className="btn btn-secondary"
+                                        onClick={() => { this.updateComment() }}
+                                        style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                    >Update Comment</button>
+                                    <button
+                                        className="btn btn-secondary"
+                                        onClick={() => { this.cancelEditComment() }}
+                                        style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                    >Cancel</button>
                                 </div>
 
                                 {this.renderCommentList()}

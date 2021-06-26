@@ -59,7 +59,7 @@ export default class BrowseWorkout extends React.Component {
     }
 
     resetQuery = () => {
-        
+
     }
 
 
@@ -78,8 +78,12 @@ export default class BrowseWorkout extends React.Component {
                     </div>
 
                     <div className="muscle-wrapper row">
-                        <div className="muscle-group col-6" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
-                            <button className="btn btn-default" ><h3> Muscle Group </h3></button>
+                        <div
+                            className="muscle-group col-6"
+                            onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
+                            <button className="btn btn-default" >
+                                <h3> Muscle Group </h3>
+                            </button>
                             {muscleshowing ?
                                 <div className="subcategory">
                                     <ul>
@@ -99,8 +103,12 @@ export default class BrowseWorkout extends React.Component {
                         <div className="workout-focus-pic col-6">
                             PIC
                     </div>
-                        <div className="workout-focus col-6" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
-                            <button className="btn btn-default" ><h3> Workout Focus </h3></button>
+                        <div
+                            className="workout-focus col-6"
+                            onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
+                            <button className="btn btn-default" >
+                                <h3> Workout Focus </h3>
+                            </button>
                             {workoutshowing ?
                                 <div className="subcategory">
                                     <ul>
@@ -115,8 +123,12 @@ export default class BrowseWorkout extends React.Component {
                     </div>
 
                     <div className="difficulty-wrapper row">
-                        <div className="difficulty-level col-6" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
-                            <button className="btn btn-default" ><h3> Difficulty </h3></button>
+                        <div 
+                            className="difficulty-level col-6" 
+                            onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
+                            <button className="btn btn-default">
+                                <h3> Difficulty </h3>
+                            </button>
                             {difficultyshowing ?
                                 <div className="subcategory">
                                     <ul>

@@ -258,7 +258,7 @@ export default class ViewWorkout extends React.Component {
 
         if (this.state.contentLoaded === false) {
             return (
-                <div>Content Cannot be Loaded</div>
+                <div>Loading Workout...</div>
             )
         } else {
 

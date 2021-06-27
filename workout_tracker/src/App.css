@@ -46,6 +46,8 @@ body {
 }
 
 
+
+
 /* View Single Workout */
 .view-workout, .create-workout {
   background-color: white;
@@ -102,4 +104,3 @@ body {
 .ed-table tr:nth-child(even) {
   background: #F8F8F8;
 }
-

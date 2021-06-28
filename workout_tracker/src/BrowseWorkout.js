@@ -120,7 +120,7 @@ export default class BrowseWorkout extends React.Component {
                         <img className="header-image" src={require('./images/header-image.png').default} alt="header" />
                     </div>
 
-                    <div className="muscle-wrapper row">
+                    <div className="muscle-wrapper row" align="center">
                         <div
                             className="muscle-group col-6"
                             onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
@@ -138,14 +138,14 @@ export default class BrowseWorkout extends React.Component {
                                 : null}
                         </div>
                         <div className="muscle-group-pic col-6">
-                            PIC
-                    </div>
+                            <img className="banner-image" src={require('./images/workout1.png').default} alt="workout1" />
+                        </div>
                     </div>
 
-                    <div className="focus-wrapper row">
-                        <div className="workout-focus-pic col-6">
-                            PIC
-                    </div>
+                    <div className="focus-wrapper row" align="center">
+                        <div className="workout-focus-pic col-6" >
+                            <img className="banner-image" src={require('./images/workout2.png').default} alt="workout2" />
+                        </div>
                         <div
                             className="workout-focus col-6"
                             onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
@@ -165,9 +165,9 @@ export default class BrowseWorkout extends React.Component {
 
                     </div>
 
-                    <div className="difficulty-wrapper row">
+                    <div className="difficulty-wrapper row" align="center">
                         <div
-                            className="difficulty-level col-6"
+                            className="difficulty-level col-6 "
                             onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
                             <button className="btn btn-default">
                                 <h3> Difficulty </h3>
@@ -183,8 +183,8 @@ export default class BrowseWorkout extends React.Component {
                                 : null}
                         </div>
                         <div className="difficulty-level-pic col-6">
-                            PIC
-                    </div>
+                            <img className="banner-image" src={require('./images/workout3.png').default} alt="workout3" />
+                        </div>
                     </div>
 
                     <div className="search-bar-container">

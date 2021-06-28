@@ -57,7 +57,7 @@ export default function WorkoutForm(props) {
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
                 </div>
-                    {props.exercise.length > 1 ? <button onClick={() => { props.deleteExercise(i) }}>Delete Exercise</button> : ""}
+                    {props.exercise.length > 1 ? <button className="btn btn-secondary" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i> Exercise </button> : ""}
                 </div>
             )
         }
@@ -147,7 +147,7 @@ export default function WorkoutForm(props) {
                     /> mins
             </div>
                 {renderSection()}
-                <button className="btn btn-secondary" onClick={props.clickAdd}>Add New Exercise</button>
+                <button className="btn btn-secondary action-buttons" onClick={props.clickAdd}><i class="fas fa-plus"></i> New Exercise</button>
 
         </React.Fragment>
     )

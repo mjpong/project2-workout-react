@@ -190,8 +190,8 @@ export default class BrowseWorkout extends React.Component {
                     <div className="search-bar-container">
                         <input type="text" className="search-bar form-control my-1 mx-sm-2" name="search_field" value={this.state.search_field} placeholder="Search Workouts" onChange={this.updateForm} />
                         <div className="filter-buttons">
-                            <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}>Search</button>
-                            <button type="submit" className="btn btn-secondary search reset my-1 mx-sm-2" onClick={this.resetQuery}>Reset</button>
+                            <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}><i class="fas fa-search"></i></button>
+                            <button type="submit" className="btn btn-secondary search reset my-1 mx-sm-2" onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>
                         </div>
                     </div>
 

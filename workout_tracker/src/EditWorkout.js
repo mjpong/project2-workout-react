@@ -196,8 +196,8 @@ export default class EditWorkout extends React.Component {
                         exercise={this.state.exercise}
                     />
                     <div className="">
-                        <button className="update-workout-btn btn btn-secondary" onClick={this.clickUpdate(this.props._id)}>Update</button>
-                        <button className="cancel-workout-btn btn btn-secondary" onClick={this.props.cancelEditWorkout}>Cancel</button>
+                        <button className="action-buttons btn btn-secondary" onClick={this.clickUpdate(this.props._id)}>Update</button>
+                        <button className="action-buttons btn btn-secondary" onClick={this.props.cancelEditWorkout}>Cancel</button>
                     </div>
                 </div>
 

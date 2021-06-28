@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 body {
   margin: 0;
@@ -16,6 +17,10 @@ body {
 
 .nav-btn {
   font-size: 20px
+}
+
+.action-buttons{
+  width: 120px
 }
 
 /* BROWSE */
@@ -41,9 +46,6 @@ body {
 
 
 /* Create Workout */
-.workout-create {
-  text-align: right;
-}
 
 
 
@@ -53,21 +55,24 @@ body {
   background-color: white;
   border-color: black;
   border-radius: 15px;
+
 }
 
-.viewworkout-name {
+.workout-section {
   text-align: center;
 }
 
+.comment-section {
+  margin: 10
+}
 .es-table {
   width: 60%;
   border-radius: 5px;
   font-weight: normal;
   text-align: center;
-}
-
-.exercise-wrapper-row{
   align-items: center;
+  margin: auto;
+  padding: 10;
 }
 
 .ed-table {

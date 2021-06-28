@@ -267,13 +267,22 @@ export default class ViewWorkout extends React.Component {
                     {this.state.contentLoaded && this.state.displayView &&
                         <div className="container view-workout">
                             <div className="workout-content p-4">
-                                <div className="content-wrapper row">
+                                <div className="workout-section content-wrapper row">
                                     <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
                                     <hr></hr>
                                     <div className="tags-wrapper row">
-                                        <div className="col-4">Duration: {this.state.each_workout.duration} minutes</div>
-                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>Intensity: {this.state.each_workout.intensity} </div>
-                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>Difficulty: {this.state.each_workout.difficulty} </div>
+                                        <div className="col-4">
+                                            <i class="far fa-clock fa-2x"></i>
+                                            <p>{this.state.each_workout.duration} minutes</p>
+                                        </div>
+                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>
+                                            <i class="fas fa-fire fa-2x"></i>
+                                            <p>{this.state.each_workout.intensity}</p>
+                                        </div>
+                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>
+                                            <i class="fas fa-tachometer-alt fa-2x"></i>
+                                            <p>{this.state.each_workout.difficulty}</p>
+                                        </div>
                                     </div>
 
                                     <div className="exercise-wrapper row">
@@ -331,45 +340,47 @@ export default class ViewWorkout extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="mt-2" style={{ textAlign: "center" }}>
+                                    <div className="mt-2 d-flex justify-content-end" >
                                         <button
-                                            className="btn action-buttons btn-secondary"
+                                            className="btn btn-secondary"
                                             onClick={() => { this.editWorkout() }}>
-                                            Edit</button>
+                                            <i class="far fa-edit"></i></button>
                                         <button
-                                            className="btn action-buttons btn-secondary ml-2"
+                                            className="btn btn-secondary ml-2"
                                             onClick={() => { this.deleteWorkout(this.state.each_workout._id); }}>
-                                            Delete</button>
+                                            <i class="far fa-trash-alt"></i></button>
                                     </div>
 
                                 </div>
-                                <div className="comment-section">
-                                    Like this exercise? Share your thoughts...
-                                <div className="new-comment">
+                                <div className="comment-section content-wrapper row">
+
+                                    <div className="new-comment">
+                                        <h5>Like this exercise? Share your thoughts...</h5>
                                         <div className="review-label"> Your Name: </div>
                                         <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
                                         <div className="review-label"> Comments: </div>
                                         <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
-                                    </div>
+                                    
                                     <button
-                                        className="btn btn-secondary"
+                                        className="btn btn-secondary action-buttons"
                                         onClick={() => { this.createComment() }}
-                                        style={{ display: this.state.displayEditComment === true ? "none" : "inline-block"  }}
+                                        style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
                                     >Post Comment</button>
                                     <button
-                                        className="btn btn-secondary"
+                                        className="btn btn-secondary action-buttons"
                                         onClick={() => { this.updateComment() }}
                                         style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
                                     >Update Comment</button>
                                     <button
-                                        className="btn btn-secondary"
+                                        className="btn btn-secondary action-buttons"
                                         onClick={() => { this.cancelEditComment() }}
                                         style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
                                     >Cancel</button>
+                                    </div>
+                                    <div className="existing-comments ">
+                                        {this.renderCommentList()}
+                                    </div>
                                 </div>
-
-                                {this.renderCommentList()}
-
                             </div>
                         </div>
                     }

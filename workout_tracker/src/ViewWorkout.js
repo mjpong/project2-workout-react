@@ -159,10 +159,11 @@ export default class ViewWorkout extends React.Component {
                     workout_duration={this.state.each_workout.duration}
                     workout_focus={this.state.each_workout.focus}
                     workout_difficulty={this.state.each_workout.difficulty}
-                    workout_intensity={this.state.each_workout.intesity}
+                    workout_intensity={this.state.each_workout.intensity}
                     workout_muscle_group={this.state.each_workout.muscle_group}
                     workout_single_exercise={this.state.each_workout.single_exercise}
                     cancelEditWorkout={this.cancelEditWorkout}
+                    retrieveData={this.retrieveData}
                 />
             )
 

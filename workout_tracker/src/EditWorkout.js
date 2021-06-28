@@ -24,17 +24,18 @@ export default class EditWorkout extends React.Component {
         'new_exercise': '',
         'exercise': []
     }
+    
 
     clickUpdate = async (workoutID) => {
-
+        console.log(workoutID);
         let userData = {
-            'workout_name': this.state.workout_name,
-            'workout_duration': this.state.workout_duration,
-            'workout_focus': this.state.workout_focus,
-            'workout_difficulty': this.state.workout_difficulty,
-            'workout_intensity': this.state.workout_intensity,
-            'workout_muscle_group': this.state.workout_muscle_group,
-            'workout_single_exercise': this.state.workout_single_exercise,
+            'name': this.state.workout_name,
+            'duration': this.state.workout_duration,
+            'focus': this.state.workout_focus,
+            'difficulty': this.state.workout_difficulty,
+            'intensity': this.state.workout_intensity,
+            'muscle_group': this.state.workout_muscle_group,
+            'single_exercise': this.state.workout_single_exercise,
             
             //exercise section
             'new_exercise': this.state.new_exercise,
@@ -46,40 +47,32 @@ export default class EditWorkout extends React.Component {
 
         this.props.cancelEditWorkout();
 
-        // show viewworkout
-        this.props.viewWorkout(response.data._id)
+        // // show viewworkout
+        this.props.retrieveData()
     }
 
     async componentDidMount() {
-
+        
         let r = await axios.get(baseURL + "/list/singleexercise");
         let muscle = await axios.get(baseURL + "/list/musclegroup");
 
         let all_exercise = r.data
         let all_muscle_group = muscle.data
 
-        let exercise = [{
-            "id": all_exercise[0]._id,
-            "name": all_exercise[0].exercise_name,
-            "repetition": "",
-            "set": ""
-        }]
-
         this.setState({
 
             'all_exercise': all_exercise,
             'all_muscle_group': all_muscle_group,
-            "exercise": exercise,
 
             'workout_name': this.props.workout_name,
             'workout_duration': this.props.workout_duration,
             'workout_focus': this.props.workout_focus,
             'workout_difficulty': this.props.workout_difficulty,
             'workout_intensity': this.props.workout_intensity,
-            'workout_muscle_group': this.props.muscle_group,
-            'workout_single_exercise': this.props.workout_single_exercise
-            
+            'workout_muscle_group': this.props.workout_muscle_group,
+            'workout_single_exercise': this.props.workout_single_exercise  
         })
+
     }
 
     updateForm = (e) => {
@@ -193,10 +186,11 @@ export default class EditWorkout extends React.Component {
                         workout_difficulty={this.state.workout_difficulty}                        
                         workout_intensity={this.state.workout_intensity}
                         workout_muscle_group={this.state.workout_muscle_group}
-                        exercise={this.state.exercise}
+                        exercise={this.state.workout_single_exercise}
+                        editMode={true}
                     />
                     <div className="">
-                        <button className="action-buttons btn btn-secondary" onClick={this.clickUpdate(this.props._id)}>Update</button>
+                        <button className="action-buttons btn btn-secondary" onClick={() => this.clickUpdate(this.props.workout_id)}>Update</button>
                         <button className="action-buttons btn btn-secondary" onClick={this.props.cancelEditWorkout}>Cancel</button>
                     </div>
                 </div>

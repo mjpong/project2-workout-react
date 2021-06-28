@@ -3,18 +3,43 @@ import React from "react";
 export default function WorkoutForm(props) {
 
     function renderMuscleGroup() {
+
         let options = [];
-        for (let muscle of props.all_muscle_group) {
-            let e = (
-                <React.Fragment key={muscle._id}>
-                    <input type="checkbox"
-                        name="workout_muscle_group"
-                        value={muscle._id}
-                        onChange={props.updateMuscleCheckbox}
-                    /> {muscle.name}
-                </React.Fragment>
-            )
-            options.push(e)
+        if(props.editMode){
+            for (let muscle of props.all_muscle_group) {
+                let y = false;
+                for(let x of props.workout_muscle_group){
+                    if(muscle._id == x._id){
+                        y = true;
+                        break;
+                    }
+                }
+
+                let e = (
+                    <React.Fragment key={muscle._id}>
+                        <input type="checkbox"
+                            name="workout_muscle_group"
+                            value={muscle._id}
+                            onChange={props.updateMuscleCheckbox}
+                            checked={y}
+                        /> {muscle.name}
+                    </React.Fragment>
+                )
+                options.push(e)
+            }
+        } else {
+            for (let muscle of props.all_muscle_group) {
+                let e = (
+                    <React.Fragment key={muscle._id}>
+                        <input type="checkbox"
+                            name="workout_muscle_group"
+                            value={muscle._id}
+                            onChange={props.updateMuscleCheckbox}
+                        /> {muscle.name}
+                    </React.Fragment>
+                )
+                options.push(e)
+            }
         }
         return options;
     }
@@ -80,16 +105,19 @@ export default function WorkoutForm(props) {
                         name="workout_focus"
                         value="strength"
                         onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('strength')}
                     /> Strength
                     <input type="checkbox"
                         name="workout_focus"
                         value="endurance"
                         onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('endurance')}
                     /> Endurance
                     <input type="checkbox"
                         name="workout_focus"
                         value="mobility"
                         onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('mobility')}
                     /> Mobility
             </div>
                 <div>

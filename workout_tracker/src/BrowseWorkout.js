@@ -98,7 +98,6 @@ export default class BrowseWorkout extends React.Component {
     resetQuery = async () => {
 
         this.getAllWorkouts();
-
         this.setState({
             'search_field': ""
         })

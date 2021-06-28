@@ -61,30 +61,24 @@ export default class BrowseWorkout extends React.Component {
         return list
     }
 
-    filterDifficulty = (data) => {
-        let difficulty = {
-            beginner: [],
-            intermediate: [],
-            extreme: []
-        }
-
-        for (let i of data) {
-            if (this.state.all_workout.difficulty === "beginner") {
-                difficulty["beginner"].push(i)
-            }
-            if (this.state.all_workout.difficulty === "intermediate") {
-                difficulty["intermediate"].push(i)
-            }
-            if (this.state.all_workout.difficulty === "extreme") {
-                difficulty["extreme"].push(i)
-            }
-        }
-
-        return difficulty;
-
-
+    filterDifficulty = async (d) => {
+        let response = await axios.get(baseURL + '/workouts/filter/difficulty' + "?q=" + d)
         this.setState({
-            all_workout: difficulty
+            all_workout: response.data.reverse()
+        })
+    }
+
+    filterFocus = async (f) => {
+        let response = await axios.get(baseURL + '/workouts/filter/workoutfocus' + "?q=" + f)
+        this.setState({
+            all_workout: response.data.reverse()
+        })
+    }
+
+    filterMuscle = async (m) => {
+        let response = await axios.get(baseURL + '/workouts/filter/musclegroup' + "?q=" + m)
+        this.setState({
+            all_workout: response.data.reverse()
         })
     }
 
@@ -120,18 +114,16 @@ export default class BrowseWorkout extends React.Component {
                     </div>
 
                     <div className="muscle-wrapper row" align="center">
-                        <div
-                            className="muscle-group col-6"
-                            onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
-                            <button className="btn btn-default" >
+                        <div className="muscle-group col-6">
+                            <button className="btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
                                 <h3> Muscle Group </h3>
                             </button>
                             {muscleshowing ?
                                 <div className="subcategory">
                                     <ul>
-                                        <li>Abs and Chest</li>
-                                        <li>Arms and Shoulders</li>
-                                        <li>Glutes and Legs</li>
+                                        <li onClick={() => this.filterMuscle("Abdominals,Chest")}>Abs and Chest</li>
+                                        <li onClick={() => this.filterMuscle("Arms,Shoulders")}>Arms and Shoulders</li>
+                                        <li onClick={() => this.filterMuscle("Back,Leg")}>Back and Legs</li>
                                     </ul>
                                 </div>
                                 : null}
@@ -145,38 +137,33 @@ export default class BrowseWorkout extends React.Component {
                         <div className="workout-focus-pic col-6" >
                             <img className="banner-image" src={require('./images/workout2.png').default} alt="workout2" />
                         </div>
-                        <div
-                            className="workout-focus col-6"
-                            onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
-                            <button className="btn btn-default" >
+                        <div className="workout-focus col-6">
+                            <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
                                 <h3> Workout Focus </h3>
                             </button>
                             {workoutshowing ?
                                 <div className="subcategory">
                                     <ul>
-                                        <li>Endurance</li>
-                                        <li>Strength</li>
-                                        <li>Mobility</li>
+                                        <li onClick={() => this.filterFocus('endurance')}>Endurance</li>
+                                        <li onClick={() => this.filterFocus('strength')}>Strength</li>
+                                        <li onClick={() => this.filterFocus('mobility')}>Mobility</li>
                                     </ul>
                                 </div>
                                 : null}
                         </div>
-
                     </div>
 
                     <div className="difficulty-wrapper row" align="center">
-                        <div
-                            className="difficulty-level col-6 "
-                            onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
-                            <button className="btn btn-default">
+                        <div className="difficulty-level col-6 ">
+                            <button className="btn btn-default" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
                                 <h3> Difficulty </h3>
                             </button>
                             {difficultyshowing ?
                                 <div className="subcategory">
                                     <ul>
-                                        <li>Beginner</li>
-                                        <li>Intermediate</li>
-                                        <li>Expert</li>
+                                        <li onClick={() => this.filterDifficulty('beginner')}>Beginner</li>
+                                        <li onClick={() => this.filterDifficulty('intermediate')}>Intermediate</li>
+                                        <li onClick={() => this.filterDifficulty('expert')}>Expert</li>
                                     </ul>
                                 </div>
                                 : null}
@@ -186,21 +173,23 @@ export default class BrowseWorkout extends React.Component {
                         </div>
                     </div>
 
-                    <div className="search-bar-container">
-                        <input type="text" name="search_field"
-                            className="search-bar form-control my-1 mx-sm-2"
-                            value={this.state.search_field}
-                            placeholder="Search Workouts"
-                            onChange={this.updateForm} />
-                        <div className="filter-buttons">
-                            <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}><i class="fas fa-search"></i></button>
-                            <button type="submit" className="btn btn-secondary search-reset my-1 mx-sm-2" onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>
+                    <div className="results-section p-4">
+                        <div className="search-bar-container p-2">
+                            <input type="text" name="search_field"
+                                className="search-bar form-control my-1 mx-sm-2"
+                                value={this.state.search_field}
+                                placeholder="Search Workouts"
+                                onChange={this.updateForm} />
+                            <div className="filter-buttons">
+                                <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}><i class="fas fa-search"></i></button>
+                                <button type="submit" className="btn btn-secondary search-reset my-1 mx-sm-2" onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="filter-results">
-                        <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
-                        {this.renderAllWorkouts()}
+                        <hr></hr>
+                        <div className="filter-results">
+                            <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
+                            {this.renderAllWorkouts()}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

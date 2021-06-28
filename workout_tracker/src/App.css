@@ -23,6 +23,13 @@ body {
   width: 120px
 }
 
+.view-workout, .create-workout, .results-section {
+  background-color: white;
+  border-color: black;
+  border-radius: 15px;
+
+}
+
 /* BROWSE */
 .muscle-group, .muscle-group-pic {
   background-color: #336B89;
@@ -39,14 +46,23 @@ body {
   
 }
 
+.workout-focus, .muscle-group, .difficulty-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .header-image {
   width: 100%;
   padding: 0px;
 }
 
 .banner-image {
-  width:75%
+  width:100%;
+  max-width: 380px
 }
+
 
 /* Create Workout */
 
@@ -54,12 +70,6 @@ body {
 
 
 /* View Single Workout */
-.view-workout, .create-workout {
-  background-color: white;
-  border-color: black;
-  border-radius: 15px;
-
-}
 
 .workout-section {
   text-align: center;

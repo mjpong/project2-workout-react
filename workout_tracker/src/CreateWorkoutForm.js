@@ -12,7 +12,7 @@ export default class CreateForm extends React.Component {
 
         //current workout form
         'workout_name': '',
-        'workout_duration': 0,
+        'workout_duration': 1,
         'workout_focus': [],
         'workout_difficulty': '',
         'workout_intensity': '',
@@ -37,8 +37,8 @@ export default class CreateForm extends React.Component {
         let exercise = [{
             "id": all_exercise[0]._id,
             "name": all_exercise[0].exercise_name,
-            "repetition": "",
-            "set": ""
+            "repetition": 1,
+            "set": 1
         }]
 
         this.setState({
@@ -51,7 +51,7 @@ export default class CreateForm extends React.Component {
 
     updateForm = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.name === "workout_duration" ? parseInt(e.target.value) : e.target.value
         })
     }
 
@@ -67,6 +67,9 @@ export default class CreateForm extends React.Component {
                 }
             }
         }
+
+        new_exercise[index]['repetition'] = parseInt(new_exercise[index]['repetition']);
+        new_exercise[index]['set'] = parseInt(new_exercise[index]['set']);
 
         this.setState({
             exercise: new_exercise
@@ -118,8 +121,8 @@ export default class CreateForm extends React.Component {
         let new_section = {
             "id": this.state.all_exercise[0]._id,
             "name": this.state.all_exercise[0].exercise_name,
-            "repetition": "",
-            "set": ""
+            "repetition": 1,
+            "set": 1
         }
         let ex = [...this.state.exercise, new_section]
         this.setState({
@@ -149,7 +152,7 @@ export default class CreateForm extends React.Component {
             'muscle_group': muscle_group,
         }
 
-        console.log(data);
+        // console.log(data);
         let response = await axios.post(baseURL + "/workouts/create", data)
         this.props.viewWorkout(response.data.ops[0]._id)
         // in app.js

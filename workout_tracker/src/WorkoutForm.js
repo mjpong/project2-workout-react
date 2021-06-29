@@ -70,14 +70,14 @@ export default function WorkoutForm(props) {
                     </select>
                     <div>
                         <div className="form-label">Repetitions: </div>
-                        <input name="repetition" type="text"
+                        <input name="repetition" type="number"
                             value={props.exercise[i].repetition}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> reps
                 </div>
                     <div>
                         <div className="form-label">Sets:  </div>
-                        <input name="set" type="text"
+                        <input name="set" type="number"
                             value={props.exercise[i].set}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
@@ -168,8 +168,8 @@ export default function WorkoutForm(props) {
                 </div>
                 <div>
                     <div className="form-label"> Duration: </div>
-                    <input name="workout_duration" type="text"
-                        placeholder="0"
+                    <input name="workout_duration" type="number"
+                        placeholder="1"
                         value={props.workout_duration}
                         onChange={props.updateForm}
                     /> mins

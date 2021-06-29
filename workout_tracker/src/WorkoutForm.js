@@ -9,7 +9,7 @@ export default function WorkoutForm(props) {
             for (let muscle of props.all_muscle_group) {
                 let y = false;
                 for(let x of props.workout_muscle_group){
-                    if(muscle._id == x._id){
+                    if(muscle._id == x){
                         y = true;
                         break;
                     }
@@ -60,29 +60,29 @@ export default function WorkoutForm(props) {
 
     function renderSection() {
         let section = [];
-        for (let i = 0; i < props.exercise.length; i++) {
+        for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(
                 <div key={i}>
                     <div className="form-label"> Choose a Exercise: </div>
-                    <select name="id" value={props.exercise[i].id}
+                    <select name="id" value={props.workout_single_exercise[i].id}
                         onChange={(e) => { props.updateSection(e, i) }}>
                         {renderExercise()}
                     </select>
                     <div>
                         <div className="form-label">Repetitions: </div>
                         <input name="repetition" type="number"
-                            value={props.exercise[i].repetition}
+                            value={props.workout_single_exercise[i].repetition}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> reps
                 </div>
                     <div>
                         <div className="form-label">Sets:  </div>
                         <input name="set" type="number"
-                            value={props.exercise[i].set}
+                            value={props.workout_single_exercise[i].set}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
                 </div>
-                    {props.exercise.length > 1 ? <button className="btn btn-secondary" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i> Exercise </button> : ""}
+                    {props.workout_single_exercise.length > 1 ? <button className="btn btn-secondary" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i> Exercise </button> : ""}
                 </div>
             )
         }

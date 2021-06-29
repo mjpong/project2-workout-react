@@ -17,11 +17,9 @@ export default class CreateForm extends React.Component {
         'workout_difficulty': '',
         'workout_intensity': '',
         'workout_muscle_group': [],
-        'workout_single_exercise': '',
-        
-        //exercise section in workout form
-        'new_exercise': '',
-        'exercise': []
+
+        // exercise section in workout form
+        'workout_single_exercise': []
 
     }
 
@@ -43,7 +41,7 @@ export default class CreateForm extends React.Component {
 
         this.setState({
             'all_exercise': all_exercise,
-            "exercise": exercise,
+            "workout_single_exercise": exercise,
             'all_muscle_group': all_muscle_group
         })
     }
@@ -56,7 +54,7 @@ export default class CreateForm extends React.Component {
     }
 
     updateSection = (e, index) => {
-        let new_exercise = this.state.exercise;
+        let new_exercise = this.state.workout_single_exercise;
         new_exercise[index][e.target.name] = e.target.value
 
         if (e.target.name === "id") {
@@ -72,7 +70,7 @@ export default class CreateForm extends React.Component {
         new_exercise[index]['set'] = parseInt(new_exercise[index]['set']);
 
         this.setState({
-            exercise: new_exercise
+            workout_single_exercise: new_exercise
         })
     }
 
@@ -124,9 +122,9 @@ export default class CreateForm extends React.Component {
             "repetition": 1,
             "set": 1
         }
-        let ex = [...this.state.exercise, new_section]
+        let ex = [...this.state.workout_single_exercise, new_section]
         this.setState({
-            exercise: ex
+            workout_single_exercise: ex
         })
     }
 
@@ -148,7 +146,7 @@ export default class CreateForm extends React.Component {
             'difficulty': this.state.workout_difficulty,
             'intensity': this.state.workout_intensity,
             'duration': this.state.workout_duration,
-            'single_exercise': this.state.exercise,
+            'single_exercise': this.state.workout_single_exercise,
             'muscle_group': muscle_group,
         }
 
@@ -162,12 +160,12 @@ export default class CreateForm extends React.Component {
 
     deleteExercise = index => {
         let modifiedExercise = [
-            ...this.state.exercise.slice(0, index),
-            ...this.state.exercise.slice(index + 1)
+            ...this.state.workout_single_exercise.slice(0, index),
+            ...this.state.workout_single_exercise.slice(index + 1)
         ];
 
         this.setState({
-            exercise: modifiedExercise
+            workout_single_exercise: modifiedExercise
         })
     }
 
@@ -196,7 +194,7 @@ export default class CreateForm extends React.Component {
                         workout_difficulty={this.state.workout_difficulty}   
                         workout_intensity={this.state.workout_intensity}
                         workout_muscle_group={this.state.workout_muscle_group}
-                        exercise={this.state.exercise}
+                        workout_single_exercise={this.state.workout_single_exercise}
                         
                     />
                     <div className="">

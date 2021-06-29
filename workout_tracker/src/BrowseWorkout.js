@@ -14,7 +14,6 @@ export default class BrowseWorkout extends React.Component {
         'search_field': [],
         'workoutshowing': false,
         'muscleshowing': false,
-        'difficultyshowing': false,
 
         // search
         'search_field': "",
@@ -47,10 +46,13 @@ export default class BrowseWorkout extends React.Component {
         let list = []
         for (let l of this.state.all_workout) {
             list.push(
-                <div className="workout-card" key={l._id} onClick={() => this.props.viewWorkout(l._id)}>
-                    <div className="container">
+                <div className="" key={l._id} onClick={() => this.props.viewWorkout(l._id)}>
+                    <div className="container workout-card">
                         <p><strong>{l.name} </strong></p>
-                        <p style={{ textTransform: 'capitalize' }}>{l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity</p>
+                        <p className="workout-text"
+                            style={{ textTransform: 'capitalize' }}>
+                            {l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity
+                            </p>
                     </div>
                 </div>
             )
@@ -62,13 +64,6 @@ export default class BrowseWorkout extends React.Component {
         }
         return list
     }
-
-    // filterDifficulty = async (d) => {
-    //     let response = await axios.get(baseURL + '/workouts/filter/difficulty' + "?q=" + d)
-    //     this.setState({
-    //         all_workout: response.data.reverse()
-    //     })
-    // }
 
     filterFocus = async (f) => {
         let response = await axios.get(baseURL + '/workouts/filter/workoutfocus' + "?q=" + f)
@@ -91,14 +86,14 @@ export default class BrowseWorkout extends React.Component {
             searchQuery += "q=" + this.state.search_field
         }
 
-        if (this.state.duration_filter !== "" && this.state.duration_filter !== "Duration") {
-            searchQuery += "&duration=" +  this.state.duration_filter
+        if (this.state.duration_filter !== "" && this.state.duration_filter !== "- Duration -") {
+            searchQuery += "&duration=" + this.state.duration_filter
         }
 
-        if (this.state.difficulty_filter !== "" && this.state.difficulty_filter !== "Difficulty Level") {
-            searchQuery += "&difficulty=" +   this.state.difficulty_filter
+        if (this.state.difficulty_filter !== "" && this.state.difficulty_filter !== "- Difficulty Level -") {
+            searchQuery += "&difficulty=" + this.state.difficulty_filter
         }
-        // console.log(searchQuery);
+
         let response = await axios.get(baseURL + "/workouts/search" + "?" + searchQuery)
 
         this.setState({
@@ -115,13 +110,10 @@ export default class BrowseWorkout extends React.Component {
 
     }
 
-
-
     render() {
 
         const { muscleshowing } = this.state;
         const { workoutshowing } = this.state;
-        const { difficultyshowing } = this.state;
 
         return (
             <React.Fragment>
@@ -137,7 +129,7 @@ export default class BrowseWorkout extends React.Component {
                         </div>
                         <div className="muscle-group col-6">
                             <button className="btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
-                                <h3> Muscle Group </h3>
+                                <h3> MUSCLE GROUP </h3>
                             </button>
                             {muscleshowing ?
                                 <div className="subcategory">
@@ -155,7 +147,7 @@ export default class BrowseWorkout extends React.Component {
 
                         <div className="workout-focus col-6">
                             <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
-                                <h3> Workout Focus </h3>
+                                <h3> WORKOUT FOCUS </h3>
                             </button>
                             {workoutshowing ?
                                 <div className="subcategory">
@@ -171,27 +163,6 @@ export default class BrowseWorkout extends React.Component {
                             <img className="banner-image" src={require('./images/workout3.png').default} alt="workout3" />
                         </div>
                     </div>
-                    {/* 
-                    <div className="difficulty-wrapper row" align="center">
-                        <div className="difficulty-level col-6 ">
-                            <button className="btn btn-default" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
-                                <h3> Difficulty </h3>
-                            </button>
-                            {difficultyshowing ?
-                                <div className="subcategory">
-                                    <ul>
-                                        <li onClick={() => this.filterDifficulty('beginner')}>Beginner</li>
-                                        <li onClick={() => this.filterDifficulty('intermediate')}>Intermediate</li>
-                                        <li onClick={() => this.filterDifficulty('expert')}>Expert</li>
-                                    </ul>
-                                </div>
-                                : null}
-                        </div>
-                        <div className="difficulty-level-pic col-6">
-                            
-                            <img className="banner-image" src={require('./images/workout2.png').default} alt="workout2" />
-                        </div>
-                    </div> */}
 
                     <div className="results-section p-4">
                         <div className="search-bar-container p-2">
@@ -201,13 +172,13 @@ export default class BrowseWorkout extends React.Component {
                                 placeholder="Search Workouts"
                                 onChange={this.updateForm} />
                             <select className="form-control my-1 mx-sm-2" value={this.state.difficulty_filter} name="difficulty_filter" onChange={this.updateForm}>
-                                <option defaultValue> Difficulty Level </option>
+                                <option defaultValue> - Difficulty Level - </option>
                                 <option value="beginner">Beginner</option>
                                 <option value="intermediate">Intermediate</option>
                                 <option value="expert">Expert</option>
                             </select>
                             <select className="form-control my-1 mx-sm-2" value={this.state.duration_filter} name="duration_filter" onChange={this.updateForm}>
-                                <option defaultValue> Duration </option>
+                                <option defaultValue> - Duration - </option>
                                 <option value="short"> Under 30 minutes </option>
                                 <option value="medium"> 30 - 45 minutes </option>
                                 <option value="long"> More than 45 minutes  </option>

@@ -18,16 +18,11 @@ export default class EditWorkout extends React.Component {
         'workout_intensity': '',
         'workout_duration': 0,
         'workout_single_exercise': '',
-        'workout_muscle_group': [],
-
-        //exercise section in workout form
-        'new_exercise': '',
-        'exercise': []
+        'workout_muscle_group': []
     }
     
 
     clickUpdate = async (workoutID) => {
-        console.log(workoutID);
         let userData = {
             'name': this.state.workout_name,
             'duration': this.state.workout_duration,
@@ -36,10 +31,6 @@ export default class EditWorkout extends React.Component {
             'intensity': this.state.workout_intensity,
             'muscle_group': this.state.workout_muscle_group,
             'single_exercise': this.state.workout_single_exercise,
-            
-            //exercise section
-            'new_exercise': this.state.new_exercise,
-            'exercise': this.state.exercise
         }
 
 
@@ -59,6 +50,11 @@ export default class EditWorkout extends React.Component {
         let all_exercise = r.data
         let all_muscle_group = muscle.data
 
+        let muscle_group = [];
+        for(let x of this.props.workout_muscle_group){
+            muscle_group.push(x._id);
+        }
+
         this.setState({
 
             'all_exercise': all_exercise,
@@ -69,7 +65,7 @@ export default class EditWorkout extends React.Component {
             'workout_focus': this.props.workout_focus,
             'workout_difficulty': this.props.workout_difficulty,
             'workout_intensity': this.props.workout_intensity,
-            'workout_muscle_group': this.props.workout_muscle_group,
+            'workout_muscle_group': muscle_group,
             'workout_single_exercise': this.props.workout_single_exercise  
         })
 
@@ -82,7 +78,7 @@ export default class EditWorkout extends React.Component {
     }
 
     updateSection = (e, index) => {
-        let new_exercise = this.state.exercise;
+        let new_exercise = this.state.workout_single_exercise;
         new_exercise[index][e.target.name] = e.target.value
 
         if (e.target.name === "id") {
@@ -147,20 +143,20 @@ export default class EditWorkout extends React.Component {
             "repetition": "",
             "set": ""
         }
-        let ex = [...this.state.exercise, new_section]
+        let ex = [...this.state.workout_single_exercise, new_section]
         this.setState({
-            exercise: ex
+            workout_single_exercise: ex
         })
     }
 
     deleteExercise = index => {
         let modifiedExercise = [
-            ...this.state.exercise.slice(0, index),
-            ...this.state.exercise.slice(index + 1)
+            ...this.state.workout_single_exercise.slice(0, index),
+            ...this.state.workout_single_exercise.slice(index + 1)
         ];
 
         this.setState({
-            exercise: modifiedExercise
+            workout_single_exercise: modifiedExercise
         })
     }
 

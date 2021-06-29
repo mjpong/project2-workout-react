@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 
 export default class BrowseWorkout extends React.Component {
@@ -17,7 +17,9 @@ export default class BrowseWorkout extends React.Component {
         'difficultyshowing': false,
 
         // search
-        'search_field': ""
+        'search_field': "",
+        'difficulty_filter': "",
+        'duration_filter': ''
     }
 
     async componentDidMount() {
@@ -83,7 +85,21 @@ export default class BrowseWorkout extends React.Component {
     }
 
     searchQuery = async () => {
-        let response = await axios.get(baseURL + "/workouts/search" + "?q=" + this.state.search_field)
+        let newSearch = {}
+
+        if (this.state.search_field !== "") {
+            newSearch["all_workout"] = this.state.search_field
+        }
+
+        if (this.state.duration_filter !== "" && this.state.duration_filter !== "Duration") {
+            newSearch["duration_filter"] = this.state.duration_filter
+        }
+
+        if (this.state.difficulty_filter !== "" && this.state.difficulty_filter !== "Difficulty Level") {
+            newSearch["difficulty_filter"] = this.state.difficulty_filter
+        }
+
+        let response = await axios.get(baseURL + "/workouts/search" + "?q=" + newSearch)
         this.setState({
             all_workout: response.data.reverse()
         })
@@ -135,7 +151,7 @@ export default class BrowseWorkout extends React.Component {
 
                     <div className="focus-wrapper row" align="center">
                         <div className="workout-focus-pic col-6" >
-                            <img className="banner-image" src={require('./images/workout2.png').default} alt="workout2" />
+                        <img className="banner-image" src={require('./images/workout3.png').default} alt="workout3" />
                         </div>
                         <div className="workout-focus col-6">
                             <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
@@ -152,7 +168,7 @@ export default class BrowseWorkout extends React.Component {
                                 : null}
                         </div>
                     </div>
-
+{/* 
                     <div className="difficulty-wrapper row" align="center">
                         <div className="difficulty-level col-6 ">
                             <button className="btn btn-default" onClick={() => this.setState({ difficultyshowing: !difficultyshowing })}>
@@ -169,9 +185,10 @@ export default class BrowseWorkout extends React.Component {
                                 : null}
                         </div>
                         <div className="difficulty-level-pic col-6">
-                            <img className="banner-image" src={require('./images/workout3.png').default} alt="workout3" />
+                            
+                            <img className="banner-image" src={require('./images/workout2.png').default} alt="workout2" />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="results-section p-4">
                         <div className="search-bar-container p-2">
@@ -180,6 +197,18 @@ export default class BrowseWorkout extends React.Component {
                                 value={this.state.search_field}
                                 placeholder="Search Workouts"
                                 onChange={this.updateForm} />
+                            <select className="form-control my-1 mx-sm-2" value={this.state.difficulty_filter} onChange={this.updateForm}>
+                                <option defaultValue> Difficulty Level </option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Expert</option>
+                            </select>
+                            <select className="form-control my-1 mx-sm-2" value={this.state.duration_filter} onChange={this.updateForm}>
+                                <option defaultValue> Duration </option>
+                                <option> Under 30 minutes </option>
+                                <option> 30 - 45 minutes </option>
+                                <option> 45 minutes ++ </option>
+                            </select>
                             <div className="filter-buttons">
                                 <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}><i class="fas fa-search"></i></button>
                                 <button type="submit" className="btn btn-secondary search-reset my-1 mx-sm-2" onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>

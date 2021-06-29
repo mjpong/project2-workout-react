@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import EditWorkout from "./EditWorkout";
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
+const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 export default class ViewWorkout extends React.Component {
 

@@ -30,6 +30,10 @@ body {
 
 }
 
+.results-section {
+  margin-top: 30px;
+}
+
 /* BROWSE */
 .muscle-group, .muscle-group-pic {
   background-color: #336B89;
@@ -37,14 +41,13 @@ body {
 }
 
 .workout-focus, .workout-focus-pic {
-  background-color: #05ABC4;
   
+  background-color: #B4B4B4;
 }
 
-.difficulty-level, .difficulty-level-pic {
-  background-color: #B4B4B4;
-  
-}
+/* .difficulty-level, .difficulty-level-pic {
+  background-color: #05ABC4;
+} */
 
 .workout-focus, .muscle-group, .difficulty-level {
   display: flex;
@@ -61,6 +64,10 @@ body {
 .banner-image {
   width:100%;
   max-width: 380px
+}
+
+.search-bar-container, .filter-buttons {
+  display:flex;
 }
 
 

@@ -27,11 +27,13 @@ body {
   background-color: white;
   border-color: black;
   border-radius: 15px;
+  margin-bottom: 30px;
 
 }
 
 .results-section {
   margin-top: 30px;
+  
 }
 
 /* BROWSE */
@@ -41,13 +43,16 @@ body {
 }
 
 .workout-focus, .workout-focus-pic {
-  
   background-color: #B4B4B4;
 }
 
-/* .difficulty-level, .difficulty-level-pic {
-  background-color: #05ABC4;
-} */
+a { 
+  color: black 
+}
+
+a:hover {
+  color: rgb(49, 49, 49)
+}
 
 .workout-focus, .muscle-group, .difficulty-level {
   display: flex;
@@ -76,11 +81,16 @@ body {
   border-style: solid;
   margin-top: 8px;
   text-align: center;
-  padding: 10px;
+  padding: 20px;
+
 }
 
-.workout-text {
-  margin-bottom: 0px
+.workout-card-name {
+  font-size: 18px
+}
+.workout-card-text {
+  margin-bottom: 0px;
+  font-size: 14px
 }
 
 
@@ -91,10 +101,26 @@ body {
 
 /* View Single Workout */
 
+.clock-icon .fa-clock {
+  color:rgb(12, 21, 155)
+}
+
+.fire-high .fa-fire, .tachometer-expert .fa-tachometer-alt{
+  color:rgb(194, 0, 0);
+}
+
+.fire-low .fa-fire, .tachometer-beginner .fa-tachometer-alt {
+  color:rgb(14, 128, 14);
+}
+
+.fire-medium .fa-fire, .tachometer-intermediate .fa-tachometer-alt {
+  color:rgb(235, 215, 34);
+}
+
+
 .workout-section {
   text-align: center;
 }
-
 .comment-section {
   margin: 10
 }
@@ -142,3 +168,5 @@ body {
 .ed-table tr:nth-child(even) {
   background: #F8F8F8;
 }
+
+

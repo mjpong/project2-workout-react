@@ -46,10 +46,14 @@ export default class BrowseWorkout extends React.Component {
         let list = []
         for (let l of this.state.all_workout) {
             list.push(
-                <div className="" key={l._id} onClick={() => this.props.viewWorkout(l._id)}>
-                    <div className="container workout-card">
-                        <p><strong>{l.name} </strong></p>
-                        <p className="workout-text"
+                <div className="workout-card-container 
+                    d-flex justify-content-center 
+                    col-xs-6 col-md-4 col-lg-3 col-xl-2 col-12"
+                    key={l._id}
+                    onClick={() => this.props.viewWorkout(l._id)}>
+                    <div className="workout-card">
+                        <p className="workout-card-name"> {l.name} </p>
+                        <p className="workout-card-text"
                             style={{ textTransform: 'capitalize' }}>
                             {l.duration} mins • {l.difficulty} Level • {l.intensity} Intensity
                             </p>
@@ -70,6 +74,7 @@ export default class BrowseWorkout extends React.Component {
         this.setState({
             all_workout: response.data.reverse()
         })
+        
     }
 
     filterMuscle = async (m) => {
@@ -134,9 +139,9 @@ export default class BrowseWorkout extends React.Component {
                             {muscleshowing ?
                                 <div className="subcategory">
                                     <ul>
-                                        <li onClick={() => this.filterMuscle("Abdominals,Chest")}>Abs and Chest</li>
-                                        <li onClick={() => this.filterMuscle("Arms,Shoulders")}>Arms and Shoulders</li>
-                                        <li onClick={() => this.filterMuscle("Back,Leg")}>Back and Legs</li>
+                                        <li onClick={() => this.filterMuscle("Abdominals,Chest")}><a href="#filter-results">Abs and Chest</a></li>
+                                        <li onClick={() => this.filterMuscle("Arms,Shoulders")}><a href="#filter-results">Arms and Shoulders</a></li>
+                                        <li onClick={() => this.filterMuscle("Back,Leg")}><a href="#filter-results">Back and Legs</a></li>
                                     </ul>
                                 </div>
                                 : null}
@@ -152,9 +157,9 @@ export default class BrowseWorkout extends React.Component {
                             {workoutshowing ?
                                 <div className="subcategory">
                                     <ul>
-                                        <li onClick={() => this.filterFocus('endurance')}>Endurance</li>
-                                        <li onClick={() => this.filterFocus('strength')}>Strength</li>
-                                        <li onClick={() => this.filterFocus('mobility')}>Mobility</li>
+                                        <li onClick={() => this.filterFocus('endurance')}><a href="#filter-results">Endurance</a></li>
+                                        <li onClick={() => this.filterFocus('strength')}><a href="#filter-results">Strength</a></li>
+                                        <li onClick={() => this.filterFocus('mobility')}><a href="#filter-results">Mobility</a></li>
                                     </ul>
                                 </div>
                                 : null}
@@ -189,8 +194,9 @@ export default class BrowseWorkout extends React.Component {
                             </div>
                         </div>
                         <hr></hr>
-                        <div className="filter-results">
-                            <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
+
+                        <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
+                        <div className="filter-results row" id="filter-results">
                             {this.renderAllWorkouts()}
                         </div>
                     </div>

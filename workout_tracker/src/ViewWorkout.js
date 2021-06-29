@@ -272,15 +272,15 @@ export default class ViewWorkout extends React.Component {
                                     <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
                                     <hr></hr>
                                     <div className="tags-wrapper row">
-                                        <div className="col-4">
+                                        <div className="col-4 clock-icon">
                                             <i class="far fa-clock fa-2x"></i>
                                             <p>{this.state.each_workout.duration} minutes</p>
                                         </div>
-                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>
+                                        <div className= {"col-4 fire-"+ this.state.each_workout.intensity} style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-fire fa-2x"></i>
                                             <p>{this.state.each_workout.intensity}</p>
                                         </div>
-                                        <div className="col-4" style={{ textTransform: 'capitalize' }}>
+                                        <div className={"col-4 tachometer-"+ this.state.each_workout.difficulty} style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-tachometer-alt fa-2x"></i>
                                             <p>{this.state.each_workout.difficulty}</p>
                                         </div>

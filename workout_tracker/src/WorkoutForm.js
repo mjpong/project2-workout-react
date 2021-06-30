@@ -59,6 +59,7 @@ export default function WorkoutForm(props) {
 
 
     function renderSection() {
+
         let section = [];
         for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(

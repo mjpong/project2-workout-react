@@ -180,19 +180,23 @@ export default class ViewWorkout extends React.Component {
             let jsx = this.state.each_workout.comments.map((c) => {
                 return (
                     <React.Fragment>
-                        <div className="comment-list" key={c.id}>
-                            <p>{c.comment_name}</p>
-                            <p>{c.comment_text}</p>
-                            <button
-                                className="btn btn-secondary"
-                                value={c.id}
-                                onClick={() => { this.editComment(c) }}
-                            > Edit Comment</button>
-                            <button
-                                className="btn btn-secondary"
-                                value={c.id}
-                                onClick={() => { this.deleteComment(c) }}
-                            > Delete Comment</button>
+                        <div className="comment-list row" key={c.id}>
+                            <div className="comment-list-text col-9">
+                                <p>{c.comment_name}</p>
+                                <p>{c.comment_text}</p>
+                            </div>
+                            <div className="comment-list-btn col-3 ">
+                                <button
+                                    className="btn btn-secondary"
+                                    value={c.id}
+                                    onClick={() => { this.editComment(c) }}
+                                ><i class="far fa-edit"></i></button>
+                                <button
+                                    className="btn btn-secondary"
+                                    value={c.id}
+                                    onClick={() => { this.deleteComment(c) }}
+                                > <i class="far fa-trash-alt"></i></button>
+                            </div>
                         </div>
                     </React.Fragment>
                 )
@@ -276,11 +280,11 @@ export default class ViewWorkout extends React.Component {
                                             <i class="far fa-clock fa-2x"></i>
                                             <p>{this.state.each_workout.duration} minutes</p>
                                         </div>
-                                        <div className= {"col-4 fire-"+ this.state.each_workout.intensity} style={{ textTransform: 'capitalize' }}>
+                                        <div className={"col-4 fire-" + this.state.each_workout.intensity} style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-fire fa-2x"></i>
                                             <p>{this.state.each_workout.intensity}</p>
                                         </div>
-                                        <div className={"col-4 tachometer-"+ this.state.each_workout.difficulty} style={{ textTransform: 'capitalize' }}>
+                                        <div className={"col-4 tachometer-" + this.state.each_workout.difficulty} style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-tachometer-alt fa-2x"></i>
                                             <p>{this.state.each_workout.difficulty}</p>
                                         </div>
@@ -353,7 +357,7 @@ export default class ViewWorkout extends React.Component {
                                     </div>
 
                                 </div>
-                                <div className="comment-section content-wrapper row">
+                                <div className="comment-section content-wrapper row p-3">
 
                                     <div className="new-comment">
                                         <h5>Like this exercise? Share your thoughts...</h5>
@@ -361,24 +365,25 @@ export default class ViewWorkout extends React.Component {
                                         <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
                                         <div className="review-label"> Comments: </div>
                                         <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
-                                    
-                                    <button
-                                        className="btn btn-secondary action-buttons"
-                                        onClick={() => { this.createComment() }}
-                                        style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
-                                    >Post Comment</button>
-                                    <button
-                                        className="btn btn-secondary action-buttons"
-                                        onClick={() => { this.updateComment() }}
-                                        style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
-                                    >Update Comment</button>
-                                    <button
-                                        className="btn btn-secondary action-buttons"
-                                        onClick={() => { this.cancelEditComment() }}
-                                        style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
-                                    >Cancel</button>
+
+                                        <button
+                                            className="btn btn-secondary action-buttons"
+                                            onClick={() => { this.createComment() }}
+                                            style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
+                                        >Post Comment</button>
+                                        <button
+                                            className="btn btn-secondary action-buttons"
+                                            onClick={() => { this.updateComment() }}
+                                            style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                        >Update Comment</button>
+                                        <button
+                                            className="btn btn-secondary action-buttons"
+                                            onClick={() => { this.cancelEditComment() }}
+                                            style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                        >Cancel</button>
                                     </div>
-                                    <div className="existing-comments ">
+                                    <hr></hr>
+                                    <div className="existing-comments p-2">
                                         {this.renderCommentList()}
                                     </div>
                                 </div>

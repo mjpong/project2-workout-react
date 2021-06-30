@@ -11,7 +11,6 @@ export default class BrowseWorkout extends React.Component {
         'all_musclegroup': [],
         'all_duration': [],
         'all_focus': [],
-        'search_field': [],
         'workoutshowing': false,
         'muscleshowing': false,
 
@@ -110,7 +109,9 @@ export default class BrowseWorkout extends React.Component {
 
         this.getAllWorkouts();
         this.setState({
-            'search_field': ""
+            'search_field': "",
+            'duration_filter': '',
+            "difficulty_filter": ''
         })
 
     }
@@ -133,7 +134,7 @@ export default class BrowseWorkout extends React.Component {
                             <img className="banner-image" src={require('./images/workout1.png').default} alt="workout1" />
                         </div>
                         <div className="muscle-group col-6">
-                            <button className="btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
+                            <button className="browse-btn btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
                                 <h3> MUSCLE GROUP </h3>
                             </button>
                             {muscleshowing ?
@@ -151,7 +152,7 @@ export default class BrowseWorkout extends React.Component {
                     <div className="focus-wrapper row" align="center">
 
                         <div className="workout-focus col-6">
-                            <button className="btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
+                            <button className="browse-btn btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
                                 <h3> WORKOUT FOCUS </h3>
                             </button>
                             {workoutshowing ?

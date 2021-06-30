@@ -37,9 +37,7 @@ export default class EditWorkout extends React.Component {
         let response = await axios.put(baseURL + "/workouts/edit/" + workoutID, userData)
 
         this.props.cancelEditWorkout();
-
-        // // show viewworkout
-        this.props.retrieveData()
+        this.props.retrieveData();
     }
 
     async componentDidMount() {
@@ -182,7 +180,7 @@ export default class EditWorkout extends React.Component {
                         workout_difficulty={this.state.workout_difficulty}                        
                         workout_intensity={this.state.workout_intensity}
                         workout_muscle_group={this.state.workout_muscle_group}
-                        exercise={this.state.workout_single_exercise}
+                        workout_single_exercise={this.state.workout_single_exercise}
                         editMode={true}
                     />
                     <div className="">

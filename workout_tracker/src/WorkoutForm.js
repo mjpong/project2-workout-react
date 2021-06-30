@@ -2,6 +2,8 @@ import React from "react";
 
 export default function WorkoutForm(props) {
 
+    // form options 
+    
     function renderMuscleGroup() {
 
         let options = [];
@@ -57,10 +59,12 @@ export default function WorkoutForm(props) {
         return options;
     }
 
+    // Each single exercise section 
 
     function renderSection() {
 
         let section = [];
+        console.log(props.workout_single_exercise);
         for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(
                 <div key={i}>

@@ -39,9 +39,16 @@ body {
 /* BROWSE */
 
 .browse-btn:hover,
-.browse-btn:active {
+.browse-btn:active{
 letter-spacing: 2px;
 transition: 350ms ease-in-out;
+
+}
+
+.browse-btn:after,
+.browse-btn:before {
+  transition: all 280ms ease-in-out;
+  width: 0;
 }
 
 .muscle-group, .muscle-group-pic {
@@ -95,6 +102,7 @@ a:hover {
   margin-top: 8px;
   text-align: center;
   padding: 20px;
+  
 
 }
 
@@ -139,17 +147,33 @@ a:hover {
   justify-content: center;
 }
 
+.item-wrapper{
+  background-color: #f8f8f8;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.goodfor-wrapper, .equipment-wrapper {
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 10px;
+  border: 1px solid black;
+}
+
 .comment-section {
   background-color: #f8f8f8;
   border-radius: 15px;
   margin-top: 10px;
+  
 
 }
 
 .comment-list {
   display: flex;
   border-bottom: 1px solid black;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  
 }
 .es-table {
   width: 70%;
@@ -160,17 +184,19 @@ a:hover {
   margin: auto;
   margin-bottom: 20px;
   padding: 10;
+  border: 1px solid #f8f8f8;
+  border-collapse: collapse;
 }
 
 .es-table thead th {
   color: #ffffff;
-  background: #77d17e;
+  background: #a977d1;
 }
 
 
 .es-table thead th:nth-child(odd) {
   color: #ffffff;
-  background: #3aa343;
+  background: #875dcc;
 }
 
 .es-table tr:nth-child(even) {
@@ -181,7 +207,7 @@ a:hover {
 .ed-table {
   border-radius: 5px;
   font-weight: normal;
-  border: none;
+  border: 1px solid #f8f8f8;
   border-collapse: collapse;
   width: 100%;
   max-width: 100%;

@@ -60,7 +60,7 @@ export default class ViewWorkout extends React.Component {
         })
     }
 
-    // workout section
+    // Workout section
 
     renderEquipment = () => {
         let equipments = []
@@ -79,7 +79,7 @@ export default class ViewWorkout extends React.Component {
         return equipments.map((e) => {
             return (
                 <div>
-                    <li>{e}</li>
+                    <p>• {e}</p>
                 </div>
             )
         })
@@ -135,44 +135,6 @@ export default class ViewWorkout extends React.Component {
         this.props.goBrowse("browse")
     }
 
-    editWorkout = () => {
-        this.setState({
-            displayEditWorkout: true,
-            displayView: false
-        })
-    }
-
-    cancelEditWorkout = () => {
-        this.setState({
-            displayView: true,
-            displayEditWorkout: false
-        })
-    }
-
-
-    renderEditWorkout = () => {
-        if (this.state.displayEditWorkout) {
-            return (
-                <EditWorkout
-                    workout_id={this.state.each_workout._id}
-                    workout_name={this.state.each_workout.name}
-                    workout_duration={this.state.each_workout.duration}
-                    workout_focus={this.state.each_workout.focus}
-                    workout_difficulty={this.state.each_workout.difficulty}
-                    workout_intensity={this.state.each_workout.intensity}
-                    workout_muscle_group={this.state.each_workout.muscle_group}
-                    workout_single_exercise={this.state.each_workout.single_exercise}
-                    cancelEditWorkout={this.cancelEditWorkout}
-                    retrieveData={this.retrieveData}
-                />
-            )
-
-        } else {
-            return null
-        }
-    }
-
-
     // comments sections
 
     renderCommentList = () => {
@@ -224,30 +186,40 @@ export default class ViewWorkout extends React.Component {
     }
 
     editComment = (c) => {
-        for (let i in this.state.comments_section) {
-            if (this.state.comments_section[i].id === c.id) {
+        for (let i of this.state.comments_section[0].comments) {
+            if (i.id === c.id) {
                 this.setState({
                     comment_id: c.id,
-                    comment_name: this.state.comments_section[i].comment_name,
-                    comment_text: this.state.comments_section[i].comment_text,
+                    comment_name: i.comment_name,
+                    comment_text: i.comment_text,
                     displayEditComment: true
                 })
+                break;
             }
         }
     }
 
-    updateComment = async (c) => {
+    updateComment = async () => {
         let newComment = {
             id: this.state.comment_id,
             comment_name: this.state.comment_name,
             comment_text: this.state.comment_text
         }
 
-        let response = await axios.put(baseURL + "/workouts/" + this.props.id + "/comments/edit/" + c.id, newComment)
-        console.log(response.data.message)
+        let response = await axios.put(baseURL + "/workouts/" + this.props.id + "/comments/edit/" + this.state.comment_id, newComment)
         if (response.data.message === "Comments Updated") {
             this.retrieveData();
+            
+            this.setState({
+                comment_name: "",
+                comment_text: "",
+                displayEditComment: false
+            })
+                
+        
         }
+
+        
 
     }
 
@@ -256,6 +228,45 @@ export default class ViewWorkout extends React.Component {
             displayEditComment: false,
         })
         this.clearFields()
+    }
+
+    // Edit Section (<EditWorkout/>)
+
+    editWorkout = () => {
+        this.setState({
+            displayEditWorkout: true,
+            displayView: false
+        })
+    }
+
+    cancelEditWorkout = () => {
+        this.setState({
+            displayView: true,
+            displayEditWorkout: false
+        })
+    }
+
+
+    renderEditWorkout = () => {
+        if (this.state.displayEditWorkout) {
+            return (
+                <EditWorkout
+                    workout_id={this.state.each_workout._id}
+                    workout_name={this.state.each_workout.name}
+                    workout_duration={this.state.each_workout.duration}
+                    workout_focus={this.state.each_workout.focus}
+                    workout_difficulty={this.state.each_workout.difficulty}
+                    workout_intensity={this.state.each_workout.intensity}
+                    workout_muscle_group={this.state.each_workout.muscle_group}
+                    workout_single_exercise={this.state.each_workout.single_exercise}
+                    cancelEditWorkout={this.cancelEditWorkout}
+                    retrieveData={this.retrieveData}
+                />
+            )
+
+        } else {
+            return null
+        }
     }
 
 
@@ -308,25 +319,27 @@ export default class ViewWorkout extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="goodfor-wrapper row">
-                                        <h5>It's Good For: </h5>
-                                        <div className="col-4">
-                                            {this.state.each_workout.muscle_group.map((m) =>
-                                                <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
-                                            )}
+                                    <div className="item-wrapper row p-3">
+                                        <div className="goodfor-wrapper col-6 row">
+                                            <h5>It's Good For: </h5>
+                                            <div className="col-6">
+                                                {this.state.each_workout.muscle_group.map((m) =>
+                                                    <p style={{ textTransform: 'capitalize' }}>• {m.name}</p>
+                                                )}
+                                            </div>
+                                            <div className="col-6">
+                                                {this.state.each_workout.focus.map((f) =>
+                                                    <p style={{ textTransform: 'capitalize' }}>• {f}</p>
+                                                )}
+                                            
+                                            </div>
                                         </div>
-                                        <div className="col-4"><p>
-                                            {this.state.each_workout.focus.map((f) =>
-                                                <li style={{ textTransform: 'capitalize' }}>{f}</li>
-                                            )}
-                                        </p></div>
-                                    </div>
 
-                                    <div className="equipment-wrapper row">
-                                        <h5>Equipment Needed: </h5>
-                                        {this.renderEquipment()}
+                                        <div className="equipment-wrapper col-6">
+                                            <h5>Equipment Needed: </h5>
+                                            {this.renderEquipment()}
+                                        </div>
                                     </div>
-
 
 
                                     <div className="description-wrapper row">

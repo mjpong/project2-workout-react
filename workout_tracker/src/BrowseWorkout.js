@@ -73,7 +73,7 @@ export default class BrowseWorkout extends React.Component {
         this.setState({
             all_workout: response.data.reverse()
         })
-        
+
     }
 
     filterMuscle = async (m) => {
@@ -139,11 +139,9 @@ export default class BrowseWorkout extends React.Component {
                             </button>
                             {muscleshowing ?
                                 <div className="subcategory">
-                                    <ul>
-                                        <li onClick={() => this.filterMuscle("Abdominals,Chest")}><a href="#filter-results">Abs and Chest</a></li>
-                                        <li onClick={() => this.filterMuscle("Arms,Shoulders")}><a href="#filter-results">Arms and Shoulders</a></li>
-                                        <li onClick={() => this.filterMuscle("Back,Leg")}><a href="#filter-results">Back and Legs</a></li>
-                                    </ul>
+                                    <p onClick={() => this.filterMuscle("Abdominals,Chest")}><a href="#filter-results">Abs and Chest</a></p>
+                                    <p onClick={() => this.filterMuscle("Arms,Shoulders")}><a href="#filter-results">Arms and Shoulders</a></p>
+                                    <p onClick={() => this.filterMuscle("Back,Leg")}><a href="#filter-results">Back and Legs</a></p>
                                 </div>
                                 : null}
                         </div>
@@ -157,11 +155,9 @@ export default class BrowseWorkout extends React.Component {
                             </button>
                             {workoutshowing ?
                                 <div className="subcategory">
-                                    <ul>
-                                        <li onClick={() => this.filterFocus('endurance')}><a href="#filter-results">Endurance</a></li>
-                                        <li onClick={() => this.filterFocus('strength')}><a href="#filter-results">Strength</a></li>
-                                        <li onClick={() => this.filterFocus('mobility')}><a href="#filter-results">Mobility</a></li>
-                                    </ul>
+                                    <p onClick={() => this.filterFocus('endurance')}><a href="#filter-results">Endurance</a></p>
+                                    <p onClick={() => this.filterFocus('strength')}><a href="#filter-results">Strength</a></p>
+                                    <p onClick={() => this.filterFocus('mobility')}><a href="#filter-results">Mobility</a></p>
                                 </div>
                                 : null}
                         </div>

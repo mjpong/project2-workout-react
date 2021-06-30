@@ -215,11 +215,7 @@ export default class ViewWorkout extends React.Component {
                 comment_text: "",
                 displayEditComment: false
             })
-                
-        
         }
-
-        
 
     }
 
@@ -319,8 +315,8 @@ export default class ViewWorkout extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="item-wrapper row p-3">
-                                        <div className="goodfor-wrapper col-6 row">
+                                    <div className="item-wrapper row p-2">
+                                        <div className="goodfor-wrapper col-6 row p-3">
                                             <h5>It's Good For: </h5>
                                             <div className="col-6">
                                                 {this.state.each_workout.muscle_group.map((m) =>
@@ -335,7 +331,7 @@ export default class ViewWorkout extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div className="equipment-wrapper col-6">
+                                        <div className="equipment-wrapper col-6 p-3">
                                             <h5>Equipment Needed: </h5>
                                             {this.renderEquipment()}
                                         </div>

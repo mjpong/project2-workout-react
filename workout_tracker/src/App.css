@@ -38,17 +38,17 @@ body {
 
 /* BROWSE */
 
-.browse-btn:hover,
-.browse-btn:active{
+.browse-btn {
+  transition: 350ms ease-in-out;
+  -webkit-transition: 350ms ease-in-out;
+  -ms-transition: 350ms ease-in-out;
+}
+.browse-btn:hover {
 letter-spacing: 2px;
 transition: 350ms ease-in-out;
+-webkit-transition: 350ms ease-in-out;
+-ms-transition: 350ms ease-in-out;
 
-}
-
-.browse-btn:after,
-.browse-btn:before {
-  transition: all 280ms ease-in-out;
-  width: 0;
 }
 
 .muscle-group, .muscle-group-pic {
@@ -103,7 +103,6 @@ a:hover {
   text-align: center;
   padding: 20px;
   
-
 }
 
 .workout-card-name {
@@ -116,6 +115,10 @@ a:hover {
   font-style: italic;
 }
 
+.btb-btn {
+  text-decoration: none;
+
+}
 
 /* Create Workout */
 
@@ -125,7 +128,7 @@ a:hover {
 /* View Single Workout */
 
 .clock-icon .fa-clock  {
-  color:rgb(12, 21, 155)
+  color:rgb(77, 85, 201)
 }
 
 .fire-high .fa-fire, .tachometer-expert .fa-tachometer-alt{
@@ -152,6 +155,7 @@ a:hover {
   border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
 }
 
 .goodfor-wrapper, .equipment-wrapper {
@@ -166,7 +170,6 @@ a:hover {
   border-radius: 15px;
   margin-top: 10px;
   
-
 }
 
 .comment-list {

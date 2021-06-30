@@ -17,7 +17,8 @@ export default class BrowseWorkout extends React.Component {
         // search
         'search_field': "",
         'difficulty_filter': "",
-        'duration_filter': ''
+        'duration_filter': '',
+        'search_name': ""
     }
 
     async componentDidMount() {
@@ -68,19 +69,21 @@ export default class BrowseWorkout extends React.Component {
         return list
     }
 
-    filterFocus = async (f) => {
+    filterFocus = async (e, f) => {
         let response = await axios.get(baseURL + '/workouts/filter/workoutfocus' + "?q=" + f)
         this.setState({
-            all_workout: response.data.reverse()
+            all_workout: response.data.reverse(),
+            search_name: e.target.innerHTML
         })
-
     }
 
-    filterMuscle = async (m) => {
+    filterMuscle = async (e, m) => {
         let response = await axios.get(baseURL + '/workouts/filter/musclegroup' + "?q=" + m)
         this.setState({
-            all_workout: response.data.reverse()
+            all_workout: response.data.reverse(),
+            search_name: e.target.innerHTML
         })
+
     }
 
     searchQuery = async () => {
@@ -101,7 +104,8 @@ export default class BrowseWorkout extends React.Component {
         let response = await axios.get(baseURL + "/workouts/search" + "?" + searchQuery)
 
         this.setState({
-            all_workout: response.data.reverse()
+            all_workout: response.data.reverse(),
+            search_name: this.state.search_field.toUpperCase()
         })
     }
 
@@ -124,7 +128,7 @@ export default class BrowseWorkout extends React.Component {
         return (
             <React.Fragment>
                 <div className="container">
-                    <div className="header-wrapper row">
+                    <div className="header-wrapper row" id="filter-top">
                         <img className="header-image" src={require('./images/header-image.png').default} alt="header" />
                     </div>
 
@@ -139,9 +143,9 @@ export default class BrowseWorkout extends React.Component {
                             </button>
                             {muscleshowing ?
                                 <div className="subcategory">
-                                    <p onClick={() => this.filterMuscle("Abdominals,Chest")}><a href="#filter-results">Abs and Chest</a></p>
-                                    <p onClick={() => this.filterMuscle("Arms,Shoulders")}><a href="#filter-results">Arms and Shoulders</a></p>
-                                    <p onClick={() => this.filterMuscle("Back,Leg")}><a href="#filter-results">Back and Legs</a></p>
+                                    <p onClick={(e) => this.filterMuscle(e, "Abdominals,Chest")}><a href="#filter-results">Abs and Chest</a></p>
+                                    <p onClick={(e) => this.filterMuscle(e, "Arms,Shoulders")}><a href="#filter-results">Arms and Shoulders</a></p>
+                                    <p onClick={(e) => this.filterMuscle(e, "Back,Leg")}><a href="#filter-results">Back and Legs</a></p>
                                 </div>
                                 : null}
                         </div>
@@ -155,9 +159,9 @@ export default class BrowseWorkout extends React.Component {
                             </button>
                             {workoutshowing ?
                                 <div className="subcategory">
-                                    <p onClick={() => this.filterFocus('endurance')}><a href="#filter-results">Endurance</a></p>
-                                    <p onClick={() => this.filterFocus('strength')}><a href="#filter-results">Strength</a></p>
-                                    <p onClick={() => this.filterFocus('mobility')}><a href="#filter-results">Mobility</a></p>
+                                    <p onClick={(e) => this.filterFocus(e, 'endurance')}><a href="#filter-results">Endurance</a></p>
+                                    <p onClick={(e) => this.filterFocus(e, 'strength')}><a href="#filter-results">Strength</a></p>
+                                    <p onClick={(e) => this.filterFocus(e, 'mobility')}><a href="#filter-results">Mobility</a></p>
                                 </div>
                                 : null}
                         </div>
@@ -192,7 +196,22 @@ export default class BrowseWorkout extends React.Component {
                         </div>
                         <hr></hr>
 
-                        <h5>There are a total of {this.state.all_workout.length} workouts: </h5>
+                        <div className="row">
+                            {this.state.search_name ?
+                                <h5>Results for: {this.state.search_name}</h5>
+                                :
+                                null}
+                            <div className="row">
+                                <h5 className="col-8">There are a total of {this.state.all_workout.length} workouts: </h5>
+                            
+                            <div className="back-to-top col-4">
+                                <button type="submit" className="btn btn-secondary backtotop-btn">
+                                    <a href="#filter-top" style={{ textDecoration: "none" }}><i class="fas fa-angle-double-up"></i> Back to Browse </a>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+
                         <div className="filter-results row" id="filter-results">
                             {this.renderAllWorkouts()}
                         </div>

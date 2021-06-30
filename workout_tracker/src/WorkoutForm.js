@@ -3,7 +3,7 @@ import React from "react";
 export default function WorkoutForm(props) {
 
     // form options 
-    
+
     function renderMuscleGroup() {
 
         let options = [];
@@ -87,7 +87,7 @@ export default function WorkoutForm(props) {
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
                 </div>
-                    {props.workout_single_exercise.length > 1 ? <button className="btn btn-secondary" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i> Exercise </button> : ""}
+                    {props.workout_single_exercise.length > 1 ? <button className="btn btn-danger icon-btn" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i></button> : ""}
                 </div>
             )
         }

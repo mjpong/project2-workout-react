@@ -190,8 +190,8 @@ export default class BrowseWorkout extends React.Component {
                                 <option value="long"> More than 45 minutes  </option>
                             </select>
                             <div className="filter-buttons">
-                                <button type="submit" className="btn btn-secondary search my-1 mx-sm-2" onClick={this.searchQuery}><i class="fas fa-search"></i></button>
-                                <button type="submit" className="btn btn-secondary search-reset my-1 mx-sm-2" onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>
+                                <button type="submit" className="btn btn-secondary search my-1 mx-sm-2 " onClick={this.searchQuery}><i class="fas fa-search"></i></button>
+                                <button type="submit" className="btn btn-secondary search-reset my-1 mx-sm-2 " onClick={this.resetQuery}><i class="fas fa-undo-alt"></i></button>
                             </div>
                         </div>
                         <hr></hr>
@@ -204,9 +204,9 @@ export default class BrowseWorkout extends React.Component {
                             <div className="row">
                                 <h5 className="col-8">There are a total of {this.state.all_workout.length} workouts: </h5>
                             
-                            <div className="back-to-top col-4">
-                                <button type="submit" className="btn btn-secondary backtotop-btn">
-                                    <a href="#filter-top" style={{ textDecoration: "none" }}><i class="fas fa-angle-double-up"></i> Back to Browse </a>
+                            <div className="back-to-top col-4 d-flex justify-content-end p-0">
+                                <button type="submit" className="btn btn-light backtotop-btn">
+                                    <a href="#filter-top" style={{ textDecoration: "none" }}><i class="fas fa-angle-double-up"></i> Back to Top</a>
                                 </button>
                             </div>
                             </div>

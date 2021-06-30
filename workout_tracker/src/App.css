@@ -33,9 +33,15 @@ body {
 
 .results-section {
   margin-top: 30px;
-  
+
 }
 
+.icon-btn {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+}
 /* BROWSE */
 
 .browse-btn {
@@ -96,9 +102,8 @@ a:hover {
 }
 
 .workout-card {
-  border-color: black;
+  border: 2px solid rgb(25, 50, 121);
   border-radius: 15px;
-  border-style: solid;
   margin-top: 8px;
   text-align: center;
   padding: 20px;
@@ -117,7 +122,6 @@ a:hover {
 
 .btb-btn {
   text-decoration: none;
-
 }
 
 /* Create Workout */
@@ -128,19 +132,19 @@ a:hover {
 /* View Single Workout */
 
 .clock-icon .fa-clock  {
-  color:rgb(77, 85, 201)
+  color:#103ebb
 }
 
 .fire-high .fa-fire, .tachometer-expert .fa-tachometer-alt{
-  color:rgb(194, 0, 0);
+  color: #bb1e10
 }
 
 .fire-low .fa-fire, .tachometer-beginner .fa-tachometer-alt {
-  color:rgb(14, 128, 14);
+  color:#33a532
 }
 
 .fire-medium .fa-fire, .tachometer-intermediate .fa-tachometer-alt {
-  color:rgb(235, 215, 34);
+  color:#f7b500
 }
 
 
@@ -151,25 +155,28 @@ a:hover {
 }
 
 .item-wrapper{
-  background-color: #f8f8f8;
-  border-radius: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
+  margin-bottom: 20px;
 }
 
 .goodfor-wrapper, .equipment-wrapper {
-  background-color: white;
+
   border-radius: 15px;
   margin-top: 10px;
-  border: 1px solid black;
+  margin-bottom: 10px;
+  height: 100%;
+  padding: 10px;
+  border: 2px solid rgb(51, 46, 46)
+
 }
 
 .comment-section {
   background-color: #f8f8f8;
   border-radius: 15px;
   margin-top: 10px;
-  
+}
+
+.new-comment {
+  margin-bottom: 10px
 }
 
 .comment-list {

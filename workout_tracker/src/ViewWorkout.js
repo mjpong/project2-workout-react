@@ -147,14 +147,14 @@ export default class ViewWorkout extends React.Component {
                                 <p>{c.comment_name}</p>
                                 <p>{c.comment_text}</p>
                             </div>
-                            <div className="comment-list-btn col-3 ">
+                            <div className="comment-list-btn col-3 d-flex justify-content-end ">
                                 <button
-                                    className="btn btn-secondary"
+                                    className="btn btn-secondary icon-btn"
                                     value={c.id}
                                     onClick={() => { this.editComment(c) }}
-                                ><i class="far fa-edit"></i></button>
+                                ><i class="far fa-edit "></i></button>
                                 <button
-                                    className="btn btn-secondary"
+                                    className="btn btn-danger icon-btn"
                                     value={c.id}
                                     onClick={() => { this.deleteComment(c) }}
                                 > <i class="far fa-trash-alt"></i></button>
@@ -209,7 +209,7 @@ export default class ViewWorkout extends React.Component {
         let response = await axios.put(baseURL + "/workouts/" + this.props.id + "/comments/edit/" + this.state.comment_id, newComment)
         if (response.data.message === "Comments Updated") {
             this.retrieveData();
-            
+
             this.setState({
                 comment_name: "",
                 comment_text: "",
@@ -315,28 +315,36 @@ export default class ViewWorkout extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="item-wrapper row p-2">
-                                        <div className="goodfor-wrapper col-6 row p-3">
-                                            <h5>It's Good For: </h5>
-                                            <div className="col-6">
-                                                {this.state.each_workout.muscle_group.map((m) =>
-                                                    <p style={{ textTransform: 'capitalize' }}>• {m.name}</p>
-                                                )}
-                                            </div>
-                                            <div className="col-6">
-                                                {this.state.each_workout.focus.map((f) =>
-                                                    <p style={{ textTransform: 'capitalize' }}>• {f}</p>
-                                                )}
-                                            
-                                            </div>
-                                        </div>
+                                    <div className="item-wrapper row">
+                                        <div className="col-12">
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <div className="goodfor-wrapper ">
+                                                        <div className='row'>
+                                                            <h5>It's Good For: </h5>
+                                                            <div className="col-6">
+                                                                {this.state.each_workout.muscle_group.map((m) =>
+                                                                    <p style={{ textTransform: 'capitalize' }}>• {m.name}</p>
+                                                                )}
+                                                            </div>
+                                                            <div className="col-6">
+                                                                {this.state.each_workout.focus.map((f) =>
+                                                                    <p style={{ textTransform: 'capitalize' }}>• {f}</p>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                        <div className="equipment-wrapper col-6 p-3">
-                                            <h5>Equipment Needed: </h5>
-                                            {this.renderEquipment()}
+                                                <div className="col-6">
+                                                    <div className="equipment-wrapper">
+                                                        <h5>Equipment Needed: </h5>
+                                                        {this.renderEquipment()}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
 
                                     <div className="description-wrapper row">
                                         <div className="description-table-wrapper">
@@ -356,11 +364,11 @@ export default class ViewWorkout extends React.Component {
 
                                     <div className="mt-2 d-flex justify-content-end" >
                                         <button
-                                            className="btn btn-secondary"
+                                            className="btn btn-secondary icon-btn"
                                             onClick={() => { this.editWorkout() }}>
                                             <i class="far fa-edit"></i></button>
                                         <button
-                                            className="btn btn-secondary ml-2"
+                                            className="btn btn-danger ml-2 icon-btn"
                                             onClick={() => { this.deleteWorkout(this.state.each_workout._id); }}>
                                             <i class="far fa-trash-alt"></i></button>
                                     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import EditWorkout from "./EditWorkout";
 
-const baseURL = "https://3000-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
 
 export default class ViewWorkout extends React.Component {
 
@@ -79,7 +79,7 @@ export default class ViewWorkout extends React.Component {
         return equipments.map((e) => {
             return (
                 <div>
-                    <p>• {e}</p>
+                    <li>{e}</li>
                 </div>
             )
         })
@@ -90,7 +90,9 @@ export default class ViewWorkout extends React.Component {
         for (let x of this.state.each_workout.single_exercise) {
             let match = this.state.single_exercise.find(s => {
                 return x.id === s._id;
+                
             })
+  
 
             for (let y of match.description) {
                 if (!description.includes(y.name)) {
@@ -281,7 +283,7 @@ export default class ViewWorkout extends React.Component {
                             <div className="workout-content p-4">
                                 <div className="workout-section content-wrapper row">
                                     <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
-                                    <hr></hr>
+                                    
                                     <div className="tags-wrapper row">
                                         <div className="col-4 clock-icon">
                                             <i class="far fa-clock fa-2x"></i>
@@ -296,7 +298,7 @@ export default class ViewWorkout extends React.Component {
                                             <p>{this.state.each_workout.difficulty}</p>
                                         </div>
                                     </div>
-
+                                    <hr></hr>
                                     <div className="exercise-wrapper row">
                                         <h5>Exercise Sequence:</h5>
                                         <div className="exercise-table-wrapper">
@@ -316,33 +318,26 @@ export default class ViewWorkout extends React.Component {
                                     </div>
 
                                     <div className="item-wrapper row">
-                                        <div className="col-12">
-                                            <div className="row">
-                                                <div className="col-6">
-                                                    <div className="goodfor-wrapper ">
-                                                        <div className='row'>
-                                                            <h5>It's Good For: </h5>
-                                                            <div className="col-6">
-                                                                {this.state.each_workout.muscle_group.map((m) =>
-                                                                    <p style={{ textTransform: 'capitalize' }}>• {m.name}</p>
-                                                                )}
-                                                            </div>
-                                                            <div className="col-6">
-                                                                {this.state.each_workout.focus.map((f) =>
-                                                                    <p style={{ textTransform: 'capitalize' }}>• {f}</p>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div className="muscle-tag-wrapper col-4">
+                                            <h5>Works on your: </h5>
+                                            <ul>
+                                                {this.state.each_workout.muscle_group.map((m) =>
+                                                    <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
+                                                )}
+                                            </ul>
+                                        </div>
+                                        <div className="focus-tag-wrapper col-4">
+                                            <h5>Focuses on: </h5>
+                                            <ul>
+                                                {this.state.each_workout.focus.map((f) =>
+                                                    <li style={{ textTransform: 'capitalize' }}>{f}</li>
+                                                )}
+                                            </ul>
+                                        </div>
+                                        <div className="equipment-tag-wrapper col-4">
+                                            <h5>Equipment Needed: </h5>
+                                            {this.renderEquipment()}
 
-                                                <div className="col-6">
-                                                    <div className="equipment-wrapper">
-                                                        <h5>Equipment Needed: </h5>
-                                                        {this.renderEquipment()}
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -409,7 +404,7 @@ export default class ViewWorkout extends React.Component {
                     }
 
                     {!this.state.displayView && this.renderEditWorkout()}
-                    {/* {this.renderEditComment()} */}
+    
 
                 </React.Fragment>
             )

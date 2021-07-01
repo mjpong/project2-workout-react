@@ -110,6 +110,10 @@ a:hover {
   
 }
 
+.backtotop-btn {
+  border: 1px solid rgb(25, 50, 121);
+}
+
 .workout-card-name {
   font-size: 18px
 }
@@ -158,14 +162,14 @@ a:hover {
   margin-bottom: 20px;
 }
 
-.goodfor-wrapper, .equipment-wrapper {
+.muscle-tag-wrapper, .focus-tag-wrapper, .equipment-tag-wrapper {
 
   border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 10px;
   height: 100%;
   padding: 10px;
-  border: 2px solid rgb(51, 46, 46)
+  background-color: #f8f8f8;
 
 }
 
@@ -186,7 +190,7 @@ a:hover {
   
 }
 .es-table {
-  width: 70%;
+  width: 100%;
   border-radius: 5px;
   font-weight: normal;
   text-align: center;

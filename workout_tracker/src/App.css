@@ -8,11 +8,12 @@ body {
   margin: 0;
   font-family: 'Oswald', sans-serif;
   background-color: #EBE9E9;
-  width: 100%
+  width: 100%;
 }
 
 .navbar {
   text-align: center;
+  padding-bottom: 0;
 }
 
 .nav-btn {
@@ -32,7 +33,7 @@ body {
 }
 
 .results-section {
-  margin-top: 30px;
+  margin-top: 20px;
 
 }
 
@@ -104,14 +105,16 @@ a:hover {
 .workout-card {
   border: 2px solid rgb(25, 50, 121);
   border-radius: 15px;
-  margin-top: 8px;
+  margin-top: 10px;
   text-align: center;
   padding: 20px;
+  width: 100%;
   
 }
 
 .backtotop-btn {
   border: 1px solid rgb(25, 50, 121);
+  margin-bottom: 10px;
 }
 
 .workout-card-name {
@@ -268,10 +271,41 @@ a:hover {
 }
 
 
-/* MOBILE RESPONSIVE */
+/* MOBILE SIZE */
 
+@media screen and (max-width: 767px) {
 
+  .nav-btn {
+    font-size: 18px;
+  }
+  
+  h5 {
+    font-size: 17px;
+  }
 
-@media screen and (max-width: 765px) {
+  h3 {
+    font-size: 20px;
+  }
+
+  .logo-image {
+    height: 125px;
+    width: 125px;
+  }
+
+  .muscle-group-pic, .workout-focus-pic {
+    display: none;
+  }
+
+  .search-bar-container {
+    flex-direction:column
+  }
+
+  .filter-buttons {
+    justify-content: flex-end;
+  }
+
+  .workout-card-name {
+    font-size: 15px;
+  }
 
 }

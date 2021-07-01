@@ -48,7 +48,7 @@ export default class BrowseWorkout extends React.Component {
             list.push(
                 <div className="workout-card-container 
                     d-flex justify-content-center 
-                    col-xs-6 col-md-4 col-lg-3 col-xl-2 col-12"
+                    col-sm-12 col-md-4 col-lg-3"
                     key={l._id}
                     onClick={() => this.props.viewWorkout(l._id)}>
                     <div className="workout-card">
@@ -137,7 +137,7 @@ export default class BrowseWorkout extends React.Component {
                         <div className="muscle-group-pic col-6">
                             <img className="banner-image" src={require('./images/workout1.png').default} alt="workout1" />
                         </div>
-                        <div className="muscle-group col-6">
+                        <div className="muscle-group col-lg-6 col-md-6 col-sm-12">
                             <button className="browse-btn btn btn-default" onClick={() => this.setState({ muscleshowing: !muscleshowing })}>
                                 <h3> MUSCLE GROUP </h3>
                             </button>
@@ -153,7 +153,7 @@ export default class BrowseWorkout extends React.Component {
 
                     <div className="focus-wrapper row" align="center">
 
-                        <div className="workout-focus col-6">
+                        <div className="workout-focus col-lg-6 col-md-6 col-sm-12">
                             <button className="browse-btn btn btn-default" onClick={() => this.setState({ workoutshowing: !workoutshowing })}>
                                 <h3> WORKOUT FOCUS </h3>
                             </button>
@@ -202,13 +202,14 @@ export default class BrowseWorkout extends React.Component {
                                 :
                                 null}
                             <div className="row">
-                                <h5 className="col-8">There are a total of {this.state.all_workout.length} workouts: </h5>
-                            
-                            <div className="back-to-top col-4 d-flex justify-content-end p-0">
+                            <div className="back-to-top col-12 d-flex justify-content-end p-0">
                                 <button type="submit" className="btn btn-light backtotop-btn">
                                     <a href="#filter-top" style={{ textDecoration: "none" }}><i class="fas fa-angle-double-up"></i> Back to Top</a>
                                 </button>
-                            </div>
+                            </div>   
+                            <h5 className="col-12">There are a total of {this.state.all_workout.length} workouts: </h5>
+                            
+                            
                             </div>
                         </div>
 

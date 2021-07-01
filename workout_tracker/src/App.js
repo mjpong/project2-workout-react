@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    let response = await axios.get("https://8080-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io");
+    let response = await axios.get("https://8080-amethyst-lungfish-54xn6kl3.ws-us10.gitpod.io");
     console.log(response.data);
   }
 

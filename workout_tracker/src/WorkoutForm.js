@@ -66,7 +66,7 @@ export default function WorkoutForm(props) {
     function renderSection() {
 
         let section = [];
-        console.log(props.workout_single_exercise);
+
         for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(
                 <div className="workoutform-section" key={i}>
@@ -83,15 +83,15 @@ export default function WorkoutForm(props) {
                             value={props.workout_single_exercise[i].repetition}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> reps
-                </div>
-                    <div lassName="workoutform-set">
+                    </div>
+                    <div className="workoutform-set">
                         <div className="form-label">Sets:  </div>
                         <input name="set" type="number"
                             value={props.workout_single_exercise[i].set}
                             onChange={(e) => { props.updateSection(e, i) }}
                         /> sets
-                </div>
-                    {props.workout_single_exercise.length > 1 ? <button className="btn btn-danger icon-btn" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i></button> : ""}
+                    </div>
+                    {props.workout_single_exercise.length > 1 ? <button className="btn btn-danger icon-btn deleteex-btn" onClick={() => { props.deleteExercise(i) }}><i class="far fa-trash-alt"></i></button> : ""}
                 </div>
             )
         }
@@ -100,110 +100,119 @@ export default function WorkoutForm(props) {
 
     return (
         <React.Fragment>
+            <div className="row">
+                <div className="workoutform-label col-7">
+                    <div className="form-label">Workout Name: </div>
+                    <input className="form-control"
+                        name="workout_name" type="text"
+                        placeholder="Workout Name"
+                        value={props.workout_name}
+                        onChange={props.updateForm} />
+                </div>
+                <div className="workoutform-duration col-5">
+                    <div className="form-label"> Duration: </div>
+                    <div className="input-group">
+                        <input className="form-control"
+                            name="workout_duration" type="number"
+                            placeholder="1"
+                            value={props.workout_duration}
+                            onChange={props.updateForm}
+                        />
+                        <div className="input-group-text">minutes</div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div className="row">
+                <div className="workoutform-focus col-6">
+                    <div className="form-label">Workout Focus: </div>
+                    <input type="checkbox"
+                        className="form-check-input"
+                        name="workout_focus"
+                        value="strength"
+                        onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('strength')}
+                    />
+                    <label className="form-check-label"> Strength</label>
+                    <input type="checkbox"
+                        className="form-check-input"
+                        name="workout_focus"
+                        value="endurance"
+                        onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('endurance')}
+                    />
+                    <label className="form-check-label">Endurance</label>
+                    <input type="checkbox"
+                        className="form-check-input"
+                        name="workout_focus"
+                        value="mobility"
+                        onChange={props.updateFocusCheckbox}
+                        checked={props.workout_focus.includes('mobility')}
+                    />
+                    <label className="form-check-label">Mobility</label>
+                </div>
+                <div className="workoutform-difficulty col-6">
+                    <div className="form-label">Difficulty Level: </div>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_difficulty"
+                        value="beginner"
+                        onChange={props.updateForm}
+                        checked={props.workout_difficulty === 'beginner'}
+                    />
+                    <label className="form-check-label">Beginner</label>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_difficulty"
+                        value="intermediate"
+                        onChange={props.updateForm}
+                        checked={props.workout_difficulty === 'intermediate'}
+                    />
+                    <label className="form-check-label">Intermediate</label>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_difficulty"
+                        value="expert"
+                        onChange={props.updateForm}
+                        checked={props.workout_difficulty === 'expert'}
+                    />
+                    <label className="form-check-label">Expert</label>
+                </div>
+                <div className="workoutform-intensity col-6">
+                    <div className="form-label"> Intensity Level: </div>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_intensity"
+                        value="low"
+                        onChange={props.updateForm}
+                        checked={props.workout_intensity === 'low'}
+                    />
+                    <label className="form-check-label">Low</label>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_intensity"
+                        value="medium"
+                        onChange={props.updateForm}
+                        checked={props.workout_intensity === 'medium'}
+                    />
+                    <label className="form-check-label">Medium</label>
+                    <input type="radio"
+                        className="form-check-input"
+                        name="workout_intensity"
+                        value="high"
+                        onChange={props.updateForm}
+                        checked={props.workout_intensity === 'high'}
+                    />
+                    <label className="form-check-label">High </label>
+                </div>
+                <div className="workoutform-muscle col-6">
+                    <div className="form-label"> Muscle Group: </div>
+                    {renderMuscleGroup()}
+                </div>
+            </div>
 
-            <div className="workoutform-label">
-                <div className="form-label">Workout Name: </div>
-                <input className="form-control"
-                    name="workout_name" type="text"
-                    placeholder="Workout Name"
-                    value={props.workout_name}
-                    onChange={props.updateForm} />
-            </div>
-            <div className="workoutform-focus">
-                <div className="form-label">Workout Focus: </div>
-                <input type="checkbox"
-                    className="form-check-input"
-                    name="workout_focus"
-                    value="strength"
-                    onChange={props.updateFocusCheckbox}
-                    checked={props.workout_focus.includes('strength')}
-                />
-                <label className="form-check-label"> Strength</label>
-                <input type="checkbox"
-                    className="form-check-input"
-                    name="workout_focus"
-                    value="endurance"
-                    onChange={props.updateFocusCheckbox}
-                    checked={props.workout_focus.includes('endurance')}
-                />
-                <label className="form-check-label">Endurance</label>
-                <input type="checkbox"
-                    className="form-check-input"
-                    name="workout_focus"
-                    value="mobility"
-                    onChange={props.updateFocusCheckbox}
-                    checked={props.workout_focus.includes('mobility')}
-                />
-                <label className="form-check-label">Mobility</label>
-            </div>
-            <div className="workoutform-difficulty">
-                <div className="form-label">Difficulty Level: </div>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_difficulty"
-                    value="beginner"
-                    onChange={props.updateForm}
-                    checked={props.workout_difficulty === 'beginner'}
-                />
-                <label className="form-check-label">Beginner</label>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_difficulty"
-                    value="intermediate"
-                    onChange={props.updateForm}
-                    checked={props.workout_difficulty === 'intermediate'}
-                />
-                <label className="form-check-label">Intermediate</label>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_difficulty"
-                    value="expert"
-                    onChange={props.updateForm}
-                    checked={props.workout_difficulty === 'expert'}
-                />
-                <label className="form-check-label">Expert</label>
-            </div>
-            <div className="workoutform-label intensity">
-                <div className="form-label"> Intensity Level: </div>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_intensity"
-                    value="low"
-                    onChange={props.updateForm}
-                    checked={props.workout_intensity === 'low'}
-                />
-                <label className="form-check-label">Low</label>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_intensity"
-                    value="medium"
-                    onChange={props.updateForm}
-                    checked={props.workout_intensity === 'medium'}
-                />
-                <label className="form-check-label">Medium</label>
-                <input type="radio"
-                    className="form-check-input"
-                    name="workout_intensity"
-                    value="high"
-                    onChange={props.updateForm}
-                    checked={props.workout_intensity === 'high'}
-                />
-                <label className="form-check-label">High </label>
-            </div>
-            <div className="workoutform-muscle">
-                <div className="form-label"> Muscle Group: </div>
-                {renderMuscleGroup()}
-            </div>
-            <div className="workoutform-duration">
-                <div className="form-label"> Duration: </div>
-                <input name="workout_duration" type="number"
-                    placeholder="1"
-                    value={props.workout_duration}
-                    onChange={props.updateForm}
-                /> mins
-            </div>
             {renderSection()}
-            <button className="btn btn-secondary action-buttons" onClick={props.clickAdd}><i class="fas fa-plus"></i> New Exercise</button>
+            <button className="btn btn-secondary action-buttons addnew-btn" onClick={props.clickAdd}><i class="fas fa-plus"></i> New Exercise</button>
 
         </React.Fragment>
     )

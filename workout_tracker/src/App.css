@@ -120,6 +120,7 @@ a:hover {
 .workout-card-name {
   font-size: 18px
 }
+
 .workout-card-text {
   margin-bottom: 0px;
   font-size: 13px;
@@ -129,9 +130,18 @@ a:hover {
 
 
 /* Create Workout */
+.workoutform-label, .workoutform-focus, .workoutform-difficulty, .workoutform-intensity, .workoutform-muscle, .workoutform-duration, .workoutform-exercise, .workoutform-rep, .workoutform-set, .addnew-btn, .deleteex-btn {
+  margin-bottom: 10px;
+}
 
+.form-label {
+  margin-bottom: 4px;
+}
 
-
+.form-check-label {
+  margin-left: 4px;
+  margin-right: 10px;
+}
 
 /* View Single Workout */
 

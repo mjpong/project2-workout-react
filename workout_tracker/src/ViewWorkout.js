@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import EditWorkout from "./EditWorkout";
 
-const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us08.gitpod.io"
+const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us09.gitpod.io"
 
 export default class ViewWorkout extends React.Component {
 
@@ -78,11 +78,40 @@ export default class ViewWorkout extends React.Component {
 
         return equipments.map((e) => {
             return (
-                <div>
-                    <li>{e}</li>
-                </div>
+
+                <li>{e}</li>
+
             )
         })
+    }
+
+    renderExerciseGuide = () => {
+        let description = [];
+        for (let x of this.state.each_workout.single_exercise) {
+            let match = this.state.single_exercise.find(s => {
+                return x.id === s._id;
+
+            })
+
+            for (let y of match.description) {
+                if (!description.includes(y.name)) {
+                    let e = (
+                        <React.Fragment>
+                            <tr>
+                                <td>{match.exercise_name}</td>
+                                <td>{x.repetition}</td>
+                                <td>{x.set}</td>
+                                <td>{match.description}</td>
+                            </tr>
+                        </React.Fragment>
+                    )
+                    description.push(e)
+                    break;
+                }
+            }
+        }
+        return description;
+
     }
 
     renderDescription = () => {
@@ -90,9 +119,8 @@ export default class ViewWorkout extends React.Component {
         for (let x of this.state.each_workout.single_exercise) {
             let match = this.state.single_exercise.find(s => {
                 return x.id === s._id;
-                
+
             })
-  
 
             for (let y of match.description) {
                 if (!description.includes(y.name)) {
@@ -283,7 +311,7 @@ export default class ViewWorkout extends React.Component {
                             <div className="workout-content p-4">
                                 <div className="workout-section content-wrapper row">
                                     <h1 className="viewworkout-name">{this.state.each_workout.name}</h1>
-                                    
+
                                     <div className="tags-wrapper row">
                                         <div className="col-4 clock-icon">
                                             <i class="far fa-clock fa-2x"></i>
@@ -299,63 +327,114 @@ export default class ViewWorkout extends React.Component {
                                         </div>
                                     </div>
                                     <hr></hr>
-                                    <div className="exercise-wrapper row">
-                                        <h5>Exercise Sequence:</h5>
-                                        <div className="exercise-table-wrapper">
-                                            <table className="exercise-sequence es-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Exercise Name</th>
-                                                        <th>Repetitions</th>
-                                                        <th>Sets</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {this.renderSingleExercise()}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
 
-                                    <div className="item-wrapper row">
-                                        <div className="muscle-tag-wrapper col-4">
-                                            <h5>Works on your: </h5>
-                                            <ul>
+                                    {/* MOBILE DESCRIPTION WRAPPER */}
+                                    <div className="mobile-wrapper d-block d-md-none">
+                                        <div className="m-exercise-wrapper row ">
+                                            <h5>Exercise Sequence:</h5>
+                                            <div className="m-exercise-table-wrapper">
+                                                <table className="m-exercise-sequence es-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Exercise Name</th>
+                                                            <th>Repetitions</th>
+                                                            <th>Sets</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.renderSingleExercise()}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div className="m-item-wrapper row">
+                                            <div className="m-muscle-tag-wrapper col-4">
+                                                <p className="m-tags-text">Works on your: </p>
                                                 {this.state.each_workout.muscle_group.map((m) =>
                                                     <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
                                                 )}
-                                            </ul>
-                                        </div>
-                                        <div className="focus-tag-wrapper col-4">
-                                            <h5>Focuses on: </h5>
-                                            <ul>
+
+                                            </div>
+                                            <div className="m-focus-tag-wrapper col-4">
+                                                <p className="m-tags-text"> Focuses on: </p>
                                                 {this.state.each_workout.focus.map((f) =>
                                                     <li style={{ textTransform: 'capitalize' }}>{f}</li>
                                                 )}
-                                            </ul>
+                                            </div>
+                                            <div className="m-equipment-tag-wrapper col-4">
+                                                <p className="m-tags-text"> Equipment Needed: </p>
+                                                {this.renderEquipment()}
+                                            </div>
                                         </div>
-                                        <div className="equipment-tag-wrapper col-4">
-                                            <h5>Equipment Needed: </h5>
-                                            {this.renderEquipment()}
 
+                                        <div className="m-description-wrapper row">
+                                            <div className="m-description-table-wrapper">
+                                                <table className="m-exercise-description ed-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Exercise Name</th>
+                                                            <th>Description</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.renderDescription()}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="description-wrapper row">
-                                        <div className="description-table-wrapper">
-                                            <table className="exercise-description ed-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Exercise Guide</th>
-                                                        <th>Description</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {this.renderDescription()}
-                                                </tbody>
-                                            </table>
+                                    {/* LAPTOP DESCRIPTION WRAPPER */}
+                                    <div className="laptop-wrapper d-none d-md-block">
+                                        <div className="row">
+                                            <div className="col-10">
+                                                <div className="description-wrapper row">
+                                                    <div className="description-table-wrapper">
+                                                        <table className="exercise-description eg-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Exercise Guide</th>
+                                                                    <th>Repetitions</th>
+                                                                    <th>Sets</th>
+                                                                    <th>Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {this.renderExerciseGuide()}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-2">
+                                                <div className="item-wrapper row">
+                                                    <div className="muscle-tag-wrapper col-12">
+                                                        <p className="tags-text">Works on your: </p>
+
+                                                        {this.state.each_workout.muscle_group.map((m) =>
+                                                            <li style={{ textTransform: 'capitalize' }}>{m.name}</li>
+                                                        )}
+
+                                                    </div>
+                                                    <div className="focus-tag-wrapper col-12">
+                                                        <p className="tags-text">Focuses on: </p>
+
+                                                        {this.state.each_workout.focus.map((f) =>
+                                                            <li style={{ textTransform: 'capitalize' }}>{f}</li>
+                                                        )}
+
+                                                    </div>
+                                                    <div className="equipment-tag-wrapper col-12">
+                                                        <p className="tags-text">Equipment Needed: </p>
+                                                        {this.renderEquipment()}
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     <div className="mt-2 d-flex justify-content-end" >
                                         <button
@@ -404,7 +483,7 @@ export default class ViewWorkout extends React.Component {
                     }
 
                     {!this.state.displayView && this.renderEditWorkout()}
-    
+
 
                 </React.Fragment>
             )

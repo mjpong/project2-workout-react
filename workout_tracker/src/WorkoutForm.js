@@ -76,7 +76,7 @@ export default function WorkoutForm(props) {
 
         for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(
-                <div className="workoutform-section col-sm-12 col-md-6 col-lg-6 p-3" key={i}>
+                <div className="workoutform-section col-8 p-2" key={i}>
                     <div className="workoutform-exercise">
                         <div className="form-label"> Choose a Exercise: </div>
                         <select

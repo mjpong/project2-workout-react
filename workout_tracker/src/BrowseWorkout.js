@@ -101,12 +101,18 @@ export default class BrowseWorkout extends React.Component {
             searchQuery += "&difficulty=" + this.state.difficulty_filter
         }
 
-        let response = await axios.get(baseURL + "/workouts/search" + "?" + searchQuery)
-
-        this.setState({
-            all_workout: response.data.reverse(),
-            search_name: this.state.search_field.toUpperCase()
-        })
+        if(searchQuery=== ""){
+            this.getAllWorkouts();
+            this.setState({
+                search_name: ""
+            })
+        } else {
+            let response = await axios.get(baseURL + "/workouts/search" + "?" + searchQuery)
+            this.setState({
+                all_workout: response.data.reverse(),
+                search_name: this.state.search_field.toUpperCase()
+            })
+        }
     }
 
     resetQuery = async () => {
@@ -115,7 +121,8 @@ export default class BrowseWorkout extends React.Component {
         this.setState({
             'search_field': "",
             'duration_filter': '',
-            "difficulty_filter": ''
+            "difficulty_filter": '',
+            search_name: ''
         })
 
     }

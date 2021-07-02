@@ -153,18 +153,18 @@ h1 {
   margin-right: 10px;
 }
 
-.addnew-btn, .create-workout-btn {
+.addnew-btn, .create-workout-btn, .create-comment-btn {
   border: 1px solid rgb(173, 173, 173);
 }
 
-.deleteex-btn, .cancel-workout-btn {
+.deleteex-btn, .cancel-workout-btn, .cancel-comment-btn {
   margin-left: 8px;
 }
 
 .add-delete-button {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px;
+
 }
 
 .create-cancel-btn {
@@ -223,13 +223,12 @@ h1 {
 
 .muscle-tag-wrapper, .focus-tag-wrapper, .equipment-tag-wrapper {
   border-radius: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   height: 100%;
-  padding: 10px;
-  background-color: #f4faff;
+  padding: 12px;
+  background-color: #e6e6e6;
   font-size: 13px;
-  border: solid 1px rgb(165, 165, 165)
+  text-align: left;
 }
 
 .tags-text {
@@ -241,7 +240,6 @@ h1 {
   color: #ffffff;
   background: #3d639b;
 }
-
 
 .es-table thead th:nth-child(odd) {
   color: #ffffff;
@@ -290,12 +288,13 @@ h1 {
 }
 
 .comment-section {
-  background-color: #f8f8f8;
+  background-color: #e4e4e4;
   border-radius: 15px;
   margin-top: 10px;
+  padding: 30px 20px;
 }
 
-.new-comment {
+.new-comment, .review-label, .create-commenttext, .create-commentname, .create-comment-btn {
   margin-bottom: 10px
 }
 
@@ -303,6 +302,10 @@ h1 {
   display: flex;
   border-bottom: 1px solid rgb(196, 196, 196);
   margin-bottom: 10px;
+}
+
+.comment-name {
+  font-size: 17px;
 }
 
 .edit-btn {

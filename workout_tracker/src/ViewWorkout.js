@@ -174,7 +174,7 @@ export default class ViewWorkout extends React.Component {
                     <React.Fragment>
                         <div className="comment-list row" key={c.id}>
                             <div className="comment-list-text col-9">
-                                <p>{c.comment_name}</p>
+                                <p className="comment-name">{c.comment_name}</p>
                                 <p>{c.comment_text}</p>
                             </div>
                             <div className="comment-list-btn col-3 d-flex justify-content-end ">
@@ -317,11 +317,13 @@ export default class ViewWorkout extends React.Component {
                                             <i class="far fa-clock fa-2x"></i>
                                             <p>{this.state.each_workout.duration} minutes</p>
                                         </div>
-                                        <div className={"col-4 fire-" + this.state.each_workout.intensity} style={{ textTransform: 'capitalize' }}>
+                                        <div className={"col-4 fire-" + this.state.each_workout.intensity}
+                                            style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-fire fa-2x"></i>
                                             <p>{this.state.each_workout.intensity}</p>
                                         </div>
-                                        <div className={"col-4 tachometer-" + this.state.each_workout.difficulty} style={{ textTransform: 'capitalize' }}>
+                                        <div className={"col-4 tachometer-" + this.state.each_workout.difficulty}
+                                            style={{ textTransform: 'capitalize' }}>
                                             <i class="fas fa-tachometer-alt fa-2x"></i>
                                             <p>{this.state.each_workout.difficulty}</p>
                                         </div>
@@ -448,33 +450,50 @@ export default class ViewWorkout extends React.Component {
                                     </div>
 
                                 </div>
-                                <div className="comment-section content-wrapper row p-3">
+                                <div className="comment-section content-wrapper row">
 
                                     <div className="new-comment">
                                         <h5>Like this exercise? Share your thoughts...</h5>
-                                        <div className="review-label"> Your Name: </div>
-                                        <input type="text" placeholder="Your name" name="comment_name" value={this.state.comment_name} onChange={this.updateForm} />
-                                        <div className="review-label"> Comments: </div>
-                                        <textarea name="comment_text" className="form-control create-textarea" rows="2" cols="30" placeholder="Let us know what you think of this!" value={this.state.comment_text} onChange={this.updateForm}></textarea>
 
-                                        <button
-                                            className="btn btn-secondary action-buttons"
-                                            onClick={() => { this.createComment() }}
-                                            style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
-                                        >Post Comment</button>
-                                        <button
-                                            className="btn btn-secondary action-buttons"
-                                            onClick={() => { this.updateComment() }}
-                                            style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
-                                        >Update Comment</button>
-                                        <button
-                                            className="btn btn-secondary action-buttons"
-                                            onClick={() => { this.cancelEditComment() }}
-                                            style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
-                                        >Cancel</button>
+                                        <div className="review-label"> Name: </div>
+
+                                        <div className="row">
+                                            <div className="col-lg-4 col-md-4 col-sm-12">
+                                                <input className="form-control create-commentname"
+                                                    type="text" placeholder="Type your name here"
+                                                    name="comment_name" value={this.state.comment_name}
+                                                    onChange={this.updateForm} />
+                                            </div></div>
+                                        <div className="review-label"> Comments: </div>
+                                        <textarea
+                                            name="comment_text"
+                                            className="form-control create-commenttext"
+                                            rows="2" cols="30" placeholder="Let us know what you think of this!"
+                                            value={this.state.comment_text} onChange={this.updateForm}>
+                                        </textarea>
+                                            <button
+                                                className="btn btn-light create-comment-btn action-buttons"
+                                                onClick={() => { this.createComment() }}
+                                                style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
+                                            >Post Comment</button>
+                                            <button
+                                                className="btn btn-light create-comment-btn action-buttons"
+                                                onClick={() => { this.updateComment() }}
+                                                style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                            >Update</button>
+                                            <button
+                                                className="btn btn-secondary cancel-comment-btn action-buttons"
+                                                onClick={() => { this.cancelEditComment() }}
+                                                style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
+                                            >Cancel</button>
+                                
                                     </div>
                                     <hr></hr>
                                     <div className="existing-comments p-2">
+                                    <div>
+                                        <i class="far fa-comments fa-2x"></i>
+                                        <h5> There are {this.state.comments_section[0].comments.length} comments:</h5>
+                                    </div>
                                         {this.renderCommentList()}
                                     </div>
                                 </div>

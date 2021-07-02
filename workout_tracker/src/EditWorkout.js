@@ -24,36 +24,6 @@ export default class EditWorkout extends React.Component {
         errors: {}
     }
     
-
-    clickUpdate = async (workoutID) => {
-
-        let muscle_group = [];
-        for (let m of this.state.workout_muscle_group) {
-            for (let muscle of this.state.all_muscle_group) {
-                if (muscle._id === m._id) {
-                    muscle_group.push(muscle);
-                }
-            }
-        }
-        
-
-        let userData = {
-            'name': this.state.workout_name,
-            'duration': this.state.workout_duration,
-            'focus': this.state.workout_focus,
-            'difficulty': this.state.workout_difficulty,
-            'intensity': this.state.workout_intensity,
-            'muscle_group': muscle_group,
-            'single_exercise': this.state.workout_single_exercise,
-        }
-
-
-        let response = await axios.put(baseURL + "/workouts/edit/" + workoutID, userData)
-        console.log(userData)
-        this.props.cancelEditWorkout();
-        this.props.retrieveData();
-    }
-
     async componentDidMount() {
         
         let r = await axios.get(baseURL + "/list/singleexercise");
@@ -85,6 +55,39 @@ export default class EditWorkout extends React.Component {
         
 
     }
+
+
+    clickUpdate = async (workoutID) => {
+
+        let muscle_group = [];
+        console.log(this.state.workout_muscle_group)
+        console.log(this.state.all_muscle_group)
+        for (let m of this.state.workout_muscle_group) {
+            for (let muscle of this.state.all_muscle_group) {
+                if (muscle._id === m) {
+                    muscle_group.push(muscle);
+                }
+            }
+        }
+        
+
+        let userData = {
+            'name': this.state.workout_name,
+            'duration': this.state.workout_duration,
+            'focus': this.state.workout_focus,
+            'difficulty': this.state.workout_difficulty,
+            'intensity': this.state.workout_intensity,
+            'muscle_group': muscle_group,
+            'single_exercise': this.state.workout_single_exercise,
+        }
+
+
+        let response = await axios.put(baseURL + "/workouts/edit/" + workoutID, userData)
+        console.log(userData)
+        this.props.cancelEditWorkout();
+        this.props.retrieveData();
+    }
+
 
     formValidation = () => {
         let errors = {};

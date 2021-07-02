@@ -14,12 +14,15 @@ export default class CreateForm extends React.Component {
         'workout_name': '',
         'workout_duration': 1,
         'workout_focus': [],
-        'workout_difficulty': '',
-        'workout_intensity': '',
+        'workout_difficulty': 'beginner',
+        'workout_intensity': 'low',
         'workout_muscle_group': [],
 
         // exercise section in workout form
-        'workout_single_exercise': []
+        'workout_single_exercise': [],
+
+        formIsValid: false,
+        errors: {},
 
     }
 
@@ -44,6 +47,55 @@ export default class CreateForm extends React.Component {
             "workout_single_exercise": exercise,
             'all_muscle_group': all_muscle_group
         })
+    }
+
+    formValidation = () => {
+        let errors = {};
+        let formIsValid = true;
+
+        if (this.state.workout_name == ""){
+            formIsValid = false;
+            errors["workout_name"] = "Please enter a Workout Name"
+        }
+
+        if (this.state.workout_duration < 5 || this.state.workout_duration > 150) {
+            formIsValid = false;
+            errors["workout_duration"] = "Must be between 5 mins to 2.5 hours"
+        }
+
+        if (this.state.workout_focus == ""){
+            formIsValid = false;
+            errors["workout_focus"] = "Must check at least 1 focus"
+        }
+
+        if (this.state.workout_muscle_group == ""){
+            formIsValid = false;
+            errors["workout_muscle_group"] = "Must check at least 1 muscle group"
+        }
+
+        if (this.state.workout_single_exercise.length > 0){
+            let single_exercises = []
+            for(let exe of this.state.workout_single_exercise){
+                let err = {}
+                if(exe.set < 1 || exe.set > 50){
+                    formIsValid = false;
+                    err["workout_set"] = "Please input a number between 1 - 50"
+                }
+                if (exe.repetition < 1 || exe.repetition > 50) {
+                    formIsValid = false;
+                    err["workout_rep"] = "Please input a number between 1 - 50"
+                }
+
+                single_exercises.push(err);
+            }
+            errors["single_exercise"] = single_exercises
+        }
+
+        this.setState({
+            errors: errors
+        })
+
+        return formIsValid
     }
 
 
@@ -129,6 +181,10 @@ export default class CreateForm extends React.Component {
     }
 
     clickCreate = async () => {
+        let valid = this.formValidation();
+        if(!valid){
+            return;
+        }
         // Process muscle_group id array to object array
         let muscle_group = [];
         for (let m of this.state.workout_muscle_group) {
@@ -194,7 +250,7 @@ export default class CreateForm extends React.Component {
                         workout_intensity={this.state.workout_intensity}
                         workout_muscle_group={this.state.workout_muscle_group}
                         workout_single_exercise={this.state.workout_single_exercise}
-                        
+                        errors={this.state.errors}
                     />
                     <div className="create-cancel-btn">
                         <button className="create-workout-btn btn btn-light" onClick={this.clickCreate}>Create</button>

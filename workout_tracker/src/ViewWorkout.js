@@ -476,16 +476,18 @@ export default class ViewWorkout extends React.Component {
                                                 onClick={() => { this.createComment() }}
                                                 style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
                                             >Post Comment</button>
+                                            <div className="row">
                                             <button
-                                                className="btn btn-light create-comment-btn action-buttons"
+                                                className="btn btn-light create-comment-btn action-buttons col-6"
                                                 onClick={() => { this.updateComment() }}
                                                 style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
                                             >Update</button>
                                             <button
-                                                className="btn btn-secondary cancel-comment-btn action-buttons"
+                                                className="btn btn-secondary cancel-comment-btn action-buttons col-6"
                                                 onClick={() => { this.cancelEditComment() }}
                                                 style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
                                             >Cancel</button>
+                                            </div>
                                 
                                     </div>
                                     <hr></hr>

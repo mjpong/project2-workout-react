@@ -149,8 +149,11 @@ h1 {
 }
 
 .form-check-label {
-  margin-left: 4px;
   margin-right: 10px;
+}
+
+.form-check-input {
+  margin-right: 4px;
 }
 
 .addnew-btn, .create-workout-btn, .create-comment-btn {
@@ -294,7 +297,7 @@ h1 {
   padding: 30px 20px;
 }
 
-.new-comment, .review-label, .create-commenttext, .create-commentname, .create-comment-btn {
+.new-comment, .review-label, .create-commenttext, .create-commentname, .create-comment-btn, .cancel-comment-btn {
   margin-bottom: 10px
 }
 

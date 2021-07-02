@@ -100,9 +100,11 @@ export default function WorkoutForm(props) {
                                 onChange={(e) => { props.updateSection(e, i) }}
                             />
                             <div className="input-group-text">repetitions</div>
-                            {props.errors['single_exercise'] 
-                                && props.errors['single_exercise'].length > i
-                                && props.errors['single_exercise'][i]["workout_rep"]}
+                            <div className="error-msg">
+                                {props.errors['single_exercise']
+                                    && props.errors['single_exercise'].length > i
+                                    && props.errors['single_exercise'][i]["workout_rep"]}
+                            </div>
                         </div>
 
                     </div>
@@ -115,9 +117,11 @@ export default function WorkoutForm(props) {
                                 onChange={(e) => { props.updateSection(e, i) }}
                             />
                             <div className="input-group-text">sets</div>
-                            {props.errors['single_exercise'] 
-                                && props.errors['single_exercise'].length > i 
-                                && props.errors['single_exercise'][i]["workout_set"]}
+                            <div className="error-msg">
+                                {props.errors['single_exercise']
+                                    && props.errors['single_exercise'].length > i
+                                    && props.errors['single_exercise'][i]["workout_set"]}
+                            </div>
                         </div>
                     </div>
 
@@ -141,22 +145,30 @@ export default function WorkoutForm(props) {
                         placeholder="Workout Name"
                         value={props.workout_name}
                         onChange={props.updateForm} />
-                    {props.errors["workout_name"]}
+                    <div className="error-msg">
+                        {props.errors["workout_name"]}
+                    </div>
                 </div>
                 <div className="workoutform-duration col-lg-3 col-md-3 col-sm-12">
                     <div className="form-label"> Duration: </div>
                     <div className="input-group">
                         <input className="form-control"
                             name="workout_duration" type="number" min="1" max="150"
-                            placeholder="1"
+                            placeholder="5"
                             value={props.workout_duration}
                             onChange={props.updateForm} />
-                        
                         <div className="input-group-text">minutes</div>
-                        {props.errors["workout_duration"]}
+                        <div className="error-msg ">
+                            {props.errors["workout_duration"]}
+                        </div>
+
                     </div>
 
                 </div>
+            </div>
+            <div className="row">
+
+
             </div>
             <div className="row">
                 <div className="workoutform-difficulty col-sm-12 col-md-6 col-lg-6">
@@ -266,12 +278,16 @@ export default function WorkoutForm(props) {
                         />
                         Mobility
                     </label>
-                    {props.errors["workout_focus"]}
+                    <div className="error-msg">
+                        {props.errors["workout_focus"]}
+                    </div>
                 </div>
                 <div className="workoutform-muscle col-12">
                     <div className="form-label"> Muscle Group: </div>
                     {renderMuscleGroup()}
-                    {props.errors["workout_muscle_group"]}
+                    <div className="error-msg">
+                        {props.errors["workout_muscle_group"]}
+                    </div>
                 </div>
             </div>
             <div className="row">

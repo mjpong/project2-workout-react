@@ -12,7 +12,7 @@ export default class CreateForm extends React.Component {
 
         //current workout form
         'workout_name': '',
-        'workout_duration': 1,
+        'workout_duration': 5,
         'workout_focus': [],
         'workout_difficulty': 'beginner',
         'workout_intensity': 'low',
@@ -65,12 +65,12 @@ export default class CreateForm extends React.Component {
 
         if (this.state.workout_focus == ""){
             formIsValid = false;
-            errors["workout_focus"] = "Must check at least 1 focus"
+            errors["workout_focus"] = "Must check at least 1 Focus Group"
         }
 
         if (this.state.workout_muscle_group == ""){
             formIsValid = false;
-            errors["workout_muscle_group"] = "Must check at least 1 muscle group"
+            errors["workout_muscle_group"] = "Must check at least 1 Muscle Group"
         }
 
         if (this.state.workout_single_exercise.length > 0){

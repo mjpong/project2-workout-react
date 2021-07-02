@@ -2,7 +2,7 @@ import React from 'react';
 import WorkoutForm from "./WorkoutForm";
 import axios from "axios";
 
-const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us10.gitpod.io"
+const baseURL = "https://mjp-tgc12-project2.herokuapp.com"
 
 export default class EditWorkout extends React.Component {
 

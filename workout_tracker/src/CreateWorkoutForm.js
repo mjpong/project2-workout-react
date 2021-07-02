@@ -2,7 +2,7 @@ import React from "react";
 import WorkoutForm from "./WorkoutForm";
 import axios from 'axios';
 
-const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us10.gitpod.io"
+const baseURL = "https://mjp-tgc12-project2.herokuapp.com"
 
 export default class CreateForm extends React.Component {
     state = {
@@ -150,7 +150,6 @@ export default class CreateForm extends React.Component {
             'muscle_group': muscle_group,
         }
 
-        // console.log(data);
         let response = await axios.post(baseURL + "/workouts/create", data)
         this.props.viewWorkout(response.data.ops[0]._id)
         // in app.js
@@ -176,7 +175,7 @@ export default class CreateForm extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container create-workout p-4">
+                <div className="container create-workout">
                     <h1>Create A New Work Out</h1>
                     <WorkoutForm
                         updateForm={this.updateForm}
@@ -197,8 +196,8 @@ export default class CreateForm extends React.Component {
                         workout_single_exercise={this.state.workout_single_exercise}
                         
                     />
-                    <div className="">
-                        <button className="create-workout-btn btn btn-secondary" onClick={this.clickCreate}>Create</button>
+                    <div className="create-cancel-btn">
+                        <button className="create-workout-btn btn btn-light" onClick={this.clickCreate}>Create</button>
                         <button className="cancel-workout-btn btn btn-secondary" onClick={this.clickCancel}>Cancel</button>
                     </div>
                 </div>

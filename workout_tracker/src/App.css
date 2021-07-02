@@ -29,7 +29,7 @@ body {
   border-color: black;
   border-radius: 15px;
   margin-bottom: 30px;
-
+  
 }
 
 .results-section {
@@ -50,17 +50,16 @@ body {
   -webkit-transition: 350ms ease-in-out;
   -ms-transition: 350ms ease-in-out;
 }
+
 .browse-btn:hover {
 letter-spacing: 2px;
 transition: 350ms ease-in-out;
 -webkit-transition: 350ms ease-in-out;
 -ms-transition: 350ms ease-in-out;
-
 }
 
 .muscle-group, .muscle-group-pic {
   background-color: #336B89;
-  
 }
 
 .workout-focus, .workout-focus-pic {
@@ -117,6 +116,7 @@ a:hover {
   margin-bottom: 10px;
 }
 
+
 .workout-card-name {
   font-size: 18px
 }
@@ -129,18 +129,47 @@ a:hover {
 }
 
 
-/* Create Workout */
-.workoutform-label, .workoutform-focus, .workoutform-difficulty, .workoutform-intensity, .workoutform-muscle, .workoutform-duration, .workoutform-exercise, .workoutform-rep, .workoutform-set, .addnew-btn, .deleteex-btn {
-  margin-bottom: 10px;
+/* Create & Edit Workout */
+
+.create-workout {
+  padding: 30px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.workoutform-label, .workoutform-focus, .workoutform-difficulty, .workoutform-intensity, .workoutform-muscle, .workoutform-duration, .workoutform-exercise, .workoutform-rep, .workoutform-set, .addnew-btn {
+  margin-bottom: 20px;
 }
 
 .form-label {
   margin-bottom: 4px;
+  font-size: 18px;
 }
 
 .form-check-label {
   margin-left: 4px;
   margin-right: 10px;
+}
+
+.addnew-btn, .create-workout-btn {
+  border: 1px solid rgb(173, 173, 173);
+}
+
+.deleteex-btn, .cancel-workout-btn {
+  margin-left: 8px;
+}
+
+.add-delete-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.create-cancel-btn {
+  display: flex;
+  justify-content: center;
 }
 
 /* View Single Workout */
@@ -166,11 +195,9 @@ a:hover {
 }
 
 .m-muscle-tag-wrapper, .m-focus-tag-wrapper, .m-equipment-tag-wrapper{ 
-  
   height: 100%;
   padding: 10px;
   font-size: 12px;
-
 }
 
 .m-item-wrapper{
@@ -225,7 +252,6 @@ a:hover {
   background: #F8F8F8;
 }
 
-
 .ed-table, .eg-table, .es-table {
   border-radius: 5px;
   font-weight: normal;
@@ -277,9 +303,12 @@ a:hover {
   display: flex;
   border-bottom: 1px solid rgb(196, 196, 196);
   margin-bottom: 10px;
-  
 }
 
+.edit-btn {
+  border: 1px solid rgb(168, 168, 168);
+  margin-right: 7px;
+}
 
 /* MOBILE SIZE */
 

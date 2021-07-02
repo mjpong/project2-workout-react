@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import EditWorkout from "./EditWorkout";
 
-const baseURL = "https://8080-amethyst-lungfish-54xn6kl3.ws-us10.gitpod.io"
+const baseURL = "https://mjp-tgc12-project2.herokuapp.com"
 
 export default class ViewWorkout extends React.Component {
 
@@ -179,7 +179,7 @@ export default class ViewWorkout extends React.Component {
                             </div>
                             <div className="comment-list-btn col-3 d-flex justify-content-end ">
                                 <button
-                                    className="btn btn-secondary icon-btn"
+                                    className="btn btn-light edit-btn icon-btn"
                                     value={c.id}
                                     onClick={() => { this.editComment(c) }}
                                 ><i class="far fa-edit "></i></button>
@@ -438,7 +438,7 @@ export default class ViewWorkout extends React.Component {
 
                                     <div className="mt-2 d-flex justify-content-end" >
                                         <button
-                                            className="btn btn-secondary icon-btn"
+                                            className="btn btn-light edit-btn icon-btn"
                                             onClick={() => { this.editWorkout() }}>
                                             <i class="far fa-edit"></i></button>
                                         <button

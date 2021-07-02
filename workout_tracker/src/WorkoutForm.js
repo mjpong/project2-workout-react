@@ -76,7 +76,7 @@ export default function WorkoutForm(props) {
 
         for (let i = 0; i < props.workout_single_exercise.length; i++) {
             section.push(
-                <div className="workoutform-section col-8 p-2" key={i}>
+                <div className="workoutform-section col-7 p-2" key={i}>
                     <div className="workoutform-exercise">
                         <div className="form-label"> Choose a Exercise: </div>
                         <select
@@ -123,7 +123,7 @@ export default function WorkoutForm(props) {
     return (
         <React.Fragment>
             <div className="row">
-                <div className="workoutform-label col-7">
+                <div className="workoutform-label col-lg-6 col-md-6 col-sm-12">
                     <div className="form-label">Workout Name: </div>
                     <input className="form-control"
                         name="workout_name" type="text"
@@ -131,7 +131,7 @@ export default function WorkoutForm(props) {
                         value={props.workout_name}
                         onChange={props.updateForm} />
                 </div>
-                <div className="workoutform-duration col-5">
+                <div className="workoutform-duration col-3">
                     <div className="form-label"> Duration: </div>
                     <div className="input-group">
                         <input className="form-control"

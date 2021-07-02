@@ -263,6 +263,7 @@ export default class ViewWorkout extends React.Component {
             displayEditWorkout: true,
             displayView: false
         })
+        console.log(this.state.each_workout)
     }
 
     cancelEditWorkout = () => {
@@ -284,7 +285,7 @@ export default class ViewWorkout extends React.Component {
                     workout_difficulty={this.state.each_workout.difficulty}
                     workout_intensity={this.state.each_workout.intensity}
                     workout_muscle_group={this.state.each_workout.muscle_group}
-                    workout_single_exercise={this.state.each_workout.single_exercise}
+                    workout_single_exercise= {this.state.each_workout.single_exercise}
                     cancelEditWorkout={this.cancelEditWorkout}
                     retrieveData={this.retrieveData}
                 />
@@ -471,12 +472,12 @@ export default class ViewWorkout extends React.Component {
                                             rows="2" cols="30" placeholder="Let us know what you think of this!"
                                             value={this.state.comment_text} onChange={this.updateForm}>
                                         </textarea>
-                                            <button
-                                                className="btn btn-light create-comment-btn action-buttons"
-                                                onClick={() => { this.createComment() }}
-                                                style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
-                                            >Post Comment</button>
-                                            <div className="row">
+                                        <button
+                                            className="btn btn-light create-comment-btn action-buttons"
+                                            onClick={() => { this.createComment() }}
+                                            style={{ display: this.state.displayEditComment === true ? "none" : "inline-block" }}
+                                        >Post Comment</button>
+                                        <div className="row">
                                             <button
                                                 className="btn btn-light create-comment-btn action-buttons col-6"
                                                 onClick={() => { this.updateComment() }}
@@ -487,15 +488,15 @@ export default class ViewWorkout extends React.Component {
                                                 onClick={() => { this.cancelEditComment() }}
                                                 style={{ display: this.state.displayEditComment === true ? "inline-block" : "none" }}
                                             >Cancel</button>
-                                            </div>
-                                
+                                        </div>
+
                                     </div>
                                     <hr></hr>
                                     <div className="existing-comments p-2">
-                                    <div>
-                                        <i class="far fa-comments fa-2x"></i>
-                                        <h5> There are {this.state.comments_section[0].comments.length} comments:</h5>
-                                    </div>
+                                        <div>
+                                            <i class="far fa-comments fa-2x"></i>
+                                            <h5> There are {this.state.comments_section[0].comments.length} comments:</h5>
+                                        </div>
                                         {this.renderCommentList()}
                                     </div>
                                 </div>

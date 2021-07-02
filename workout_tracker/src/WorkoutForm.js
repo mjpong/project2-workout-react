@@ -7,11 +7,11 @@ export default function WorkoutForm(props) {
     function renderMuscleGroup() {
 
         let options = [];
-        if (props.editMode) {
+        if(props.editMode){
             for (let muscle of props.all_muscle_group) {
                 let y = false;
-                for (let x of props.workout_muscle_group) {
-                    if (muscle._id == x) {
+                for(let x of props.workout_muscle_group){
+                    if(muscle._id == x){
                         y = true;
                         break;
                     }
@@ -19,39 +19,27 @@ export default function WorkoutForm(props) {
 
                 let e = (
                     <React.Fragment key={muscle._id}>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                className="form-check-input"
-                                name="workout_muscle_group"
-                                value={muscle._id}
-                                onChange={props.updateMuscleCheckbox}
-                                checked={y}
-                            />
-                            {muscle.name}
-                        </label>
+                        <input type="checkbox"
+                            name="workout_muscle_group"
+                            className="form-check-input"
+                            value={muscle._id}
+                            onChange={props.updateMuscleCheckbox}
+                            checked={y}
+                        /> <label className="form-check-label">{muscle.name}</label>
                     </React.Fragment>
                 )
                 options.push(e)
             }
-        } else if (props.all_muscle_group.length === 0) {
-            options.push(
-                <div>
-                    <h5>Loading Section...</h5>
-                </div>
-            )
         } else {
             for (let muscle of props.all_muscle_group) {
                 let e = (
                     <React.Fragment key={muscle._id}>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                className="form-check-input"
-                                name="workout_muscle_group"
-                                value={muscle._id}
-                                onChange={props.updateMuscleCheckbox}
-                            />
-                            {muscle.name}
-                        </label>
+                        <input type="checkbox"
+                            name="workout_muscle_group"
+                            className="form-check-input"
+                            value={muscle._id}
+                            onChange={props.updateMuscleCheckbox}
+                        /> <label className="form-check-label">{muscle.name}</label>
                     </React.Fragment>
                 )
                 options.push(e)

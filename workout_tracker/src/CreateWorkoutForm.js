@@ -163,6 +163,7 @@ export default class CreateForm extends React.Component {
             this.setState({
                 workout_muscle_group: clone
             });
+            console.log(e)
         }
     };
 

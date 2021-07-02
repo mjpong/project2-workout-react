@@ -18,24 +18,38 @@ export default class EditWorkout extends React.Component {
         'workout_intensity': '',
         'workout_duration': 0,
         'workout_single_exercise': '',
-        'workout_muscle_group': []
+        'workout_muscle_group': [],
+
+        formIsValid: false,
+        errors: {}
     }
     
 
     clickUpdate = async (workoutID) => {
+
+        let muscle_group = [];
+        for (let m of this.state.workout_muscle_group) {
+            for (let muscle of this.state.all_muscle_group) {
+                if (muscle._id === m._id) {
+                    muscle_group.push(muscle);
+                }
+            }
+        }
+        
+
         let userData = {
             'name': this.state.workout_name,
             'duration': this.state.workout_duration,
             'focus': this.state.workout_focus,
             'difficulty': this.state.workout_difficulty,
             'intensity': this.state.workout_intensity,
-            'muscle_group': this.state.workout_muscle_group,
+            'muscle_group': muscle_group,
             'single_exercise': this.state.workout_single_exercise,
         }
 
 
         let response = await axios.put(baseURL + "/workouts/edit/" + workoutID, userData)
-
+        console.log(userData)
         this.props.cancelEditWorkout();
         this.props.retrieveData();
     }
@@ -47,11 +61,13 @@ export default class EditWorkout extends React.Component {
 
         let all_exercise = r.data
         let all_muscle_group = muscle.data
-
+  
         let muscle_group = [];
         for(let x of this.props.workout_muscle_group){
             muscle_group.push(x._id);
         }
+        
+        
 
         this.setState({
 
@@ -66,8 +82,60 @@ export default class EditWorkout extends React.Component {
             'workout_muscle_group': muscle_group,
             'workout_single_exercise': this.props.workout_single_exercise  
         })
+        
 
     }
+
+    formValidation = () => {
+        let errors = {};
+        let formIsValid = true;
+
+        if (this.state.workout_name == ""){
+            formIsValid = false;
+            errors["workout_name"] = "Please enter a Workout Name"
+        }
+
+        if (this.state.workout_duration < 5 || this.state.workout_duration > 150) {
+            formIsValid = false;
+            errors["workout_duration"] = "Must be between 5 mins to 2.5 hours"
+        }
+
+        if (this.state.workout_focus == ""){
+            formIsValid = false;
+            errors["workout_focus"] = "Must check at least 1 Focus Group"
+        }
+
+        if (this.state.workout_muscle_group == ""){
+            formIsValid = false;
+            errors["workout_muscle_group"] = "Must check at least 1 Muscle Group"
+        }
+
+        if (this.state.workout_single_exercise.length > 0){
+            let single_exercises = []
+            for(let exe of this.state.workout_single_exercise){
+                let err = {}
+                if(exe.set < 1 || exe.set > 50){
+                    formIsValid = false;
+                    err["workout_set"] = "Please input a number between 1 - 50"
+                }
+                if (exe.repetition < 1 || exe.repetition > 50) {
+                    formIsValid = false;
+                    err["workout_rep"] = "Please input a number between 1 - 50"
+                }
+
+                single_exercises.push(err);
+            }
+            errors["single_exercise"] = single_exercises
+        }
+
+        this.setState({
+            errors: errors
+        })
+
+        return formIsValid
+    }
+
+
 
     updateForm = (e) => {
         this.setState({
@@ -181,6 +249,7 @@ export default class EditWorkout extends React.Component {
                         workout_intensity={this.state.workout_intensity}
                         workout_muscle_group={this.state.workout_muscle_group}
                         workout_single_exercise={this.state.workout_single_exercise}
+                        errors={this.state.errors}
                         editMode={true}
                     />
                     <div className="">

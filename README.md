@@ -1,3 +1,6 @@
+
+![home](images/YTG.png) <br>
+
 # Your Training Grounds
 Can't think of what workout to do today? Want to share your workout with your friends?
 Your Training Grounds will be able to help you out.
@@ -20,11 +23,10 @@ It is a platform where it is inclusive of anyone who wants to create their own t
 
 ## Express and Access
 
-Live Site URL: 
+Live Site URL: https://admiring-bell-406bd7.netlify.app/
 
 Github URL: https://github.com/mjpong/project2-workout-express
 
-![home](images/1.png) <br>
 
 # Strategy
 
@@ -88,6 +90,7 @@ As this is a one page web application with a linear structure, all the elements 
 Navigation between different elements can also be done using the nav bar provided at the top.
 
 ## Browse All Workouts
+![home](images/1.png) <br>
 ![browse](images/2.png) <br>
 The browse page is also the home page of this web app. The page consists of the following:
 1. Banner image with a tag line - "Fitness that fits you"

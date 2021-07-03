@@ -193,7 +193,7 @@ export default class BrowseWorkout extends React.Component {
                             <select className="form-control my-1 mx-sm-2" value={this.state.duration_filter} name="duration_filter" onChange={this.updateForm}>
                                 <option defaultValue> - Duration - </option>
                                 <option value="short"> Under 30 minutes </option>
-                                <option value="medium"> 30 - 45 minutes </option>
+                                <option value="medium"> 30 - 44 minutes </option>
                                 <option value="long"> More than 45 minutes  </option>
                             </select>
                             <div className="filter-buttons">

@@ -262,7 +262,7 @@ export default class EditWorkout extends React.Component {
                     />
                     <div className="">
                         <button className="action-buttons btn btn-secondary" onClick={() => this.clickUpdate(this.props.workout_id)}>Update</button>
-                        <button className="action-buttons btn btn-secondary" onClick={this.props.cancelEditWorkout}>Cancel</button>
+                        <button className="action-buttons btn btn-secondary cancel-editworkout-btn" onClick={this.props.cancelEditWorkout}>Cancel</button>
                     </div>
                 </div>
 

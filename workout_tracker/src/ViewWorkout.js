@@ -174,8 +174,9 @@ export default class ViewWorkout extends React.Component {
                     <React.Fragment>
                         <div className="comment-list row" key={c.id}>
                             <div className="comment-list-text col-9">
-                                <p className="comment-name">{c.comment_name}</p>
-                                <p>{c.comment_text}</p>
+                                <p className="comment-name"
+                                style={{ textTransform: 'capitalize' }}>{c.comment_name}</p>
+                                <p style={{ textTransform: 'capitalize' }}>{c.comment_text}</p>
                             </div>
                             <div className="comment-list-btn col-3 d-flex justify-content-end ">
                                 <button

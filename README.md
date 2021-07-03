@@ -108,3 +108,4 @@ The browse page is also the home page of this web app. The page consists of the 
 The view individual workout page is the page that has all the details for that specific workout
 
 ## Create A Workout
+This is the Create Workout Form page

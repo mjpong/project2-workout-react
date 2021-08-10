@@ -23,7 +23,7 @@ It is a platform where it is inclusive of anyone who wants to create their own t
 
 ## Express and Access
 
-Live Site URL: https://admiring-bell-406bd7.netlify.app/
+Live Site URL: https://yourtraininggrounds.netlify.app/
 
 Github URL: https://github.com/mjpong/project2-workout-express
 
